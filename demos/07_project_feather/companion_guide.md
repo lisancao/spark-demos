@@ -12,9 +12,9 @@
 
 ## Can I use this today?
 
-No. Apache Spark 4.2.0 is the current release and **none of Feather's configuration flags exist in it**, which you can confirm by probing a session rather than trusting release notes. The merged work is present in `branch-4.3` with fix version 4.3.0, which has not shipped, and the SPIP estimates three to six months depending on staffing.
+No. Apache Spark 4.2.0 is the current release and **none of Feather's configuration flags exist in it**, which you can confirm by probing a session; release notes are easy to misread. The merged work is present in `branch-4.3` with fix version 4.3.0, which has not shipped, and the SPIP estimates three to six months depending on staffing.
 
-What you can do now is measure your own baseline, so that when 4.3 arrives the improvement is a number you own rather than one you read:
+What you can do now is measure your own baseline, so that when 4.3 arrives the improvement is a number you own:
 
 ```bash
 python3 bench/feather_baseline.py --reps 15
@@ -28,7 +28,7 @@ The rest of this post covers why the overhead exists, what the three categories 
 
 Project Feather is a Spark Improvement Proposal, authored by Daniel Tenedorio and Liang-Chi Hsieh, to make Apache Spark queries run faster in local mode. It was discussed on the Spark developer list from 4 May 2026 and passed its vote on 20 May 2026, which is when the umbrella JIRA was created. It targets small-data interactive work: the prototyping loop on a laptop, not the distributed pipeline.
 
-The goal is narrower than "make Spark fast." The proposal does not aim to outperform specialized single-node engines. It aims to lower the barrier to entry, so that someone starting out on a laptop has a reasonable experience and can grow into a cluster later without switching tools.
+Feather's goal is narrower than "make Spark fast." The proposal does not aim to outperform specialized single-node engines. It aims to lower the barrier to entry, so that someone starting out on a laptop has a reasonable experience and can grow into a cluster later without switching tools.
 
 ## Why is Spark slow on small data?
 
@@ -36,15 +36,15 @@ Because Spark's architecture is built for distributed reliability, and that mach
 
 Every query gets a plan, stages, and tasks. The scheduler dispatches those tasks to executors. Along the way Spark serializes and deserializes task descriptions, traverses the query plan repeatedly for analysis and optimization, and inserts blocking shuffles at stage boundaries so that adaptive query execution can re-plan based on real statistics. All of it serves fault tolerance, transient failure recovery, and adaptive query execution.
 
-Each cost is small on its own, tens of milliseconds and sometimes less. Nobody notices in a job that runs for an hour. The SPIP puts the small-data consequence bluntly: queries over less than 100 MB can take three seconds or more.
+Each cost is small on its own, tens of milliseconds and sometimes less. Nobody notices in a job that runs for an hour. The SPIP states the small-data consequence directly: queries over less than 100 MB can take three seconds or more.
 
-That is the gap that sends people to a specialized single-node engine for exploratory work, and it is the reason the proposal exists. Notably, the SPIP does not rest on the authors' own impressions: it cites three third-party pieces on Spark's small-data performance: [a Spark versus Dask comparison](https://medium.com/coiled-hq/spark-vs-dask-27216502b129) published by Coiled, a Dask vendor, so not a neutral source; [an essay arguing Spark is not always right for not-so-big data](https://medium.com/@pined.lao/why-spark-isnt-always-the-best-choice-for-not-so-big-data-f7b888c3ce59); and a runtime benchmark posted on LinkedIn. The motivation is a reputation problem the community can see from outside.
+That is the gap that sends people to a specialized single-node engine for exploratory work, and it is the reason the proposal exists. The SPIP does not rest on the authors' own impressions. It cites three third-party pieces on Spark's small-data performance: a Spark versus Dask comparison, an essay on Spark and not-so-big data, and a runtime benchmark. The motivation is a reputation problem visible from outside the project.
 
 ![Fixed overhead dominates a small query and is a rounding error on a large ETL job. Measured on Spark 4.2.0: an 800-row filter and sort has a median of 218 ms and still plans one shuffle.](graphics/f1-overhead-stack.png)
 
 ### What the overhead looks like on Spark 4.2
 
-Measured on stock Spark 4.2.0, before any Feather work is available, over an in-memory table of 800 rows. One run, 15 repetitions per query, medians reported. The spread is wide because a laptop under real load is noisy, which is the honest reason to prefer your own numbers over anyone else's:
+Measured on stock Spark 4.2.0, before any Feather work is available, over an in-memory table of 800 rows. One run, 15 repetitions per query, medians reported. The spread is wide because a laptop under real load is noisy, which is the reason to prefer your own numbers over these:
 
 | Operation | Median | Range | Shuffles in plan |
 |---|---|---|---|
@@ -66,11 +66,11 @@ AdaptiveSparkPlan isFinalPlan=false
                +- Range (0, 800, step=1, splits=10)
 ```
 
-That `Exchange rangepartitioning(..., 200)` line is the whole problem in miniature. Spark is about to shuffle 800 rows across 200 partitions so the sort has a guaranteed range partitioning, on data that fits comfortably in one task. `ENSURE_REQUIREMENTS` is Spark saying it added the exchange to satisfy the sort's distribution requirement, not because the data needed moving. That is the node Feather's rule removes. And `SELECT 1` still costs around 20 milliseconds even though it is constant-folded on the driver and never launches a task at all. That figure is the floor imposed by parsing, analysis, planning, and the client round trip on their own.
+The `Exchange rangepartitioning(..., 200)` line is the cost in question. Spark shuffles 800 rows across 200 partitions so the sort has the range partitioning it requires, on data that fits in one task. `ENSURE_REQUIREMENTS` marks the exchange as added to satisfy that requirement rather than because the data needed moving. That is the node Feather's rule removes. And `SELECT 1` still costs around 20 milliseconds even though it is constant-folded on the driver and never launches a task at all. That figure is the floor imposed by parsing, analysis, planning, and the client round trip on their own.
 
 Medians across repeated runs, with session creation measured in a fresh process each time.
 
-Session creation is not in the SPIP at all, and it is worth being precise about its status. It surfaced as an inline comment during the discussion period, and the authors' reply deferred it: worth investigating, but out of scope for this document to avoid scope creep. The commenter's motivation was automated test cycles, where every pytest run spins up a new session. It appears in no milestone and no JIRA subtask, so treat it as an acknowledged adjacent problem rather than part of the plan.
+Session creation is not part of the proposal. It came up in discussion, and the authors' reply was that it could be useful to look at but risked making the SPIP too complex, so it was left for separate investigation. The motivation raised was automated test cycles, where every run starts a new session. It appears in no milestone and no subtask.
 
 ## What are the three categories of work?
 
@@ -86,7 +86,7 @@ Feather groups its optimizations into three tracks. The split matters because th
 
 "Merged" and "usable" are different things, which is easy to miss when reading JIRA. Merged means the code is present in `branch-4.3`. None of it reaches you until 4.3 is released, and two of the three pieces then still need configuration: the shuffle-free rule defaults to off, and the Arrow cache requires selecting a different cache serializer.
 
-Category 1 deserves a caveat of its own. The SPIP describes it and the prototype numbers below come from it, but the umbrella has exactly three subtasks and none of them is Category 1. That milestone has not started as filed work.
+Category 1 needs a caveat. The SPIP describes it and the prototype numbers below come from it, but the umbrella has three subtasks and none is Category 1, so that milestone has not started as filed work.
 
 ![The three Project Feather categories: query compilation and task scheduling, Arrow-based df.cache, and shuffle-free execution, with merge status for each.](graphics/f2-three-categories.png)
 
@@ -94,19 +94,19 @@ Category 1 deserves a caveat of its own. The SPIP describes it and the prototype
 
 Query compilation covers analysis, optimization, and physical planning. On large data it is noise; on small data it dominates.
 
-The concrete example from the proposal: when the planner knows a scan comprises exactly one file, it can report `SinglePartition` output partitioning instead of the default `UnknownPartitioning`. That lets Spark skip an intermediate shuffle before a following aggregation or hash join. In the proposal's prototype, a filter-and-sort over a few thousand rows went from two stages and 330 milliseconds to one stage and 150 milliseconds. A 2x improvement, from deleting a shuffle that was never needed for correctness.
+In the proposal's example, when the planner knows a scan comprises exactly one file, it can report `SinglePartition` output partitioning instead of the default `UnknownPartitioning`. That lets Spark skip an intermediate shuffle before a following aggregation or hash join. In the proposal's prototype, a filter-and-sort over a few thousand rows went from two stages and 330 milliseconds to one stage and 150 milliseconds. A 2x improvement, from deleting a shuffle that was never needed for correctness.
 
-The larger piece in this category is the [single-pass analyzer](https://issues.apache.org/jira/browse/SPARK-49834), a separate SPIP that rewrites Catalyst's analysis as one bottom-up tree traversal. That work is incremental and long-running, with pieces landing across 4.0 and 4.1. The bar the authors set for it is strict: query plans must be identical before and after the rewrite, which is enforced rather than hoped for.
+A larger piece in this category is the [single-pass analyzer](https://issues.apache.org/jira/browse/SPARK-49834), a separate SPIP that rewrites Catalyst's analysis as one bottom-up tree traversal. That work is incremental and long-running, with pieces landing across 4.0 and 4.1. The bar the authors set for it is strict: query plans must be identical before and after the rewrite, which is enforced rather than hoped for.
 
 ### Category 2: make the cache worth using
 
 `df.cache` is the workhorse of ad hoc analysis. You do the expensive part once, cache it, then iterate against the cached result. It is important enough to Feather that it got its own track.
 
-The change adds an Arrow-format cache serializer next to the default rather than replacing it. Two payoffs are expected: vectorized columnar reads, and a smaller footprint from Arrow IPC compression, which means more of the working set fits in memory.
+Arrow format replaces Spark's existing in-memory cache representation as an option, not as the default. Two payoffs are expected: vectorized columnar reads, and a smaller footprint from Arrow IPC compression, so more of the working set fits in memory.
 
-The results are already in the tree rather than pending. The committed benchmarks (`sql/core/benchmarks/ArrowCacheBenchmark-*-results.txt`) show Arrow competitive with or faster than the default on primitive and columnar workloads, with the largest win on the zero-copy re-cache path, and the default still faster at higher compression levels. That mixed picture is exactly why it ships opt-in.
+Benchmark results are already in the tree. The committed benchmarks (`sql/core/benchmarks/ArrowCacheBenchmark-*-results.txt`) show Arrow competitive with or faster than the default on primitive and columnar workloads, with the largest win on the zero-copy re-cache path, and the default still faster at higher compression levels. That mixed picture is why it ships opt-in.
 
-The risk the proposal names is that conversion cost to and from Arrow exceeds what compression and vectorized reads win back, to be settled by microbenchmark.
+Per the proposal, the risk is that conversion cost to and from Arrow exceeds what compression and vectorized reads win back, to be settled by microbenchmark.
 
 ### Category 3: stop shuffling through the disk
 
@@ -114,11 +114,11 @@ Category 3 is the most invasive change and the one still mostly ahead.
 
 Spark's stages are separated by blocking shuffles. Data is serialized, written to disk, then read back by the next stage. For a distributed job that boundary is what makes fault tolerance and adaptive re-planning possible. For a query that fits on one node, it is pure cost.
 
-Feather's approach has two parts. The first, already merged for 4.3, is a conservative optimizer rule (`MarkSingleTaskExecution`) that matches a plan reading a single small file, or a small in-memory relation, with at most one shuffle-inducing operator on top: sort, aggregate, window, expand, or limit and offset. Eligible scans then report `SinglePartition` output partitioning, which lets `EnsureRequirements` elide the shuffle. Bucketed scans, Python UDFs, user-defined aggregates, and subqueries are excluded. It is gated behind `spark.sql.optimizer.singleTaskExecution.enabled`, a public config that defaults to false, alongside internal per-operator and threshold sub-flags under the same prefix. Joins are deliberately excluded from this first pass.
+Feather's approach has two parts. The first, already merged for 4.3, is a conservative optimizer rule (`MarkSingleTaskExecution`) that matches a plan reading a single small file, or a small in-memory relation, with at most one shuffle-inducing operator on top: sort, aggregate, window, expand, or limit and offset. Eligible scans then report `SinglePartition` output partitioning, which lets `EnsureRequirements` elide the shuffle. It is gated behind `spark.sql.optimizer.singleTaskExecution.enabled`, a public config that defaults to false, alongside internal per-operator and threshold sub-flags under the same prefix. Joins are deliberately excluded from this first pass.
 
 ![Blocking shuffle writes to disk between stages, which buys fault tolerance and an adaptive query execution boundary. Feather's in-process channels transfer data directly in memory, giving up the AQE boundary in exchange.](graphics/f3-shuffle-vs-channel.png)
 
-The second part, not yet contributed, replaces the disk hop with in-process channels:
+For the second part, not yet contributed, in-process channels replace the disk hop:
 
 ```
 Traditional execution:        Multi-threaded execution:
@@ -126,7 +126,7 @@ Task -> Disk -> Task          Task -> Channel -> Task (in-process)
 Serialize to and from disk     Direct memory transfer
 ```
 
-Each input partition gets its own asynchronous sender task on a Java virtual thread, and threads communicate over FIFO channels with automatic backpressure. The design carries documented risks: a dependency on JDK 21 or later if virtual threads are used, which the proposal frames as conditional, with fallback to platform threads for older JDKs, since Spark's compile baseline is still Java 17; buffer sizing that could cause out-of-memory crashes if misconfigured, mitigated with conservative defaults; and the deadlock risk inherent in any channel-and-lock design.
+Each input partition gets its own asynchronous sender task on a Java virtual thread, and threads communicate over FIFO channels with automatic backpressure. Documented risks follow: a dependency on JDK 21 or later if virtual threads are used, which the proposal frames as conditional, with fallback to platform threads for older JDKs, since Spark's compile baseline is still Java 17; buffer sizing that could cause out-of-memory crashes if misconfigured, mitigated with conservative defaults; and the deadlock risk inherent in any channel-and-lock design.
 
 There is also a deliberate loss. Adaptive query execution works at shuffle boundaries. Remove the shuffle and you remove AQE's opportunity to re-plan, which is exactly why the planner has to be confident the query is small before choosing this path.
 
@@ -134,9 +134,9 @@ There is also a deliberate loss. Adaptive query execution works at shuffle bound
 
 Not initially, and the proposal's stated reason is a capability constraint rather than a preference.
 
-Shuffle-free execution only works when all data fits and is processed in a single JVM, so it cannot replace distributed shuffle. Worth noting that the merged rule does not itself detect local mode: eligibility comes from plan shape and scan size, and the config is what keeps it away from cluster jobs today. The authors could extrapolate some of it to clusters later, and some pieces, particularly the planning and serialization work, are general enough to help everywhere. There is also a maintenance argument the proposal does not make explicitly: a second execution path in distributed jobs means anyone debugging a production pipeline has to ask which path their query took, which is a real cost to pay for a prototyping optimization.
+Shuffle-free execution only works when all data fits and is processed in a single JVM, so it cannot replace distributed shuffle. Worth noting that the merged rule does not itself detect local mode: eligibility comes from plan shape and scan size, and the config is what keeps it away from cluster jobs today. The authors could extrapolate some of it to clusters later, and some pieces, particularly the planning and serialization work, are general enough to help everywhere. Daniel also raised a maintenance concern in conversation: a second execution path in distributed jobs means anyone debugging a production pipeline has to ask which path their query took.
 
-The line the proposal draws is that improvements to cluster execution will be tangential only.
+In the proposal's words, improvements to cluster execution will be tangential only.
 
 ## How does this relate to Spark Connect?
 
@@ -148,7 +148,7 @@ Feather is about how fast the engine executes locally. You can run a Spark Conne
 
 ## How will we know if it worked?
 
-The SPIP commits to three milestones, one per category, plus a reproducibility requirement that is the most useful part for anyone evaluating the work later:
+Three milestones are committed in the SPIP, one per category, plus a reproducibility requirement that is the most useful part for anyone evaluating the work later:
 
 | Milestone | Scope |
 |---|---|
@@ -156,11 +156,11 @@ The SPIP commits to three milestones, one per category, plus a reproducibility r
 | 2 | Implement and launch the columnar `df.cache` |
 | 3 | Implement and launch multi-threaded shuffle-free execution in local mode |
 
-The performance check is to build macro-benchmarks for each milestone so the gains are reproducibly verifiable. That matters because the honest answer to "how much faster" depends on your machine, your data, and your query shape. A committed benchmark suite means the claim can be checked rather than taken on faith, which is also why the companion harness measures your baseline instead of quoting someone else's speedup.
+A performance check accompanies them: macro-benchmarks for each milestone so the gains are reproducibly verifiable. That matters because the answer to "how much faster" depends on your machine, your data, and your query shape. A committed benchmark suite means the claim can be checked rather than taken on faith, which is also why the companion harness measures your baseline instead of quoting someone else's speedup.
 
 ## How do I measure my own baseline?
 
-The companion harness reports session creation time, small-query latency, and the shuffle count in your plans, and probes for Feather's configs so the same script tells you when your build has them:
+Session creation time, small-query latency, and the shuffle count in your plans are what the harness reports, small-query latency, and the shuffle count in your plans, and probes for Feather's configs so the same script tells you when your build has them:
 
 ```
 Spark 4.2.0 on Darwin arm64
@@ -175,7 +175,7 @@ Arrow cache serializer active: False
   SELECT 1                  19.8 ms (median of 30)
 ```
 
-It builds an 800-row in-memory table by default, deliberately toy-sized to isolate fixed overhead from data-processing time, and deliberately under the 1,000-row cap that Spark 4.3's shuffle-free rule applies to in-memory relations, so the same fixture stays eligible after you upgrade. Use `--rows` for something closer to your workload; the script warns you when you cross that cap. `SELECT 1` runs twice the repetitions because it is the fastest measurement and the noisiest in relative terms. The numbers are machine-dependent, so treat them as a personal before-and-after rather than something to compare against this post.
+It builds an 800-row in-memory table by default, deliberately toy-sized to isolate fixed overhead from data-processing time, and deliberately under the 1,000-row cap that Spark 4.3's shuffle-free rule applies to in-memory relations, so the fixture stays eligible after you upgrade. Use `--rows` for something closer to your workload; the script warns you when you cross that cap. `SELECT 1` runs twice the repetitions because it is the fastest measurement and the noisiest in relative terms. The numbers are machine-dependent, so treat them as a personal before-and-after; comparing against this post's numbers will mislead you.
 
 Run it once now and again after upgrading to 4.3, and the delta is your answer rather than someone else's benchmark.
 
