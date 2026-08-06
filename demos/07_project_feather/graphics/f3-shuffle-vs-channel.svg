@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="tf3 df3">
+  <title id="tf3">Blocking shuffle versus in-process channels</title>
+  <desc id="df3">Today a stage boundary serializes data to disk and the next stage reads it back, which gives fault tolerance and lets adaptive query execution re-plan. Project Feather's multi-threaded execution replaces that hop with FIFO channels between tasks on Java virtual threads, transferring data directly in memory. The tradeoff is that removing the shuffle also removes the adaptive query execution boundary, so the planner must be confident the query is small.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .title { font: 700 27px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .ph { font: 700 19px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .phl { fill: #8a6a3d; } .phr { fill: #2f5a42; }
+    .task { fill: #ffffff; stroke: #7b8794; stroke-width: 1.4; rx: 7; ry: 7; }
+    .disk { fill: #fdf6ec; stroke: #cfa96a; stroke-width: 1.6; rx: 7; ry: 7; }
+    .chan { fill: #e3f0e8; stroke: #4a9668; stroke-width: 1.6; rx: 7; ry: 7; }
+    .t { font: 600 15px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2b3540; }
+    .flowl { stroke: #cfa96a; stroke-width: 2.2; fill: none; }
+    .flowr { stroke: #4a9668; stroke-width: 2.2; fill: none; }
+    .note { font: 400 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6470; }
+    .keep { font: 600 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2f5a42; }
+    .lose { font: 600 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #a04545; }
+    .div { stroke: #d4dae0; stroke-width: 1.5; }
+    .cap { font: 600 17px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+    .mono { font: 500 13px 'SF Mono', Menlo, Consolas, monospace; fill: #46505c; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="50">Where the stage boundary goes</text>
+  <line class="div" x1="600" y1="76" x2="600" y2="596"/>
+
+  <defs>
+    <marker id="al" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#cfa96a"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a9668"/>
+    </marker>
+  </defs>
+
+  <text class="ph phl" x="60" y="104">Today: blocking shuffle</text>
+
+  <rect class="task" x="60" y="140" width="146" height="52"/>
+  <text class="t" x="133" y="172" text-anchor="middle">Task</text>
+  <path class="flowl" d="M 206 166 L 250 166" marker-end="url(#al)"/>
+  <rect class="disk" x="250" y="140" width="146" height="52"/>
+  <text class="t" x="323" y="172" text-anchor="middle">Disk</text>
+  <path class="flowl" d="M 396 166 L 440 166" marker-end="url(#al)"/>
+  <rect class="task" x="440" y="140" width="120" height="52"/>
+  <text class="t" x="500" y="172" text-anchor="middle">Task</text>
+
+  <text class="mono" x="60" y="228">serialize, write, read back, deserialize</text>
+
+  <text class="keep" x="60" y="276">What it buys you</text>
+  <text class="note" x="60" y="302">Fault tolerance: a lost task re-reads its input</text>
+  <text class="note" x="60" y="326">Adaptive query execution re-plans here, using</text>
+  <text class="note" x="60" y="348">real statistics from the completed stage</text>
+
+  <text class="lose" x="60" y="396">What it costs on small data</text>
+  <text class="note" x="60" y="422">Serialization, disk I/O, and task runtime skew,</text>
+  <text class="note" x="60" y="444">paid on a query that fits in one JVM anyway</text>
+
+  <text class="ph phr" x="650" y="104">Feather: in-process channels</text>
+
+  <rect class="task" x="650" y="140" width="130" height="52"/>
+  <text class="t" x="715" y="172" text-anchor="middle">Task</text>
+  <path class="flowr" d="M 780 166 L 820 166" marker-end="url(#ar)"/>
+  <rect class="chan" x="820" y="140" width="164" height="52"/>
+  <text class="t" x="902" y="172" text-anchor="middle">Channel</text>
+  <path class="flowr" d="M 984 166 L 1024 166" marker-end="url(#ar)"/>
+  <rect class="task" x="1024" y="140" width="116" height="52"/>
+  <text class="t" x="1082" y="172" text-anchor="middle">Task</text>
+
+  <text class="mono" x="650" y="228">direct memory transfer, no disk</text>
+
+  <text class="keep" x="650" y="276">How it works</text>
+  <text class="note" x="650" y="302">FIFO queues with configurable size limits</text>
+  <text class="note" x="650" y="326">Automatic backpressure: senders pause when full</text>
+  <text class="note" x="650" y="350">One async sender task per input partition, on</text>
+  <text class="note" x="650" y="372">Java virtual threads (JDK 21+, with fallback)</text>
+
+  <text class="lose" x="650" y="420">What you give up</text>
+  <text class="note" x="650" y="446">No shuffle boundary means no adaptive query</text>
+  <text class="note" x="650" y="468">execution, so the planner must be sure the</text>
+  <text class="note" x="650" y="490">query is small before choosing this path</text>
+
+  <text class="cap" x="600" y="640" text-anchor="middle">Local mode only. Clusters keep the shuffle, deliberately, so debugging stays predictable.</text>
+</svg>

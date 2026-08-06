@@ -1,0 +1,44 @@
+{
+  "platform": "Darwin arm64",
+  "python": "3.14.6",
+  "rows": 5000,
+  "session_create_ms": 5340.7,
+  "spark_version": "4.2.0",
+  "feather_configs": {
+    "spark.sql.optimizer.singleTaskExecution.enabled": null,
+    "spark.sql.optimizer.singleTaskExecution.sort": null,
+    "spark.sql.optimizer.singleTaskExecution.aggregation": null,
+    "spark.sql.optimizer.singleTaskExecution.limitOffset": null,
+    "spark.sql.optimizer.singleTaskExecution.window": null,
+    "spark.sql.optimizer.singleTaskExecution.expand": null,
+    "spark.sql.execution.arrow.cache.prefetch.enabled": null,
+    "spark.sql.unionOutputPartitioning.enabled": null
+  },
+  "feather_configs_present": 0,
+  "filter_sort": {
+    "median_ms": 162.0,
+    "min_ms": 125.9,
+    "max_ms": 195.9,
+    "reps": 5,
+    "exchanges": 1
+  },
+  "aggregate": {
+    "median_ms": 82.7,
+    "min_ms": 76.2,
+    "max_ms": 112.3,
+    "reps": 5,
+    "exchanges": 1
+  },
+  "cached_query": {
+    "median_ms": 31.1,
+    "min_ms": 29.3,
+    "max_ms": 56.7,
+    "reps": 5
+  },
+  "trivial_query": {
+    "median_ms": 16.2,
+    "min_ms": 13.8,
+    "max_ms": 49.4,
+    "reps": 10
+  }
+}

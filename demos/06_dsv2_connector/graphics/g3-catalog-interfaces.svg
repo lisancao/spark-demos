@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t3 d3">
+  <title id="t3">DSV2 catalog interfaces and the table format need each one answers</title>
+  <desc id="d3">The Hive Metastore modeled only databases, tables, columns, and partitions. Wherever a table format needed an entity Spark did not model, a DSV2 catalog interface became the mechanism to plug it in: TableCatalog for table lifecycle, SupportsNamespaces for multi-part namespaces, FunctionCatalog for partition transform functions and shared user-defined functions, ProcedureCatalog for maintenance operations, and ViewCatalog for engine-portable view definitions.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .title { font: 700 27px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .hms { fill: #f3f4f6; stroke: #8b95a1; stroke-width: 1.6; rx: 9; ry: 9; }
+    .hmsh { font: 700 20px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #48515c; }
+    .hmsi { font: 400 15.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6470; }
+    .hub { fill: #eaf1fb; stroke: #4c78c9; stroke-width: 2; rx: 9; ry: 9; }
+    .hubt { font: 700 18px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #24427e; }
+    .row { fill: #ffffff; stroke: #bcc5cf; stroke-width: 1.2; rx: 7; ry: 7; }
+    .api { font: 700 15.5px 'SF Mono', Menlo, Consolas, monospace; fill: #24427e; }
+    .need { font: 400 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #4a5560; }
+    .spoke { stroke: #9db4d8; stroke-width: 1.6; fill: none; }
+    .wip { fill: #fdf2e2; stroke: #cf9440; stroke-width: 1.1; rx: 4; ry: 4; }
+    .wipt { font: 700 11px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #96661f; }
+    .cap { font: 600 18px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+    .vs { font: 700 16px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #8b95a1; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="52">One catalog interface per unmet need</text>
+
+  <rect class="hms" x="60" y="196" width="268" height="248"/>
+  <text class="hmsh" x="194" y="234" text-anchor="middle">Hive Metastore</text>
+  <text class="hmsi" x="86" y="276">databases</text>
+  <text class="hmsi" x="86" y="308">tables (one directory)</text>
+  <text class="hmsi" x="86" y="340">columns</text>
+  <text class="hmsi" x="86" y="372">partitions</text>
+  <text class="hmsi" x="86" y="394">(subdirectories by value)</text>
+  <text class="hmsi" x="194" y="426" text-anchor="middle">and nothing else</text>
+
+  <text class="vs" x="356" y="326" text-anchor="middle">so</text>
+
+  <rect class="hub" x="392" y="286" width="176" height="70"/>
+  <text class="hubt" x="480" y="316" text-anchor="middle">DSV2 catalog</text>
+  <text class="hubt" x="480" y="338" text-anchor="middle">interfaces</text>
+
+  <path class="spoke" d="M 568 300 C 610 300 612 132 654 132"/>
+  <path class="spoke" d="M 568 310 C 614 310 616 226 654 226"/>
+  <path class="spoke" d="M 568 321 C 618 321 620 320 654 320"/>
+  <path class="spoke" d="M 568 332 C 614 332 616 414 654 414"/>
+  <path class="spoke" d="M 568 342 C 610 342 612 508 654 508"/>
+
+  <rect class="row" x="654" y="104" width="486" height="56"/>
+  <text class="api" x="672" y="128">TableCatalog</text>
+  <text class="need" x="672" y="149">table lifecycle: load, create, alter, drop</text>
+
+  <rect class="row" x="654" y="198" width="486" height="56"/>
+  <text class="api" x="672" y="222">SupportsNamespaces</text>
+  <text class="need" x="672" y="243">multi-part namespaces (not just database.table)</text>
+
+  <rect class="row" x="654" y="292" width="486" height="56"/>
+  <text class="api" x="672" y="316">FunctionCatalog</text>
+  <text class="need" x="672" y="337">partition transform functions, shared UDFs</text>
+
+  <rect class="row" x="654" y="386" width="486" height="56"/>
+  <text class="api" x="672" y="410">ProcedureCatalog</text>
+  <text class="need" x="672" y="431">maintenance: expire snapshots, vacuum, rewrite files</text>
+
+  <rect class="row" x="654" y="480" width="486" height="56"/>
+  <text class="api" x="672" y="504">ViewCatalog</text>
+  <rect class="wip" x="784" y="490" width="122" height="19"/>
+  <text class="wipt" x="845" y="504" text-anchor="middle">WORK IN PROGRESS</text>
+  <text class="need" x="672" y="525">engine-portable view definitions</text>
+
+  <text class="cap" x="600" y="620" text-anchor="middle">Spark resolves an unknown name by asking the appropriate catalog.</text>
+</svg>

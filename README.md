@@ -37,5 +37,12 @@ Brainstorm + rationale lives in Obsidian:
 
 Each `demos/NN_*/` dir is a stub to be filled once the lineup is locked.
 
-> No stable Spark 4.2 image exists yet (as of 2026-07-20). The snapshot image carries the
-> 4.2/5.0 features; swap `SPARK_IMAGE` in `compose/.env` when an official image ships.
+> **Image:** The sandbox defaults to `lakehouse/spark:5.0.0-snapshot-cdc` (locally-built snapshot).
+> To upgrade to a newer release, set `SPARK_IMAGE` in `compose/.env` (see `compose/.env.example`)
+> and re-pull:
+> ```bash
+> export SPARK_IMAGE=apache/spark:4.2.0   # or whichever tag is current
+> docker compose -p spark42demos -f compose/docker-compose.yml pull
+> docker compose -p spark42demos -f compose/docker-compose.yml up -d
+> ```
+> Check available tags: `docker images | grep spark` (local) or https://hub.docker.com/r/apache/spark/tags

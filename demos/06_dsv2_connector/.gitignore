@@ -1,0 +1,8 @@
+target/
+*.class
+.DS_Store
+
+# Machine-specific: regenerate with ./setup-idea.sh
+.idea/libraries/spark_jars.xml
+.idea/workspace.xml
+.idea/shelf/

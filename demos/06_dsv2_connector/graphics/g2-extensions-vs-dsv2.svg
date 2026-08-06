@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t2 d2">
+  <title id="t2">Session extensions versus DataSource V2</title>
+  <desc id="d2">Before DataSource V2, each connector injected its own parser, resolution, and planner rules into Spark, which caused conflicts between extensions, breakage across Spark upgrades, and a different SQL syntax per format. With DataSource V2, every connector meets Spark at one stable API boundary and returns metadata, while Spark owns analysis, optimization, execution, and DML.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .title { font: 700 27px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .ph { font: 700 21px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .phl { fill: #9c3d3d; } .phr { fill: #2f5a42; }
+    .box { rx: 8; ry: 8; stroke-width: 1.5; }
+    .spark { fill: #eaf1fb; stroke: #4c78c9; }
+    .conn { fill: #ffffff; stroke: #7b8794; stroke-width: 1.3; rx: 7; ry: 7; }
+    .bad { stroke: #c46a6a; stroke-width: 1.8; fill: none; }
+    .good { stroke: #4a9668; stroke-width: 2; fill: none; }
+    .api { fill: #d9ead f; }
+    .apibox { fill: #e3f0e8; stroke: #4a9668; stroke-width: 2; rx: 8; ry: 8; }
+    .t { font: 600 15px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2b3540; }
+    .sparkt { font: 700 19px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #24427e; }
+    .mono { font: 500 12.5px 'SF Mono', Menlo, Consolas, monospace; fill: #7a4a4a; }
+    .apit { font: 700 17px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2f5a42; }
+    .note { font: 400 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #4a5560; }
+    .warn { font: 600 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #a04545; }
+    .cap { font: 600 18px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+    .div { stroke: #d4dae0; stroke-width: 1.5; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="52">Injection versus one stable boundary</text>
+  <line class="div" x1="600" y1="76" x2="600" y2="600"/>
+
+  <text class="ph phl" x="60" y="104">Before: session extensions</text>
+  <rect class="box spark" x="60" y="126" width="490" height="88"/>
+  <text class="sparkt" x="305" y="163" text-anchor="middle">Apache Spark internals</text>
+  <text class="note" x="305" y="190" text-anchor="middle">17 injection points, no coordination between callers</text>
+
+  <path class="bad" d="M 150 320 C 150 288 138 250 138 216"/>
+  <path class="bad" d="M 300 320 C 300 292 430 262 430 216"/>
+  <path class="bad" d="M 430 320 C 430 292 250 262 250 216"/>
+  <path class="bad" d="M 190 320 C 190 296 340 264 340 216"/>
+
+  <rect x="60" y="228" width="118" height="18" fill="#fbfcfd" opacity="0.92"/>
+  <rect x="192" y="228" width="176" height="18" fill="#fbfcfd" opacity="0.92"/>
+  <rect x="376" y="228" width="186" height="18" fill="#fbfcfd" opacity="0.92"/>
+  <text class="mono" x="66" y="242">injectParser</text>
+  <text class="mono" x="196" y="242">injectResolutionRule</text>
+  <text class="mono" x="380" y="242">injectPlannerStrategy</text>
+
+  <rect class="conn" x="86" y="320" width="150" height="52"/>
+  <text class="t" x="161" y="352" text-anchor="middle">Iceberg</text>
+  <rect class="conn" x="370" y="320" width="150" height="52"/>
+  <text class="t" x="445" y="352" text-anchor="middle">Delta Lake</text>
+
+  <text class="warn" x="86" y="418">Extensions conflict with each other</text>
+  <text class="warn" x="86" y="446">Break on Spark upgrade</text>
+  <text class="warn" x="86" y="474">Different syntax per format</text>
+  <text class="note" x="86" y="512">A user has to know which format is</text>
+  <text class="note" x="86" y="532">underneath before writing a statement.</text>
+
+  <text class="ph phr" x="650" y="104">After: DataSource V2</text>
+  <rect class="box spark" x="650" y="126" width="490" height="88"/>
+  <text class="sparkt" x="895" y="158" text-anchor="middle">Apache Spark</text>
+  <text class="note" x="895" y="186" text-anchor="middle">analysis, optimization, execution, DML</text>
+
+  <rect class="apibox" x="650" y="254" width="490" height="46"/>
+  <text class="apit" x="895" y="284" text-anchor="middle">DSV2 API</text>
+  <path class="good" d="M 895 254 L 895 214"/>
+
+  <path class="good" d="M 730 348 L 730 300"/>
+  <path class="good" d="M 895 348 L 895 300"/>
+  <path class="good" d="M 1060 348 L 1060 300"/>
+  <text class="note" x="895" y="330" text-anchor="middle">metadata only</text>
+
+  <rect class="conn" x="656" y="348" width="148" height="52"/>
+  <text class="t" x="730" y="380" text-anchor="middle">Iceberg</text>
+  <rect class="conn" x="821" y="348" width="148" height="52"/>
+  <text class="t" x="895" y="380" text-anchor="middle">Delta Lake</text>
+  <rect class="conn" x="986" y="348" width="148" height="52"/>
+  <text class="t" x="1060" y="380" text-anchor="middle">your connector</text>
+
+  <text class="note" x="650" y="446">One API contract, stable across versions.</text>
+  <text class="note" x="650" y="474">No parser or planner injection.</text>
+  <text class="note" x="650" y="502">Connectors return metadata and rows;</text>
+  <text class="note" x="650" y="522">Spark owns the rest.</text>
+
+  <text class="cap" x="600" y="644" text-anchor="middle">Same MERGE INTO statement, any format.</text>
+</svg>

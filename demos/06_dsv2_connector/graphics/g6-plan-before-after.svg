@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t6 d6">
+  <title id="t6">The same query's physical plan under DataSource V1 and DataSource V2</title>
+  <desc id="d6">Running SELECT name FROM people WHERE dept equals eng through a DSV1 connector produces a Scan node naming the relation object, with a PushedFilters list. The same query through a DSV2 connector produces a BatchScan node containing the connector's own description, reporting which columns survived pruning and how many filters were pushed. Results are identical; the difference is observability and what the connector can additionally support.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .title { font: 700 26px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .q { font: 600 15px 'SF Mono', Menlo, Consolas, monospace; fill: #24427e; }
+    .qbox { fill: #eaf1fb; stroke: #4c78c9; stroke-width: 1.4; rx: 7; ry: 7; }
+    .lbl { font: 700 16px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .l1 { fill: #8a6a3d; } .l2 { fill: #2f5a42; }
+    .p1 { fill: #fdf6ec; stroke: #cfa96a; stroke-width: 1.4; rx: 7; ry: 7; }
+    .p2 { fill: #eef7f1; stroke: #6aa887; stroke-width: 1.4; rx: 7; ry: 7; }
+    .code { font: 500 12.5px 'SF Mono', Menlo, Consolas, monospace; fill: #2b3540; }
+    .hi { font: 700 12.5px 'SF Mono', Menlo, Consolas, monospace; fill: #1d6b42; }
+    .res { fill: #ffffff; stroke: #c3ccd6; stroke-width: 1.2; rx: 5; ry: 5; }
+    .rest { font: 500 13px 'SF Mono', Menlo, Consolas, monospace; fill: #46505c; }
+    .note { font: 400 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6470; }
+    .same { font: 700 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #6b7580; }
+    .cap { font: 600 17px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="46">One query, two connectors, two plans</text>
+
+  <rect class="qbox" x="60" y="66" width="1080" height="40"/>
+  <text class="q" x="80" y="92">SELECT name FROM people WHERE dept = 'eng'</text>
+
+  <text class="lbl l1" x="60" y="140">BEFORE: DataSource V1</text>
+  <rect class="p1" x="60" y="154" width="1080" height="112"/>
+  <text class="code" x="78" y="180">*(1) Project [name#1]</text>
+  <text class="code" x="78" y="200">+- *(1) Filter isnotnull(dept#2)</text>
+  <text class="code" x="78" y="220">   +- *(1) Scan CsvV1Source$CsvRelation@76d220eb [name#1,dept#2]</text>
+  <text class="code" x="78" y="240">      PushedFilters: [IsNotNull(dept), *EqualTo(dept,eng)],</text>
+  <text class="code" x="78" y="258">      ReadSchema: struct&lt;name:string,dept:string&gt;</text>
+
+  <rect class="res" x="60" y="278" width="200" height="30"/>
+  <text class="rest" x="76" y="298">ada, grace, dorothy</text>
+  <text class="note" x="278" y="298">A relation object identity. Useful, but opaque.</text>
+
+  <text class="lbl l2" x="60" y="352">AFTER: DataSource V2</text>
+  <rect class="p2" x="60" y="366" width="1080" height="112"/>
+  <text class="code" x="78" y="392">*(1) Project [name#12]</text>
+  <text class="code" x="78" y="412">+- *(1) Filter isnotnull(dept#13)</text>
+  <text class="code" x="78" y="432">   +- BatchScan csv:/tmp/dsv2lab/people.csv[name#12, dept#13]</text>
+  <text class="hi" x="78" y="452">      CsvScan(path=..., columns=name,dept, pushedFilters=1)</text>
+  <text class="code" x="78" y="470">      RuntimeFilters: []</text>
+
+  <rect class="res" x="60" y="490" width="200" height="30"/>
+  <text class="rest" x="76" y="510">ada, grace, dorothy</text>
+  <text class="same" x="278" y="510">identical results</text>
+
+  <text class="code" x="60" y="552">columns=name,dept</text>
+  <text class="note" x="260" y="552">column pruning dropped 'id' before any I/O</text>
+  <text class="code" x="60" y="576">pushedFilters=1</text>
+  <text class="note" x="260" y="576">the equality filter reached the connector</text>
+  <text class="code" x="60" y="600">isnotnull(dept)</text>
+  <text class="note" x="260" y="600">still applied by Spark, because pushFilters() declined it</text>
+
+  <text class="cap" x="600" y="646" text-anchor="middle">The BatchScan text is the connector's own description(). Three lines to implement, and pushdown stops being a guess.</text>
+</svg>

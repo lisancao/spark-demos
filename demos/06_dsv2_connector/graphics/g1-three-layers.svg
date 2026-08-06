@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t1 d1">
+  <title id="t1">Three layers: table format spec, catalog spec, and Spark DataSource V2</title>
+  <desc id="d1">The table format specification defines what content represents an entity. The catalog specification defines how entities are saved and looked up by name. Spark DataSource V2 resolves names against whichever catalog is registered, and is indifferent to which catalog implementation sits below.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .band { rx: 10; ry: 10; stroke-width: 1.5; }
+    .top { fill: #eaf1fb; stroke: #4c78c9; }
+    .mid { fill: #edf6f0; stroke: #4a9668; }
+    .bot { fill: #f6f1f7; stroke: #8a6aa8; }
+    .impl { fill: #ffffff; stroke: #4a9668; stroke-width: 1.2; rx: 7; ry: 7; }
+    .h { font: 700 25px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .sub { font: 400 16px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #4a5560; }
+    .ex { font: 400 14.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6570; }
+    .impltxt { font: 600 15px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2f5a42; }
+    .lbl { font: 600 13px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #6b7580; letter-spacing: 0.9px; }
+    .cap { font: 600 18px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+    .title { font: 700 27px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .ttop { fill: #24427e; } .tmid { fill: #2f5a42; } .tbot { fill: #513a66; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="56">Three layers, and DSV2 is only the top one</text>
+
+  <text class="lbl" x="60" y="96">ENGINE SIDE</text>
+  <rect class="band top" x="60" y="108" width="1080" height="104"/>
+  <text class="h ttop" x="88" y="147">Spark DataSource V2</text>
+  <text class="sub" x="88" y="176">Resolves a name against the registered catalog during query analysis</text>
+  <text class="ex" x="88" y="198">TableCatalog, FunctionCatalog, ProcedureCatalog, ViewCatalog, SupportsNamespaces</text>
+
+  <path d="M 600 212 L 600 268" stroke="#4c78c9" stroke-width="2.4" fill="none" marker-end="url(#ar)"/>
+  <text class="ex" x="614" y="248">asks for a definition by name</text>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4c78c9"/>
+    </marker>
+  </defs>
+
+  <text class="lbl" x="60" y="296">CATALOG SIDE</text>
+  <rect class="band mid" x="60" y="308" width="1080" height="150"/>
+  <text class="h tmid" x="88" y="347">Catalog specification</text>
+  <text class="sub" x="88" y="374">Save and look up entities by name within a namespace</text>
+  <rect class="impl" x="88" y="392" width="308" height="46"/>
+  <text class="impltxt" x="242" y="421" text-anchor="middle">Iceberg REST catalog</text>
+  <rect class="impl" x="416" y="392" width="308" height="46"/>
+  <text class="impltxt" x="570" y="421" text-anchor="middle">Unity Catalog</text>
+  <rect class="impl" x="744" y="392" width="308" height="46"/>
+  <text class="impltxt" x="898" y="421" text-anchor="middle">Apache Polaris</text>
+
+  <text class="lbl" x="60" y="504">STORAGE SIDE</text>
+  <rect class="band bot" x="60" y="516" width="1080" height="98"/>
+  <text class="h tbot" x="88" y="554">Table format specification</text>
+  <text class="sub" x="88" y="581">Defines what content represents a table, view, function, or procedure</text>
+  <text class="ex" x="88" y="603">Apache Iceberg spec, Delta Lake protocol</text>
+
+  <text class="cap" x="600" y="654" text-anchor="middle">Swapping the catalog does not change the query.</text>
+</svg>

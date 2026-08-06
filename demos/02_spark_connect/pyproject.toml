@@ -1,40 +1,38 @@
 [project]
 name = "spark-connect-demo"
-version = "0.3.0"
-description = "Spark Connect on Apache Spark 4.2: examples, a pipeline migration, and supporting tools"
-readme = "README.md"
-# Python 3.10 matches the official apache/spark:4.2.0 image. Python UDFs require the same minor
-# version on the client and the executors.
-requires-python = "==3.10.*"
-dependencies = []
+version = "0.1.0"
+description = "Spark 4.2 Spark Connect demo — thin client, same DataFrame code, embed in an AI tool"
+requires-python = ">=3.10"
+dependencies = [
+    # TRUE thin client: pure Python, no jars/, no local JRE.
+    # Do NOT use pyspark[connect] here — that ships the full distribution and falsifies the claim.
+    "pyspark-client==4.2.0",
+    "python-dotenv>=1.0",
+    # Pin floor matching Spark 4.2 Connect; keep pandas <3 to avoid FutureWarning noise on camera.
+    "pandas>=2.2.0,<3.0.0",
+    "pyarrow>=18.0.0",
+    "grpcio>=1.76.0",
+    "grpcio-status>=1.76.0",
+    "googleapis-common-protos>=1.71.0",
+    "zstandard>=0.25.0",
+]
 
-[dependency-groups]
-# The Python client with no JVM. PySpark warns against pandas 3, so pandas is pinned below 3.
-client = ["pyspark-client==4.2.0", "pandas<3"]
-# The full distribution with Connect support, for Spark Classic examples and in-process mode.
-full = ["pyspark[connect]==4.2.0", "pandas<3"]
-dev = ["pytest>=8", "pytest-timeout>=2.3", "ruff"]
+[project.optional-dependencies]
+dev = ["ipykernel", "ruff"]
 
-[tool.uv]
-package = false
-default-groups = ["client", "dev"]
-conflicts = [[{ group = "client" }, { group = "full" }]]
-compile-bytecode = true
+[project.scripts]
+spark-connect-demo = "spark_connect_demo.run_demo:main"
 
-[tool.pytest.ini_options]
-pythonpath = [".", "tools", "pipeline"]
-testpaths = ["tests"]
-addopts = "-q --timeout=180"
-markers = ["connect: requires a reachable Spark Connect server (SPARK_REMOTE)"]
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-# The case study's pipeline files contain production code copied without changes.
-extend-exclude = [
-    "case_study/lakehouse_stack/pipeline_before.py",
-    "case_study/lakehouse_stack/pipeline_after.py",
-]
 
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
+[tool.uv]
+package = true

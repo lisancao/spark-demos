@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t4 d4">
+  <title id="t4">The DataSource V2 read path, and which side owns each step</title>
+  <desc id="d4">A connector implements newScanBuilder and returns metadata and rows. Spark drives the rest of the read path: ScanBuilder negotiates pushdown, Scan reports the read schema, Batch plans input partitions and hands out a PartitionReaderFactory, and PartitionReader performs per-task input and output, returning either rows or ColumnarBatch instances for vectorized reads.</desc>
+  <style>
+    .bg { fill: #fbfcfd; }
+    .title { font: 700 27px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f2933; }
+    .sparkzone { fill: #eef4fc; stroke: none; rx: 12; ry: 12; }
+    .connzone { fill: #eef7f1; stroke: none; rx: 12; ry: 12; }
+    .zt { font: 700 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 1px; }
+    .ztl { fill: #4c78c9; } .ztr { fill: #4a9668; }
+    .node { fill: #ffffff; stroke: #7b8794; stroke-width: 1.4; rx: 7; ry: 7; }
+    .nodeimpl { fill: #ffffff; stroke: #4a9668; stroke-width: 2; rx: 7; ry: 7; }
+    .api { font: 700 16px 'SF Mono', Menlo, Consolas, monospace; fill: #1f2933; }
+    .apis { font: 600 13.5px 'SF Mono', Menlo, Consolas, monospace; fill: #24427e; }
+    .role { font: 400 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6470; }
+    .flow { stroke: #7b8794; stroke-width: 2; fill: none; }
+    .mixbox { fill: #f7f9fb; stroke: #c3ccd6; stroke-width: 1.2; rx: 7; ry: 7; }
+    .mixh { font: 700 13px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #48515c; }
+    .note { font: 400 13.5px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #4a5560; }
+    .cap { font: 600 18px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #333d47; }
+  </style>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="60" y="50">The read path: who owns what</text>
+
+  <rect class="connzone" x="52" y="74" width="300" height="520"/>
+  <text class="zt ztr" x="72" y="102">CONNECTOR IMPLEMENTS</text>
+  <rect class="sparkzone" x="368" y="74" width="500" height="520"/>
+  <text class="zt ztl" x="388" y="102">SPARK DRIVES</text>
+
+  <rect class="nodeimpl" x="76" y="124" width="252" height="62"/>
+  <text class="apis" x="92" y="150">SupportsRead</text>
+  <text class="apis" x="92" y="170">.newScanBuilder(options)</text>
+
+  <path class="flow" d="M 328 155 L 392 155" marker-end="url(#a4)"/>
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7b8794"/>
+    </marker>
+  </defs>
+
+  <rect class="node" x="392" y="124" width="330" height="62"/>
+  <text class="api" x="410" y="150">ScanBuilder</text>
+  <text class="role" x="410" y="171">pushdown negotiation</text>
+
+  <rect class="mixbox" x="752" y="110" width="392" height="180"/>
+  <text class="mixh" x="772" y="134">PUSHDOWN MIX-INS, OPT IN AS NEEDED</text>
+  <text class="apis" x="772" y="160">SupportsPushDownRequiredColumns</text>
+  <text class="apis" x="772" y="184">SupportsPushDownFilters</text>
+  <text class="apis" x="772" y="208">SupportsPushDownAggregates</text>
+  <text class="apis" x="772" y="232">SupportsPushDownLimit</text>
+  <text class="apis" x="772" y="256">SupportsPushDownTopN</text>
+  <text class="note" x="772" y="278">A connector that pushes nothing down still works.</text>
+  <path class="flow" d="M 722 155 L 748 155" stroke-dasharray="4 3"/>
+
+  <path class="flow" d="M 557 186 L 557 226" marker-end="url(#a4)"/>
+  <rect class="node" x="392" y="226" width="330" height="62"/>
+  <text class="api" x="410" y="252">Scan</text>
+  <text class="role" x="410" y="273">reports the read schema</text>
+
+  <path class="flow" d="M 557 288 L 557 328" marker-end="url(#a4)"/>
+  <rect class="node" x="392" y="328" width="330" height="62"/>
+  <text class="api" x="410" y="354">Batch</text>
+  <text class="role" x="410" y="375">physical plan for the read</text>
+
+  <path class="flow" d="M 470 390 L 470 428" marker-end="url(#a4)"/>
+  <path class="flow" d="M 645 390 L 645 428" marker-end="url(#a4)"/>
+  <rect class="node" x="384" y="428" width="176" height="54"/>
+  <text class="apis" x="472" y="460" text-anchor="middle">InputPartition[]</text>
+  <rect class="node" x="576" y="428" width="176" height="54"/>
+  <text class="apis" x="664" y="452" text-anchor="middle">PartitionReader</text>
+  <text class="apis" x="664" y="470" text-anchor="middle">Factory</text>
+
+  <path class="flow" d="M 576 482 C 500 520 300 500 204 500" marker-end="url(#a4)"/>
+
+  <rect class="nodeimpl" x="76" y="470" width="252" height="86"/>
+  <text class="apis" x="92" y="496">PartitionReader</text>
+  <text class="role" x="92" y="516">per-task I/O</text>
+  <text class="role" x="92" y="538">returns rows, or ColumnarBatch</text>
+  <text class="role" x="92" y="552" font-style="italic">for vectorized reads</text>
+
+  <text class="cap" x="600" y="638" text-anchor="middle">Most of a connector just returns metadata.</text>
+</svg>
