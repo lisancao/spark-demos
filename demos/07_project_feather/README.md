@@ -19,12 +19,19 @@ Requires an Apache Spark install and PySpark. Nothing to build.
 **None of Feather's configuration flags exist in Spark 4.2.0**, the current release.
 Verified by probing a live session rather than reading release notes:
 
-| Config | 4.2.0 |
-|---|---|
-| `spark.sql.optimizer.singleTaskExecution.enabled` | absent |
-| `spark.sql.execution.arrow.cache.prefetch.enabled` | absent |
-| `spark.sql.unionOutputPartitioning.enabled` | absent |
-| `spark.sql.inMemoryColumnarStorage.enableVectorizedReader` | present (predates Feather) |
+| Config | 4.2.0 | Note |
+|---|---|---|
+| `spark.sql.optimizer.singleTaskExecution.enabled` | absent | Public config in 4.3, defaults to **false** |
+| `spark.sql.optimizer.singleTaskExecution.localTableScan.threshold` | absent | Defaults to **1000 rows** in 4.3 |
+| `spark.sql.execution.arrow.cache.prefetch.enabled` | absent | |
+| `spark.sql.unionOutputPartitioning.enabled` | absent | |
+| `spark.sql.cache.serializer` | present | Predates Feather. 4.3 adds `ArrowCachedBatchSerializer` as an option; the default is unchanged |
+
+Two things this table is designed to prevent you from assuming. The shuffle-free rule
+ships **off** in 4.3, so upgrading alone changes nothing. And for in-memory relations it
+only applies at or below **1,000 rows**, which is why this harness defaults to 800: a
+5,000-row fixture would stay ineligible even with the flag on, and you would conclude
+the feature does nothing.
 
 The Arrow cache ([SPARK-57268](https://issues.apache.org/jira/browse/SPARK-57268))
 and shuffle-free single-task execution

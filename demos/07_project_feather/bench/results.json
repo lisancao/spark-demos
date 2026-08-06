@@ -1,8 +1,8 @@
 {
   "platform": "Darwin arm64",
   "python": "3.14.6",
-  "rows": 5000,
-  "session_create_ms": 5340.7,
+  "rows": 800,
+  "session_create_ms": 4080.9,
   "spark_version": "4.2.0",
   "feather_configs": {
     "spark.sql.optimizer.singleTaskExecution.enabled": null,
@@ -11,34 +11,37 @@
     "spark.sql.optimizer.singleTaskExecution.limitOffset": null,
     "spark.sql.optimizer.singleTaskExecution.window": null,
     "spark.sql.optimizer.singleTaskExecution.expand": null,
+    "spark.sql.optimizer.singleTaskExecution.localTableScan.threshold": null,
     "spark.sql.execution.arrow.cache.prefetch.enabled": null,
-    "spark.sql.unionOutputPartitioning.enabled": null
+    "spark.sql.unionOutputPartitioning.enabled": null,
+    "spark.sql.cache.serializer": "org.apache.spark.sql.execution.columnar.DefaultCachedBatchSerializer"
   },
   "feather_configs_present": 0,
+  "arrow_cache_active": false,
   "filter_sort": {
-    "median_ms": 162.0,
-    "min_ms": 125.9,
-    "max_ms": 195.9,
-    "reps": 5,
+    "median_ms": 218.4,
+    "min_ms": 136.7,
+    "max_ms": 406.3,
+    "reps": 15,
     "exchanges": 1
   },
   "aggregate": {
-    "median_ms": 82.7,
-    "min_ms": 76.2,
-    "max_ms": 112.3,
-    "reps": 5,
+    "median_ms": 127.3,
+    "min_ms": 70.9,
+    "max_ms": 956.2,
+    "reps": 15,
     "exchanges": 1
   },
   "cached_query": {
-    "median_ms": 31.1,
-    "min_ms": 29.3,
-    "max_ms": 56.7,
-    "reps": 5
+    "median_ms": 35.9,
+    "min_ms": 27.5,
+    "max_ms": 61.7,
+    "reps": 15
   },
   "trivial_query": {
-    "median_ms": 16.2,
-    "min_ms": 13.8,
-    "max_ms": 49.4,
-    "reps": 10
+    "median_ms": 19.8,
+    "min_ms": 11.3,
+    "max_ms": 64.9,
+    "reps": 30
   }
 }

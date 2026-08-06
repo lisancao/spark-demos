@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 628" width="1200" height="628" role="img" aria-labelledby="tfb dfb">
+  <title id="tfb">How Project Feather cuts Spark's local-mode overhead</title>
+  <desc id="dfb">Social card. On a small query the fixed overhead of planning, task serialization, scheduling, and shuffle is most of the wall clock, while on a large ETL job the same cost is a rounding error. Project Feather removes the overhead that small data cannot amortize.</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .accent { fill: #ff3621; }
+    .title { font: 700 44px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1b3139; }
+    .sub { font: 400 21px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a6470; }
+    .lbl { font: 700 17px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #2b3540; }
+    .ovh { fill: #f6d9d4; stroke: #c46a6a; stroke-width: 1.4; }
+    .work { fill: #e3f0e8; stroke: #4a9668; stroke-width: 1.4; }
+    .seg { font: 600 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .osegt { fill: #8c3d3d; } .wsegt { fill: #2f5a42; }
+    .keyt { font: 500 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #46505c; }
+    .foot { font: 500 16px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #7a838d; }
+  </style>
+  <rect class="bg" width="1200" height="628"/>
+  <rect class="accent" x="0" y="0" width="1200" height="6"/>
+
+  <text class="title" x="64" y="88">How Project Feather cuts</text>
+  <text class="title" x="64" y="138">Spark's local-mode overhead</text>
+  <text class="sub" x="64" y="178">SPARK-56978, targeting Apache Spark 4.3</text>
+
+  <rect class="ovh" x="64" y="222" width="24" height="17" rx="3"/>
+  <text class="keyt" x="98" y="235">fixed overhead: planning, serialization, scheduling, shuffle</text>
+  <rect class="work" x="660" y="222" width="24" height="17" rx="3"/>
+  <text class="keyt" x="694" y="235">actual data work</text>
+
+  <text class="lbl" x="64" y="292">Small query, under 100 MB</text>
+  <rect class="ovh" x="64" y="306" width="614" height="56" rx="5"/>
+  <text class="seg osegt" x="371" y="340" text-anchor="middle">overhead</text>
+  <rect class="work" x="678" y="306" width="104" height="56" rx="5"/>
+  <text class="seg wsegt" x="730" y="340" text-anchor="middle">work</text>
+
+  <text class="lbl" x="64" y="422">Large ETL job</text>
+  <rect class="ovh" x="64" y="436" width="30" height="56" rx="5"/>
+  <rect class="work" x="94" y="436" width="1042" height="56" rx="5"/>
+  <text class="seg wsegt" x="615" y="470" text-anchor="middle">work</text>
+
+  <text class="foot" x="64" y="560">Measured on Spark 4.2.0: a 5,000-row filter and sort takes about 190 ms</text>
+  <text class="foot" x="64" y="588">and still plans a shuffle it does not need.</text>
+</svg>

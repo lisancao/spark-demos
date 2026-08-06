@@ -40,9 +40,16 @@ FEATHER_CONFIGS = [
     "spark.sql.optimizer.singleTaskExecution.limitOffset",
     "spark.sql.optimizer.singleTaskExecution.window",
     "spark.sql.optimizer.singleTaskExecution.expand",
+    "spark.sql.optimizer.singleTaskExecution.localTableScan.threshold",
     "spark.sql.execution.arrow.cache.prefetch.enabled",
     "spark.sql.unionOutputPartitioning.enabled",
 ]
+
+# The Arrow cache is NOT a boolean flag. It ships as an alternative serializer class
+# selected through a STATIC conf, so it cannot be toggled on a live session and a
+# boolean probe would miss it entirely.
+ARROW_SERIALIZER_CONF = "spark.sql.cache.serializer"
+ARROW_SERIALIZER_CLASS = "org.apache.spark.sql.execution.columnar.ArrowCachedBatchSerializer"
 
 
 def timed(fn, reps: int) -> dict:
@@ -75,13 +82,18 @@ def probe_configs(spark) -> dict:
             out[key] = spark.conf.get(key)
         except Exception:
             out[key] = None
+    # Reported separately: which serializer the cache is actually using.
+    try:
+        out[ARROW_SERIALIZER_CONF] = spark.conf.get(ARROW_SERIALIZER_CONF)
+    except Exception:
+        out[ARROW_SERIALIZER_CONF] = None
     return out
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--reps", type=int, default=5)
-    ap.add_argument("--rows", type=int, default=5000)
+    ap.add_argument("--rows", type=int, default=800)
     ap.add_argument("--json", default="bench/results.json")
     args = ap.parse_args()
 
@@ -104,8 +116,13 @@ def main() -> int:
     results["spark_version"] = spark.version
 
     results["feather_configs"] = probe_configs(spark)
-    present = sum(1 for v in results["feather_configs"].values() if v is not None)
+    # Count only the configs Feather ADDS. spark.sql.cache.serializer has existed for
+    # years, so counting it would falsely report readiness on a pre-Feather build.
+    present = sum(1 for k in FEATHER_CONFIGS
+                  if results["feather_configs"].get(k) is not None)
     results["feather_configs_present"] = present
+    serializer = results["feather_configs"].get(ARROW_SERIALIZER_CONF) or ""
+    results["arrow_cache_active"] = ARROW_SERIALIZER_CLASS in serializer
 
     df = (spark.range(0, args.rows)
           .selectExpr("id", "id % 7 as g", "cast(id as string) as s"))
@@ -134,8 +151,13 @@ def main() -> int:
 
     spark.stop()
 
+    if args.rows > 1000:
+        print(f"\n  NOTE: {args.rows} rows is above the Spark 4.3 default cap of 1000 for")
+        print("  spark.sql.optimizer.singleTaskExecution.localTableScan.threshold, so the")
+        print("  shuffle-free rule would not apply to this fixture even once enabled.")
     print(f"\nSpark {results['spark_version']} on {results['platform']}")
     print(f"Feather configs present: {present} of {len(FEATHER_CONFIGS)}")
+    print(f"Arrow cache serializer active: {results['arrow_cache_active']}")
     if present == 0:
         print("  -> This Spark predates Feather. Numbers below are the baseline it improves on.")
     else:
