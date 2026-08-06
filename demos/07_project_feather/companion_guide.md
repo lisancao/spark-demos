@@ -24,7 +24,7 @@ Every query gets a plan, stages, and tasks. The scheduler dispatches those tasks
 
 The costs are individually small. A hundred milliseconds for scheduling here, a hundred there. Nobody notices in a job that runs for an hour. The SPIP puts the small-data consequence bluntly: queries over less than 100 MB can take three seconds or more.
 
-That is the gap that sends people to a specialized single-node engine for exploratory work, and it is the reason the proposal exists.
+That is the gap that sends people to a specialized single-node engine for exploratory work, and it is the reason the proposal exists. Notably, the SPIP does not rest on the authors' own impressions: it cites third-party benchmarks and critiques of Spark's small-data performance as evidence, including [a Spark versus Dask comparison](https://medium.com/coiled-hq/spark-vs-dask-27216502b129) and [an argument that Spark is not always the right choice for not-so-big data](https://medium.com/@pined.lao/why-spark-isnt-always-the-best-choice-for-not-so-big-data-f7b888c3ce59). The motivation is a reputation problem the community can see from outside.
 
 ![Fixed overhead dominates a small query and is a rounding error on a large ETL job. Measured on Spark 4.2.0: a 5,000-row filter and sort takes 191 ms and still plans one shuffle.](graphics/f1-overhead-stack.png)
 
@@ -110,6 +110,18 @@ Spark Connect decouples the client from the cluster, so you write logic against 
 
 Feather is about how fast the engine executes locally. You can run a Spark Connect server on your own machine, connect a local client, and get Feather's benefits; you can also use classic mode, where your program becomes the driver, and get them there too. Spark Connect is the better default for most people because the same code moves between a laptop and any cluster without changes, but it is orthogonal to what Feather does.
 
+## How will we know if it worked?
+
+The SPIP commits to three milestones, one per category, plus a reproducibility requirement that is the most useful part for anyone evaluating the work later:
+
+| Milestone | Scope |
+|---|---|
+| 1 | The query compilation and task scheduling improvements, grouped as one milestone since they are many small independent changes |
+| 2 | Implement and launch the columnar `df.cache` |
+| 3 | Implement and launch multi-threaded shuffle-free execution in local mode |
+
+The performance check is to build macro-benchmarks for each milestone so the gains are reproducibly verifiable. That matters because the honest answer to "how much faster" depends on your machine, your data, and your query shape. A committed benchmark suite means the claim can be checked rather than taken on faith, which is also why the companion harness measures your baseline instead of quoting someone else's speedup.
+
 ## What can I use today?
 
 Nothing yet, and that is worth being direct about, because the timeline is easy to misread.
@@ -168,4 +180,4 @@ The SPIP thread on the Spark developer mailing list is the main venue, and pull 
 
 **Lisa N. Cao** works on Apache Spark at Databricks and hosts the Apache Spark YouTube channel.
 
-*This article draws on a conversation on the Apache Spark YouTube channel and on the public SPIP document. [Link to video]*
+*This article draws on a conversation on the Apache Spark YouTube channel and on the [public SPIP document](https://docs.google.com/document/d/1Nphejrf_vh4YRECn0JPgKClqxDS_lB6wufZFJQxyY98/edit). Every claim attributed to the proposal was checked against that document; API names and merge status came from the Apache Spark source and JIRA. [Link to video]*
