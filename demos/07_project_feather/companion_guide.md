@@ -8,17 +8,17 @@ The proposal ([SPARK-56978](https://issues.apache.org/jira/browse/SPARK-56978)) 
 
 ## What the proposal targets
 
-Feather's objective is narrow, and reading it precisely matters. The proposal aims to improve Spark's usability and interactivity for small-data queries, making it more useful for individuals and beginners. It does not aim to outperform specialized single-node engines. The goal is to lower the barrier to entry so that a newcomer's first experience of Spark on a laptop is a reasonable one, and so that the path from there to a cluster involves no change of tools.
+Feather's objective is narrow. The proposal aims to improve Spark's usability and interactivity for small-data queries, making it more useful for individuals and beginners. It does not aim to outperform specialized single-node engines. The goal is to lower the barrier to entry, so that a newcomer's first experience of Spark on a laptop is a reasonable one. The path from there to a cluster should then involve no change of tools.
 
 That framing rules some things out. Feather is not a new engine, and it changes no APIs. The SQL language, the SQL API, and the DataFrame APIs in Python and Scala all stay as they are, deliberately, because years of community work sit behind them. What changes is the fixed cost Spark pays around a query.
 
 ## The problem
 
-Spark's architecture is optimized for distributed, large-scale processing. Every query gets a plan, stages, and tasks; the scheduler dispatches those tasks to executors; task descriptions are serialized and deserialized; the plan is traversed repeatedly for analysis and optimization; and blocking shuffles separate the stages so adaptive query execution can re-plan on real statistics. All of it serves fault tolerance, transient failure recovery, and adaptive execution.
+Spark's architecture is optimized for distributed, large-scale processing. Every query gets a plan, stages, and tasks. The scheduler dispatches those tasks to executors, serializing and deserializing task descriptions on the way. Catalyst traverses the plan repeatedly for analysis and optimization. Blocking shuffles separate the stages, which is what allows adaptive query execution to re-plan on real statistics. All of it serves fault tolerance, transient failure recovery, and adaptive execution.
 
 Individually these costs are small, tens of milliseconds and sometimes less. Nobody notices them in a job that runs for an hour. The SPIP states the small-data consequence directly: queries over less than 100 MB often run for three seconds or more.
 
-Three seconds is long enough to change behavior. Users doing basic analysis reach for a simpler single-node engine, which the proposal identifies as a barrier to Spark adoption rather than a preference. The SPIP does not rest on the authors' own impressions here; it cites third-party pieces on Spark's small-data performance, including a Spark versus Dask comparison, an essay on Spark and not-so-big data, and a runtime benchmark. The motivation is a reputation problem visible from outside the project.
+Three seconds is long enough to change behavior. Users doing basic analysis reach for a simpler single-node engine, which the proposal identifies as a barrier to Spark adoption rather than a preference. The SPIP does not rest on the authors' own impressions here. It cites third-party writing on Spark's small-data performance: a Spark versus Dask comparison, an essay on Spark and not-so-big data, and a runtime benchmark. The motivation is a reputation problem visible from outside the project.
 
 ![Fixed overhead dominates a small query and is a rounding error on a large ETL job.](graphics/f1-overhead-stack.png)
 
@@ -48,7 +48,7 @@ Query compilation covers analysis, optimization, and physical planning. On large
 
 In the proposal's example, when the planner knows a scan comprises exactly one file it can report `SinglePartition` output partitioning instead of the default. Spark then skips an intermediate shuffle before a following aggregation or hash join. A prototype of a filter-and-sort over a few thousand rows went from two stages and 330 milliseconds to one stage and 150 milliseconds, which the SPIP describes as a 2x boost on that example.
 
-A larger piece in this category is the [single-pass analyzer](https://issues.apache.org/jira/browse/SPARK-49834), a separate and still-open proposal that rewrites Catalyst's analysis as a single tree traversal. Its own scope note matters for expectations: it does not target average-query latency, and Feather claims its benefit for queries of high plan complexity.
+A larger piece in this category is the [single-pass analyzer](https://issues.apache.org/jira/browse/SPARK-49834), a separate and still-open proposal that rewrites Catalyst's analysis as a single tree traversal. Its own scope note is worth reading alongside Feather's: it does not target average-query latency, and Feather claims its benefit for queries of high plan complexity.
 
 Status: described in the SPIP, but the umbrella has three subtasks and none is this category. Milestone 1 has not started as filed work.
 
@@ -68,7 +68,7 @@ Spark separates stages with blocking shuffles: data is serialized, written to di
 
 ![Blocking shuffle versus in-process channels.](graphics/f3-shuffle-vs-channel.png)
 
-The work has two parts. The first, merged for 4.3, adds a conservative optimizer rule (`MarkSingleTaskExecution`) that matches a plan reading a single small file, or a small in-memory relation, with at most one shuffle-inducing operator above it: sort, aggregate, window, expand, or limit and offset. Eligible scans report `SinglePartition` output partitioning, which lets `EnsureRequirements` elide the shuffle. Joins are deliberately left for a follow-up.
+The work has two parts. The first, merged for 4.3, adds a conservative optimizer rule called `MarkSingleTaskExecution`. It matches a plan that reads a single small file, or a small in-memory relation, with at most one shuffle-inducing operator above it: sort, aggregate, window, expand, or limit and offset. Eligible scans report `SinglePartition` output partitioning, which lets `EnsureRequirements` elide the shuffle. Joins are deliberately left for a follow-up.
 
 For the second part, not yet contributed, in-process channels replace the disk hop:
 
@@ -88,7 +88,7 @@ Status: part one merged ([SPARK-57851](https://issues.apache.org/jira/browse/SPA
 
 ## Scope boundaries
 
-Feather is scoped to local mode, and two boundaries are worth understanding because they explain design decisions that would otherwise look conservative.
+Feather is scoped to local mode. Three boundaries follow from that, and they explain design decisions that would otherwise look conservative.
 
 **Clusters are out of scope.** The proposal's reason is a capability constraint: shuffle-free execution only works when all data fits and is processed in a single JVM, so it cannot replace distributed shuffle for multi-node clusters. Improvements to cluster execution will be tangential only, with reduced task serialization named as the example that generalizes. Daniel also raised a maintenance concern in conversation: a second execution path in distributed jobs means anyone debugging a production pipeline has to ask which path their query took.
 
