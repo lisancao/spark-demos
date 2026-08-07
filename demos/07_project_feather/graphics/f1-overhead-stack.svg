@@ -41,8 +41,8 @@
   <text class="tick" x="60" y="546">0</text>
   <text class="tick" x="1140" y="546" text-anchor="end">elapsed time</text>
 
-  <text class="sub" x="60" y="588">Measured on stock Spark 4.2.0 over 5,000 in-memory rows: a filter and sort takes 191 ms and</text>
-  <text class="sub" x="60" y="610">still plans one shuffle. SELECT 1, with no data at all, takes 20 ms.</text>
+  <text class="sub" x="60" y="588">Measured on stock Spark 4.2.0 over 800 in-memory rows: a filter and sort has a median of</text>
+  <text class="sub" x="60" y="610">217 ms and still plans one shuffle. SELECT 1, with no data at all, takes 20 ms.</text>
 
   <text class="cap" x="600" y="652" text-anchor="middle">Project Feather removes the cost that small data cannot amortize.</text>
 </svg>
