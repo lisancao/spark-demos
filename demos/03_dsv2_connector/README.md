@@ -2,7 +2,7 @@
 
 A working Apache Spark DataSource V2 connector, the same connector written against
 DataSource V1 for comparison, and a catalog implementation. Everything here compiles
-and runs against **Apache Spark 4.2.0**, and every claim is checked by a script.
+and runs against Apache Spark **4.2.0** and the **4.3.0-rc1** distribution, and every claim is checked by a script.
 
 Companion project for the blog post [`blog_dsv2.md`](blog_dsv2.md), *How DataSource V2
 Made Spark Table Formats Pluggable*, and for the written deep dive
@@ -222,3 +222,8 @@ On 2026-09-23, against a Homebrew `apache-spark` 4.2.0 install
   `companion_guide.md` (71 code lines) in agreement with the committed source.
 - Every API name in the prose was checked against the Spark source at tag `v4.2.0`,
   and every JIRA link was resolved against issues.apache.org on the same date.
+
+On 2026-09-23 the same three commands were also run against the Spark **4.3.0-rc1**
+distribution (`spark-4.3.0-bin-hadoop3.tgz` from dist.apache.org): `./demo.sh`
+exited with status 0 and `./verify.sh` reported the same 29 passed, 0 failed, with
+both prose files still agreeing with the source.

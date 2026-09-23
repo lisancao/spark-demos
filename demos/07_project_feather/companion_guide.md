@@ -98,7 +98,7 @@ Feather is scoped to local mode. Three boundaries follow from that, and they exp
 
 ## Status and what to expect
 
-Apache Spark 4.2.0 is the current release, and **none of Feather's configuration flags exist in it**. The merged work sits in `branch-4.3`, targeted at 4.3.0, which has not shipped. Estimates put the remaining work at three to six months, depending on how many people are on it.
+Apache Spark 4.2.0 is the current release, and **none of Feather's configuration flags exist in it**. The merged work sits in `branch-4.3`, targeted at 4.3.0, which is in release candidate (rc1 published). Estimates put the remaining work at three to six months, depending on how many people are on it.
 
 | Category | Merged | Available |
 |---|---|---|
@@ -110,7 +110,7 @@ Apache Spark 4.2.0 is the current release, and **none of Feather's configuration
 
 Two details in that table will shape your first experience of 4.3. The shuffle-free rule ships disabled, so upgrading alone changes nothing until you set `spark.sql.optimizer.singleTaskExecution.enabled`. And for in-memory relations it applies only at or below 1,000 rows by default, so a larger test fixture stays ineligible even with the flag on. The eventual goal is that none of this needs tuning, since Spark already knows when it is running locally. For now it is opt-in while the code settles.
 
-Each of the three categories has to clear its own milestone, and each comes with macro-benchmarks so anyone can reproduce the gains. That last part matters more than it sounds, because how much faster you get depends on your machine, your data, and your query shape. A [companion harness](https://github.com/lisancao/spark-42-demos) measures session creation, small-query latency, and the shuffle count in your plans, so you can take your own before-and-after reading across the upgrade.
+Each of the three categories has to clear its own milestone, and each comes with macro-benchmarks so anyone can reproduce the gains. That last part matters more than it sounds, because how much faster you get depends on your machine, your data, and your query shape. A [companion harness](https://github.com/lisancao/spark-demos) measures session creation, small-query latency, and the shuffle count in your plans, so you can take your own before-and-after reading across the upgrade.
 
 ## Getting involved
 
@@ -124,4 +124,4 @@ For a project whose original promise was running anywhere, from a laptop to a th
 
 **Lisa N. Cao** works on Apache Spark at Databricks and hosts the Apache Spark YouTube channel.
 
-*Based on a conversation on the Apache Spark YouTube channel and the [public SPIP document](https://docs.google.com/document/d/1Nphejrf_vh4YRECn0JPgKClqxDS_lB6wufZFJQxyY98/edit). Technical claims were checked against the proposal and its comment thread; config names, defaults, and merge status come from `branch-4.3` of the Apache Spark source and from JIRA. [Link to video]*
+*Based on a conversation on the Apache Spark YouTube channel and the [public SPIP document](https://docs.google.com/document/d/1Nphejrf_vh4YRECn0JPgKClqxDS_lB6wufZFJQxyY98/edit). Technical claims were checked against the proposal and its comment thread; config names, defaults, and merge status come from `branch-4.3` of the Apache Spark source and from JIRA.*

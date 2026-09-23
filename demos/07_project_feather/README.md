@@ -1,6 +1,6 @@
 # Project Feather baseline harness
 
-Companion code for the blog post *How Project Feather makes Spark fast on a laptop*.
+Companion code for the blog post [`blog_project_feather.md`](blog_project_feather.md), *Project Feather: Making Apache Spark Fast for Local Prototyping*.
 
 Project Feather ([SPARK-56978](https://issues.apache.org/jira/browse/SPARK-56978)) is
 a Spark Improvement Proposal to cut local-mode query latency. This harness measures
@@ -35,14 +35,16 @@ the feature does nothing.
 
 The Arrow cache ([SPARK-57268](https://issues.apache.org/jira/browse/SPARK-57268))
 and shuffle-free single-task execution
-([SPARK-57851](https://issues.apache.org/jira/browse/SPARK-57851)) are resolved on
-master and targeted for 4.3.0, which has not shipped. Local repartition
-([SPARK-57399](https://issues.apache.org/jira/browse/SPARK-57399)) is still open.
+([SPARK-57851](https://issues.apache.org/jira/browse/SPARK-57851)) are resolved and
+targeted for 4.3.0, which is in release candidate (rc1). Local repartition
+([SPARK-57399](https://issues.apache.org/jira/browse/SPARK-57399)) is resolved
+targeting 4.4.0.
 
-So a true before/after is not runnable yet. What this harness does instead is measure
-the baseline and probe for the configs, so the same script tells you when your build
-has them. Run it now, run it again after upgrading, and the delta is your own number
-rather than someone else's benchmark.
+So a true before/after needs a build with the merged work. With the 4.3.0-rc1
+distribution now published, this repo records one: see "Status on 4.3" below. What
+the harness does in either case is measure the baseline and probe for the configs,
+so the same script tells you when your build has them. Run it now, run it again
+after upgrading, and the delta is your own number rather than someone else's benchmark.
 
 ## What it measures
 
@@ -109,3 +111,19 @@ bench/feather_baseline.py   the harness
 bench/results.json          written on each run
 graphics/                   diagrams used in the blog post (SVG source + PNG)
 ```
+
+## Status on 4.3
+
+Verified 2026-09-23 against the Spark **4.3.0-rc1** binary distribution
+(`spark-4.3.0-bin-hadoop3.tgz` from dist.apache.org):
+
+- The same-day before/after pair is committed as `bench/results-4.2.0.json`
+  and `bench/results-4.3.0-rc1.json`; `bench/results.json` is the earlier
+  4.2.0 baseline.
+- On 4.3.0-rc1 the probe reports **8 of 9** Feather configs visible (the
+  `spark.sql.unionOutputPartitioning` key is not readable from a session), with
+  the shuffle-free rule still off by default and capped at 1,000 in-memory rows.
+- With defaults, medians on this machine moved from 187.6 ms to 129.0 ms
+  (filter + sort) and 137.7 ms to 80.1 ms (aggregate); session creation from
+  4,114.6 ms to 3,342.2 ms. These are upgrade-with-defaults numbers, not tuned
+  Feather numbers.

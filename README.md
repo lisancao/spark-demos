@@ -1,46 +1,17 @@
-# Spark 4.2 Demos — contained sandbox
+# Apache Spark Demos
 
-A self-contained workspace for building 5 DevRel demos on Apache Spark 4.2 features.
-Deliberately isolated from the live `~/lakehouse-stack` infrastructure and untouching of
-`~/repos/safe-spark-agents`.
+DevRel demos for Apache Spark features, each self-contained in `demos/NN_<feature>/`
+with its own blog post, companion guide, runnable examples, and a verification script
+that re-checks the claims in the prose.
 
-## Containment contract
+| # | Demo | Feature | Spark versions verified |
+|---|------|---------|-------------------------|
+| 1 | Metrics Views | Native semantic layer (`demos/01_metrics_views`) | 4.2.0 |
+| 2 | Spark Connect | Decoupled client, embed in AI (`demos/02_spark_connect`) | 4.2.0 |
+| 3 | DataSource V2 | Table formats as first-class plugins (`demos/03_dsv2_connector`) | 4.2.0, 4.3.0-rc1 |
+| 7 | Project Feather | Local-mode latency ([SPARK-56978](https://issues.apache.org/jira/browse/SPARK-56978), `demos/07_project_feather`) | 4.2.0 baseline, 4.3.0-rc1 |
 
-| Concern   | This sandbox                             | Avoided collision                          |
-|-----------|------------------------------------------|--------------------------------------------|
-| Network   | bridge `spark42demos_net`                | lakehouse-stack runs on **host** network   |
-| Ports     | Connect `15099`, UI `8190` (localhost)   | 8070–8087, 7078, 15002 all in use          |
-| Volumes   | `spark42demos_*`                         | never shares lakehouse-stack volumes       |
-| Project   | `-p spark42demos`                        | own compose namespace                      |
-| Image     | `lakehouse/spark:5.0.0-snapshot-cdc`     | reused read-only; no rebuild of shared img |
-
-The stack is **parked** — bringing it up is opt-in, never part of setup:
-
-```bash
-cd ~/Documents/spark_content/spark_42_demos
-docker compose -p spark42demos -f compose/docker-compose.yml up -d      # start
-docker compose -p spark42demos -f compose/docker-compose.yml down -v    # full teardown
-```
-
-## The demos
-
-| # | Demo | Feature |
-|---|------|---------|
-| 1 | Metrics Views | Native semantic layer (`demos/01_metrics_views`) |
-| 2 | Spark Connect | Decoupled client, embed in AI (`demos/02_spark_connect`) |
-| 3 | DataSource V2 | Table formats as first-class plugins (`demos/03_dsv2_connector`) |
-| 7 | Project Feather | Spark Connect local mode (`demos/07_project_feather`) |
-
-Demos 1 and 2 run against the official `apache/spark:4.2.0` image through their own
-Compose stacks. Demo 3 compiles and runs against a local Spark 4.2.0 install and needs
-no cluster.
-
-> **Image:** The sandbox defaults to `lakehouse/spark:5.0.0-snapshot-cdc` (locally-built snapshot).
-> To upgrade to a newer release, set `SPARK_IMAGE` in `compose/.env` (see `compose/.env.example`)
-> and re-pull:
-> ```bash
-> export SPARK_IMAGE=apache/spark:4.2.0   # or whichever tag is current
-> docker compose -p spark42demos -f compose/docker-compose.yml pull
-> docker compose -p spark42demos -f compose/docker-compose.yml up -d
-> ```
-> Check available tags: `docker images | grep spark` (local) or https://hub.docker.com/r/apache/spark/tags
+Demos 1 and 2 bring their own Compose stacks and run against the official
+`apache/spark:4.2.0` image; re-validating them on 4.3 waits for the official images
+published with the 4.3 release. Demos 3 and 7 run against a local Spark install and
+are verified against both 4.2.0 and the published 4.3.0-rc1 distribution.
