@@ -4,8 +4,8 @@ This guide maps every V1 concept onto its V2 equivalent, using the two working
 connectors in this repo. Both read the same CSV file and return identical results,
 so you can diff them:
 
-- `src/main/java/com/example/dsv2lab/v1/CsvV1Source.java` (about 180 lines, one file)
-- `src/main/java/com/example/dsv2lab/v2/` (six files, about 480 lines)
+- `src/main/java/com/example/dsv2lab/v1/` (236 lines across 2 files)
+- `src/main/java/com/example/dsv2lab/v2/` (994 lines across 8 files)
 
 The V2 version is longer. That is the honest tradeoff and worth stating up front:
 V2 asks you to split one class into a few small ones, and pays you back in

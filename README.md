@@ -22,20 +22,18 @@ docker compose -p spark42demos -f compose/docker-compose.yml up -d      # start
 docker compose -p spark42demos -f compose/docker-compose.yml down -v    # full teardown
 ```
 
-## The 5 demos
+## The demos
 
-Brainstorm + rationale lives in Obsidian:
-`obsidian_vault/spark_content/Spark 4.2 — 5 Demos Brainstorm.md`
+| # | Demo | Feature |
+|---|------|---------|
+| 1 | Metrics Views | Native semantic layer (`demos/01_metrics_views`) |
+| 2 | Spark Connect | Decoupled client, embed in AI (`demos/02_spark_connect`) |
+| 3 | DataSource V2 | Table formats as first-class plugins (`demos/03_dsv2_connector`) |
+| 7 | Project Feather | Spark Connect local mode (`demos/07_project_feather`) |
 
-| # | Demo                    | Feature                        | Priority |
-|---|-------------------------|--------------------------------|----------|
-| 1 | Metrics Views           | Native semantic layer          | **#1**   |
-| 2 | Spark Connect           | Decoupled client / embed in AI | 2        |
-| 3 | New Spark SQL           | QUALIFY, time_bucket, cursors  | 3        |
-| 4 | RTM in PySpark          | ms-latency stateless streaming | 4        |
-| 5 | Vector Search / NEAREST BY | Top-K similarity retrieval  | 5 (rec.) |
-
-Each `demos/NN_*/` dir is a stub to be filled once the lineup is locked.
+Demos 1 and 2 run against the official `apache/spark:4.2.0` image through their own
+Compose stacks. Demo 3 compiles and runs against a local Spark 4.2.0 install and needs
+no cluster.
 
 > **Image:** The sandbox defaults to `lakehouse/spark:5.0.0-snapshot-cdc` (locally-built snapshot).
 > To upgrade to a newer release, set `SPARK_IMAGE` in `compose/.env` (see `compose/.env.example`)

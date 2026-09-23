@@ -63,13 +63,16 @@ printf 'id,name,dept\n1,ada,eng\n2,grace,eng\n3,alan,research\n4,katherine,math\
 echo "== Running verification suite"
 python3 examples/verify_all.py
 
-# The blog post inlines code from these files. Catch drift between the two.
+# The blog post and the companion guide inline code from these files. Catch
+# drift between the prose and the source.
 echo
-echo "== Checking the blog post's code samples still match this source"
-python3 examples/check_blog_code.py || {
-  echo "   Post and code have drifted. Fix whichever is wrong." >&2
-  exit 1
-}
+echo "== Checking that the post and guide code samples still match this source"
+for post in blog_dsv2.md companion_guide.md; do
+  python3 examples/check_blog_code.py "$post" || {
+    echo "   $post and the code have drifted. Fix whichever is wrong." >&2
+    exit 1
+  }
+done
 
 echo
 echo "== All checks passed"

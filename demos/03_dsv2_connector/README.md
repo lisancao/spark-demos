@@ -1,11 +1,12 @@
-# DSV2 Connector Lab
+# Demo 3: DataSource V2 Connector in Apache Spark 4.2
 
 A working Apache Spark DataSource V2 connector, the same connector written against
 DataSource V1 for comparison, and a catalog implementation. Everything here compiles
 and runs against **Apache Spark 4.2.0**, and every claim is checked by a script.
 
-Companion code for the blog post *What Is Spark DataSource V2? How Apache Spark Made
-Table Formats Pluggable*.
+Companion project for the blog post [`blog_dsv2.md`](blog_dsv2.md), *How DataSource V2
+Made Spark Table Formats Pluggable*, and for the written deep dive
+[`companion_guide.md`](companion_guide.md).
 
 ## Quick start
 
@@ -206,3 +207,18 @@ than `columns()`.
 The official API documentation is
 [Spark Data Source V2](https://spark.apache.org/docs/4.2.0/sql-data-sources-v2.html),
 new as of Spark 4.2.0.
+
+## Verification Status
+
+On 2026-09-23, against a Homebrew `apache-spark` 4.2.0 install
+(`/opt/homebrew/Cellar/apache-spark/4.2.0/libexec`) with Homebrew JDK 17
+(`openjdk@17`) and a Python 3.13 venv carrying the matching `py4j==0.10.9.9`:
+
+- `./demo.sh` exited with status 0 and printed the DSV1, DSV2 and catalog plans from
+  the blog post, including the 236 / 994 / 365 line counts of the three connector
+  parts.
+- `./verify.sh` ended with `29 passed, 0 failed`.
+- `examples/check_blog_code.py` reported `blog_dsv2.md` (117 code lines) and
+  `companion_guide.md` (71 code lines) in agreement with the committed source.
+- Every API name in the prose was checked against the Spark source at tag `v4.2.0`,
+  and every JIRA link was resolved against issues.apache.org on the same date.

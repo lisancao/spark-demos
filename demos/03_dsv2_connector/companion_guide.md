@@ -261,7 +261,7 @@ Considerably more. The Hive Metastore tracked databases, tables, columns, and pa
 
 ## Tutorial: build a DSV2 connector and see the difference
 
-The rest of this article is a hands-on walkthrough with the code inline, so it reads without a checkout. Every snippet below is real code from the companion repository, which contains a DSV2 connector, the same source written against DSV1, and a catalog, all running against Apache Spark 4.2.0. Every plan and table shown is captured output, not an illustration.
+The rest of this article is a hands-on walkthrough with the code inline, so it reads without a checkout. Every snippet below is real code from the project in this repository (`demos/03_dsv2_connector`), which contains a DSV2 connector, the same source written against DSV1, and a catalog, all running against Apache Spark 4.2.0. Every plan and table shown is captured output, not an illustration.
 
 Prerequisites are a JDK 17 or 21 and an Apache Spark 4.2.0 install. Nothing else needs downloading, because the project compiles against the jars in your Spark distribution.
 
@@ -681,7 +681,7 @@ Note that a plain IDE run needs `--add-opens` flags that `spark-submit` sets for
 
 The V1 and V2 connectors are also checked to return identical output, which is what makes the migration mapping above trustworthy rather than aspirational.
 
-The tradeoff is worth stating plainly, since the demo prints it: the V1 connector is 236 lines across 2 files, the V2 connector is 746 lines across 8, plus 365 lines for the catalog. V2 is more code. You are buying capability, not brevity.
+The tradeoff is worth stating plainly, since the demo prints it: the V1 connector is 236 lines across 2 files, the V2 connector is 994 lines across 8, plus 365 lines for the catalog. V2 is more code. You are buying capability, not brevity.
 
 Every code sample in this article comes from that repository, and every API name was checked against the Spark 4.2.0 source rather than from memory.
 
