@@ -151,7 +151,15 @@ For a project whose original promise was running anywhere, from a laptop to a th
 
 ## Run it yourself
 
-The companion harness lives in this repository at `demos/07_project_feather/bench/feather_baseline.py`. Run it on any Spark install to measure what Feather targets, and again after upgrading to see your own delta:
+The guided demo in this repository shows the headline plan transform directly: the same small query
+plans a 200-way shuffle with the flag off and a single-task `LocalTableScan` with it on, followed
+by medians and the 1,000-row cap.
+
+```bash
+cd demos/07_project_feather && ./demo.sh      # needs Spark 4.3 (or branch-4.3) for the "on" half
+```
+
+For the overhead measurements, the baseline harness runs on any Spark install:
 
 ```bash
 python3 demos/07_project_feather/bench/feather_baseline.py --reps 9
@@ -168,11 +176,11 @@ Measured on this machine (Darwin arm64, 800 in-memory rows, 9 reps, medians, all
 | Cached query | 39.3 ms | 32.5 ms |
 | `SELECT 1` | 15.6 ms | 18.5 ms |
 
-The shuffle-free rule ships off in 4.3, so neither row of the table enables it; these are
-upgrade-with-defaults numbers plus session-config probes, not tuned Feather numbers. Enabling
-`spark.sql.optimizer.singleTaskExecution.enabled` and re-running the harness is the before/after
-read the proposal's milestones describe. The recorded JSON for both rows is committed in
-`demos/07_project_feather/bench/`.
+The shuffle-free rule ships off in 4.3, so neither row defaults-enables it; these are
+upgrade-with-defaults numbers plus session-config probes, not tuned Feather numbers. The
+before/after read is the guided demo above (`./demo.sh`), because its `VALUES` relation is
+the `LocalRelation` shape `MarkSingleTaskExecution` actually matches. The recorded JSON for
+both harness rows is committed in `demos/07_project_feather/bench/`.
 
 ---
 

@@ -29,9 +29,9 @@ Verified by probing a live session rather than reading release notes:
 
 Two things this table is designed to prevent you from assuming. The shuffle-free rule
 ships **off** in 4.3, so upgrading alone changes nothing. And for in-memory relations it
-only applies at or below **1,000 rows**, which is why this harness defaults to 800: a
-5,000-row fixture would stay ineligible even with the flag on, and you would conclude
-the feature does nothing.
+only applies at or below **1,000 rows** by default. The harness defaults to 800 so a
+fixture is well inside that cap; the demo (`feather_demo.py`) shows the cap biting at
+2,001 rows.
 
 The Arrow cache ([SPARK-57268](https://issues.apache.org/jira/browse/SPARK-57268))
 and shuffle-free single-task execution
@@ -66,6 +66,11 @@ Methodology notes, since they affect how much to trust the numbers:
 - Medians are reported alongside min and max. On a laptop with other work running,
   the max is often much higher; the median is the honest number.
 - `Exchange` count is read from the physical plan, not inferred from timing.
+
+The harness builds its fixture with `spark.range`, which plans a `Range` node rather than
+the `LocalRelation` that `MarkSingleTaskExecution` matches, so the measured overheads are
+the baseline those optimizations remove. The demo uses a `VALUES` relation (a true
+`LocalRelation`) so the flag visibly deletes the exchange.
 
 ## Sample output
 
@@ -107,8 +112,10 @@ because a source build is a multi-hour prerequisite.
 ## Files
 
 ```
-bench/feather_baseline.py   the harness
-bench/results.json          written on each run
+feather_demo.py             the guided demo (plan before/after, timing, the 1,000-row cap)
+demo.sh                     locate Spark and run the demo
+bench/feather_baseline.py   the measurement harness
+bench/results*.json         recorded runs on 4.2.0 and 4.3.0-rc1
 graphics/                   diagrams used in the blog post (SVG source + PNG)
 ```
 
