@@ -72,6 +72,7 @@ def main():
     ap.add_argument("--shuffle-within-tick", action="store_true")
     ap.add_argument("--loop", action="store_true", help="replay forever, advancing sim_tick each pass")
     ap.add_argument("--max-ticks", type=int, default=0, help="stop after this many replayed ticks (0 = all)")
+    ap.add_argument("--tick-offset", type=int, default=0, help="start sim_tick here (append to an earlier replay; fresh event ids)")
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
@@ -104,7 +105,7 @@ def main():
             send(payload, key)
             sent += 1
 
-    tick_offset = 0
+    tick_offset = args.tick_offset
     replayed_ticks = 0
     i = 0
     start = time.monotonic()

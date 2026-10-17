@@ -18,5 +18,6 @@ exec /opt/spark/bin/spark-submit \
   --conf spark.sql.streaming.stateStore.rocksdb.changelogCheckpointing.enabled=true \
   --conf spark.sql.streaming.stateStore.checkpointFormatVersion=2 \
   --conf spark.ui.showConsoleProgress=false \
+  ${EXTRA_CONF:-} \
   --class "nightcity.jobs.${JOB}" \
   "$JAR" "$@"

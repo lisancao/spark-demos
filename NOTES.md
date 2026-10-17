@@ -47,3 +47,16 @@ Engine gotcha, worth its own paragraph: `Trigger.AvailableNow` never terminates 
 | ncpd (ValueState + processing-time timers, 10 s SLA) | ProcessingTime | 567 (326 answered, 57 declined, 30 unanswered, 127 superseded, 27 orphan responses) | 28 state rows at end | 528 crimes, 404 responses expected. 27 orphans are responses whose crime arrived 20 s later (5% late). 127 superseded: the same location+crime key recurs across the four replay passes, 30 s apart in event time but about 4 s apart in processing time because the replay is compressed into 40 fast batches, so the SLA timer (processing time) had not fired yet. Processing-time timers measure the pipeline's clock, not the world's; a replay at real pace or an event-time SLA removes this. |
 
 Same-timestamp ordering bug, found by these numbers: the sim resolves a whole fight, and a crime plus its response, inside one tick, so rows share an event time. Sorting by time alone put `ended` before its rounds and responses before their crimes (first run: 109 orphan responses, round counts right in only 233 fights). Fix: a per-type rank in the sort key. Both cases are now unit tests.
+
+## Phase 4: composite state, initial state, schema evolution (2026-10-17)
+
+Input: `nightcity.replay3`, now with a fifth pass appended (`--tick-offset 1200`, seed 11), 49,556 messages.
+
+**faction** (MapState territories, ListState last 10 relations, ValueState cached count; `TimeMode.None`): 777 rows, 6 factions, 65 s.
+Territory counts at the end equal the distinct locations each faction gains in one pass of the recording (los_nakamura 13, maxtac 5, mbekis 5, subnet_drift 4, okonkwo 2, santos 2) although the stream replays those gains five times: a MapState keyed by location is idempotent by construction. `relations` is capped at 10 by rewriting the list on overflow; mbekis_circle has 0 because the sim never emits a relation event for it.
+
+**risk v1** (ValueState[Risk] seeded from the 70-row roster via `StatefulProcessorWithInitialState`, Avro state encoding, 4 passes): 534 rows, 14 NPCs ever emit (only attackers and the warned), 57 s. Top score kuro_the_31th: chrome 28, 138 attacks, 28 defeats, score 337, critical. Levels across rows: 333 critical, 87 elevated, 114 stable.
+
+**risk v2 resuming v1's checkpoint** (state case class gains `last_warning_at: Option[Timestamp]`, same variable name): started at batch 41, processed the fifth pass in 10 batches, 131 new rows, no errors, 27 s. Required `spark.sql.streaming.stateStore.encodingFormat=avro` from the first run; UnsafeRow encoding would have failed the restart. The roster initial state is not re-applied on resume (it is a batch-0 thing), which is the behaviour you want.
+
+Drain logic, third revision: "drained" now means DRAIN_SECONDS since the last batch that carried input, checked against the clock. `TimeMode.None` and `EventTime` queries run no batch at all without input, so waiting for an empty progress event never ends.

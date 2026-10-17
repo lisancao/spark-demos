@@ -16,7 +16,7 @@ object Processors {
     val name = args.headOption.getOrElse(sys.error("usage: Processors <presence|combat|ncpd> [--once]"))
     val once = args.contains("--once")
     val out = sys.env.getOrElse("DATA_DIR", "/app/data")
-    val tag = sys.env.getOrElse("RUN_TAG", name)
+    val tag = sys.env.getOrElse("RUN_TAG", if (name == "risk2") "risk" else name) // risk2 resumes risk's checkpoint
     implicit val spark: SparkSession = SparkSession.builder().appName(s"nightcity-$tag").getOrCreate()
     import spark.implicits._
     spark.sparkContext.setLogLevel("WARN")
@@ -41,6 +41,19 @@ object Processors {
           .groupByKey(e => s"${e.location_id}:${e.crime_type}")
           .transformWithState(new NcpdResponse(slaMs = sys.env.getOrElse("SLA_MS", "10000").toLong),
             TimeMode.ProcessingTime(), OutputMode.Append())
+      case "faction" =>
+        events.filter(_.event_type.startsWith("faction."))
+          .groupByKey(_.faction_id)
+          .transformWithState(new FactionTerritory(keep = sys.env.getOrElse("KEEP_RELATIONS", "10").toInt),
+            TimeMode.None(), OutputMode.Append())
+      case "risk" | "risk2" =>
+        val roster = spark.read.json(sys.env.getOrElse("ROSTER", s"$out/roster/npcs.jsonl"))
+          .selectExpr("agent_id", "agent_name", "role", "cast(chrome_score as int) chrome_score", "cast(cyberware_count as int) cyberware_count")
+          .as[nightcity.Roster].groupByKey(_.agent_id)
+        val keyed = events.filter(e => e.event_type == "agent.attack" || e.event_type == "combat.ended" || e.event_type == "world.cyberpsychosis")
+          .groupByKey(e => if (e.event_type == "combat.ended") e.attacker_id else e.agent_id)
+        if (name == "risk") keyed.transformWithState(new CyberpsychosisRisk(), TimeMode.ProcessingTime(), OutputMode.Append(), roster)
+        else keyed.transformWithState(new CyberpsychosisRiskV2(), TimeMode.ProcessingTime(), OutputMode.Append(), roster)
       case other => sys.error(s"unknown processor $other")
     }
 
@@ -50,16 +63,12 @@ object Processors {
     // The stop is issued right after a batch commits, in the trigger gap, so no batch is interrupted.
     val drainMs = sys.env.getOrElse("DRAIN_SECONDS", "20").toLong * 1000
     @volatile var sawData = false
-    @volatile var idleSince = -1L
-    @volatile var stopRequested = false
+    @volatile var lastDataAt = -1L
     if (once) spark.streams.addListener(new org.apache.spark.sql.streaming.StreamingQueryListener {
       override def onQueryStarted(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryStartedEvent): Unit = ()
       override def onQueryTerminated(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryTerminatedEvent): Unit = ()
       override def onQueryProgress(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryProgressEvent): Unit = {
-        val p = e.progress
-        if (p.numInputRows > 0) { sawData = true; idleSince = -1L }
-        else if (sawData && idleSince < 0) idleSince = System.currentTimeMillis()
-        if (sawData && idleSince > 0 && System.currentTimeMillis() - idleSince >= drainMs) stopRequested = true
+        if (e.progress.numInputRows > 0) { sawData = true; lastDataAt = System.currentTimeMillis() }
       }
     })
 
@@ -72,10 +81,10 @@ object Processors {
       .start()
 
     if (once) {
-      // In EventTime mode no batch runs without input, so the listener alone would never see the drain
-      // expire: check the clock here as well.
-      def drained = sawData && idleSince > 0 && System.currentTimeMillis() - idleSince >= drainMs
-      while (q.isActive && !stopRequested && !drained) Thread.sleep(200)
+      // Drained = DRAIN_SECONDS since the last batch that carried input. In EventTime and None modes no batch
+      // runs at all without input, so this has to be checked against the clock, not against progress events.
+      def drained = sawData && System.currentTimeMillis() - lastDataAt >= drainMs
+      while (q.isActive && !drained) Thread.sleep(200)
       if (q.isActive) q.stop()
     }
     q.awaitTermination()

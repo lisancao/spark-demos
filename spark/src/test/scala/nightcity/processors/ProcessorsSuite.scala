@@ -91,3 +91,45 @@ class ProcessorsSuite extends AnyFunSuite {
     assert(t.peekValueState[OpenCrime]("open_crime", "stall:assault").isEmpty)
   }
 }
+
+class Phase4Suite extends AnyFunSuite {
+  private def ev(t: String, ms: Long, agent: String = "", loc: String = "", faction: String = "", influence: Option[Double] = None,
+                 description: String = null, result: String = "", chrome: Option[Int] = None): Ev =
+    Ev(s"$t-$ms", t, new Timestamp(ms), ms / 100, agent, agent, loc, "", agent, "", None, None, result,
+      "", "", None, None, None, chrome, "", faction, "", None, None, None, "", "", influence, description, null, null)
+
+  test("faction: territories are a map, relations a bounded list") {
+    val t = new TwsTester[String, Ev, nightcity.FactionUpdate](new FactionTerritory(keep = 3))
+    t.test("nakamura", List(ev("faction.territory_gained", 1000, faction = "nakamura", loc = "stall_24", influence = Some(0.7))))
+    t.test("nakamura", List(ev("faction.territory_gained", 2000, faction = "nakamura", loc = "stall_24", influence = Some(0.9)))) // same place, stronger grip
+    val out = t.test("nakamura", List(ev("faction.territory_gained", 3000, faction = "nakamura", loc = "bar_3", influence = Some(0.2))))
+    assert(out.map(_.territories) == List(2))
+    assert(t.peekMapState[String, Double]("territories", "nakamura") == Map("stall_24" -> 0.9, "bar_3" -> 0.2))
+    (1 to 5).foreach(i => t.test("nakamura", List(ev("faction.relation_change", 4000 + i, faction = "nakamura", description = s"talk $i"))))
+    assert(t.peekListState[String]("relations", "nakamura") == List("talk 3", "talk 4", "talk 5"))
+    val lost = t.test("nakamura", List(ev("faction.territory_lost", 9000, faction = "nakamura", loc = "bar_3")))
+    assert(lost.map(_.territories) == List(1))
+  }
+
+  test("risk: roster seeds the state, events move the score, unknown NPCs start from zero") {
+    val t = new TwsTester[String, Ev, nightcity.RiskUpdate](new CyberpsychosisRisk(),
+      initialState = List(("smasher", nightcity.Roster("smasher", "Smasher", "solo_merc", 75, 4))), timeMode = TimeMode.ProcessingTime())
+    assert(t.peekValueState[Risk]("risk", "smasher").get.chrome_score == 75)
+    val a = t.test("smasher", List(ev("agent.attack", 1000, agent = "smasher")))
+    assert(a.map(r => (r.attacks, r.score, r.level)) == List((1L, 75 * 0.5 + 4 * 2.0 + 1.5, "stable")))
+    val w = t.test("smasher", List(ev("world.cyberpsychosis", 2000, agent = "smasher", chrome = Some(80))))
+    assert(w.map(r => (r.warnings, r.chrome_score, r.level)) == List((1L, 80, "elevated")))
+    assert(t.test("smasher", List(ev("agent.move", 3000, agent = "smasher"))).isEmpty) // not a risk event
+    val stranger = t.test("nobody", List(ev("combat.ended", 4000, agent = "nobody", result = "defeat")))
+    assert(stranger.map(r => (r.chrome_score, r.defeats, r.score)) == List((0, 1L, 4.0)))
+  }
+
+  test("risk v2: a recent warning doubles the warning weight") {
+    val t = new TwsTester[String, Ev, nightcity.RiskUpdate](new CyberpsychosisRiskV2(),
+      initialState = List(("x", nightcity.Roster("x", "X", "ganger", 40, 2))), timeMode = TimeMode.ProcessingTime())
+    val w = t.test("x", List(ev("world.cyberpsychosis", 1000, agent = "x", chrome = Some(40))))
+    assert(w.map(_.score) == List(40 * 0.5 + 2 * 2.0 + 2 * 10.0))
+    val later = t.test("x", List(ev("agent.attack", 100000, agent = "x")))
+    assert(later.map(_.score) == List(40 * 0.5 + 2 * 2.0 + 1.5 + 10.0))
+  }
+}
