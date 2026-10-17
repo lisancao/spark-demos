@@ -46,6 +46,7 @@ for name in ("presence", "streaks", "sells", "orgs", "menace", "board"):
         print("  closed_by:", dict(Counter(r["closed_by"] for r in rows)))
         print("  kills per streak:", dict(sorted(Counter(min(r["kills"], 10) for r in rows).items())))
         print("  streaks with a seller kill:", sum(1 for r in rows if r["sellers_killed"]), "flying:", sum(1 for r in rows if r["flying"]))
+        print("  kills in closed streaks:", sum(r["kills"] for r in rows), "sellers:", sum(r["sellers_killed"] for r in rows), "civilians:", sum(r["civilians_killed"] for r in rows))
         by = defaultdict(lambda: [0, 0])
         for r in rows:
             a = truth.get(r["attacker_id"], "?")

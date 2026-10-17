@@ -14,8 +14,13 @@ with a simulation instead of a random generator.
 Two cities share the pipeline. Night City (phases 1 to 6) is the NPC simulation; Los Santos (phase 8) is a
 GTA Online-style public lobby simulator whose events feed a live "is this lobby safe to sell in" board: five
 `transformWithState` processors chained into a sixth, with scoring weights changed at runtime from a config topic.
-Nothing in Los Santos comes from the game; Rockstar exposes no session telemetry, so the lobby is simulated and
-its event log is checked for internal consistency (`python -m losantos.check`) before anything is measured.
+Rockstar exposes no session telemetry, so the lobby and its players are simulated, and the event log is checked
+for internal consistency (`python -m losantos.check`) before anything is measured. The map, the vehicles and
+the weapons are the game's own, taken from [DurtyFree's GTA V data dumps](https://github.com/DurtyFree/gta-v-data-dumps)
+(zone names and bounds, vehicle class, type, mounted weapons and top speed, weapon ids) via `bin/gta_world.py`,
+which writes the small subset the sim uses to `sim/losantos/world_data.json`. Ground vehicles cross the map at
+the dump's top speed, one tick being a minute of game time; flying vehicles get anywhere in a tick; the
+checker verifies every move against that.
 
 ## Layout
 
@@ -23,7 +28,8 @@ its event log is checked for internal consistency (`python -m losantos.check`) b
 sim/                 simulators (Python) + Kafka sink + replay tool
   cyberpunk_sim/     Night City: NPC agents, factions, economy, crime, combat, event schema
   rpg_engine/        action resolver, triggers, combat engine the Night City sim drives
-  losantos/          Los Santos: public lobbies, grinders, griefers, tryhards, tourists; invariant checker
+  losantos/          Los Santos: public lobbies, grinders, griefers, tryhards, tourists; invariant checker;
+                     world_data.json extracted from the GTA V data dumps (bin/gta_world.py)
   replay.py          replay a recorded NDJSON log into Kafka with lateness and duplicates
   output/            Night City NDJSON event logs written by live runs (replay input)
   output_losantos/   Los Santos logs plus players.jsonl (public roster), players_truth.jsonl (hidden archetypes), lobbies.json
@@ -110,6 +116,7 @@ Processors (`spark/src/main/scala/nightcity/processors`):
 ## Phase 8: Los Santos and the lobby board
 
 ```bash
+python3 -I bin/gta_world.py /path/to/gta-v-data-dumps      # optional: regenerate sim/losantos/world_data.json
 docker compose build sim-ls
 docker compose run --rm -e SIM_MAX_TICKS=600 sim-ls                     # live lobby sim -> losantos.events + ./sim/output_losantos
 (cd sim && python3 -m losantos.check "output_losantos/events_*.ndjson")  # the log is airtight, or this exits 1

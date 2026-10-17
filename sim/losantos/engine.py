@@ -6,6 +6,7 @@ who has a bounty) and emits one event per thing that happens. `check.py` re-deri
 from the events alone and fails if anything does not line up.
 """
 
+import math
 import random
 from dataclasses import dataclass, field
 
@@ -91,7 +92,7 @@ class LobbySim:
         return [self.players[pid] for pid in lobby.players]
 
     def flying(self, p: Player) -> bool:
-        return bool(p.vehicle and world.PVP_VEHICLES.get(p.vehicle, {}).get("flying"))
+        return world.is_flying(p.vehicle)
 
     # ---- session membership --------------------------------------------------------------------
 
@@ -105,7 +106,7 @@ class LobbySim:
         else:
             lobby = self.rng.choice(open_lobbies)
         p.lobby = lobby.lobby_id
-        p.area = self.rng.choice(world.AREAS)
+        p.area = self.rng.choice(world.CITY if self.rng.random() < 0.8 else world.COUNTY)
         p.vehicle = None
         p.passive = False
         p.passive_until = -1
@@ -188,11 +189,17 @@ class LobbySim:
     # ---- violence --------------------------------------------------------------------------------
 
     def move(self, p: Player, area: str, vehicle: str | None = None):
+        """Head for `area`: flying vehicles get there this tick, ground vehicles get as far as their top speed allows."""
         if area == p.area:
             return
+        v = vehicle or p.vehicle
+        nxt = world.step_toward(p.area, area, v)
+        if nxt == p.area:
+            return
         prev = p.area
-        p.area = area
-        self.ev("player.move", p, from_location=prev, vehicle=vehicle or p.vehicle)
+        p.area = nxt
+        self.ev("player.move", p, from_location=prev, vehicle=v, heading=area,
+                distance_m=round(world.distance(prev, nxt)))
 
     def spawn_vehicle(self, p: Player, vehicle: str):
         p.vehicle = vehicle
@@ -202,7 +209,7 @@ class LobbySim:
         assert attacker.lobby == victim.lobby and not victim.passive and attacker is not victim
         lobby = self.lobby_of(attacker)
         attacker.streak += 1
-        weapon = world.WEAPONS.get(attacker.vehicle, self.rng.choice(world.ON_FOOT_WEAPONS))
+        weapon = world.vehicle_weapon(attacker.vehicle) or self.rng.choice(world.ON_FOOT_WEAPONS)
         self.ev("combat.kill", attacker, target_id=victim.player_id, target_name=victim.gamertag, weapon=weapon,
                 attacker_vehicle=attacker.vehicle, victim_activity=activity, victim_vehicle=victim.vehicle,
                 kill_streak=attacker.streak, location_id=victim.area)
@@ -309,9 +316,13 @@ class LobbySim:
         lobby = self.lobby_of(p)
         self.passive_off(p, "sell_started")
         drops = self.rng.randint(*spec["drops"])
-        route = self.rng.sample([a for a in world.AREAS if a != p.area], k=drops)
+        # drops are elsewhere on the map; a sell mission does not send you next door
+        route = self.rng.sample([a for a in world.AREAS if 1500 < world.distance(a, p.area) < 6000], k=drops)
+        # the mission clock is the sim's: enough ticks to drive the route at the sell vehicle's top speed, plus slack
+        legs = [p.area] + route
+        travel = sum(math.ceil(world.distance(a, b) / world.reach(spec["vehicle"])) for a, b in zip(legs, legs[1:]))
         s = Sell(self._id(f"sell_{p.player_id}"), p.player_id, p.org, b.name, spec["product"], b.stock, drops, route,
-                 spec["vehicle"], self.tick, self.tick + spec["clock"] + 2 * drops)
+                 spec["vehicle"], self.tick, self.tick + 2 * travel + spec["clock"] // 2 + 2 * drops)
         p.sell = s
         lobby.sells[s.mission_id] = s
         b.stock = 0
@@ -332,7 +343,7 @@ class LobbySim:
             return
         hunters = [q for q in self.in_lobby(lobby) if q is not p and q.area == p.area and not q.passive
                    and q.archetype in ("griefer", "tryhard") and q.vehicle in world.PVP_VEHICLES]
-        if hunters and self.rng.random() < 0.5:
+        if hunters and self.rng.random() < 0.25:
             return   # hiding under a bridge; the clock keeps running
         target = s.route[s.drop_idx]
         if p.area != target:
@@ -383,11 +394,11 @@ class LobbySim:
             b = self.rng.choice(low)
             added = min(b.spec["accrual"] * 6, b.spec["cap"] - b.stock)
             b.stock += added
-            self.move(p, b.area, "personal_vehicle")
+            self.move(p, b.area, p.personal_vehicle)
             self.ev("org.supply_run", p, faction_id=p.org, business=b.name, business_type=b.kind, stock_value=b.stock, stock_added=added)
             p.busy_until = self.tick + 2
         elif r < 0.55:
-            self.move(p, self.rng.choice(world.AREAS), "personal_vehicle")
+            self.move(p, self.rng.choice(world.AREAS), p.personal_vehicle)
 
     def act_griefer(self, p: Player):
         lobby = self.lobby_of(p)
@@ -395,16 +406,16 @@ class LobbySim:
             if self.rng.random() < 0.7:
                 self.spawn_vehicle(p, p.preferred_vehicle)
             return
-        sells = [s for s in lobby.sells.values() if not self.players[s.seller].passive]
+        # a sell blip is visible to the lobby after a few ticks; griefers go for the nearest one
+        sells = [s for s in lobby.sells.values() if not self.players[s.seller].passive and self.tick - s.started >= 3]
         if sells:
             p.idle_hunt_ticks = 0
-            s = self.rng.choice(sells)
+            s = min(sells, key=lambda s: (world.distance(p.area, self.players[s.seller].area), self.rng.random()))
             seller = self.players[s.seller]
             if seller.area != p.area:
-                if self.flying(p) or self.rng.random() < 0.5:
-                    self.move(p, seller.area)
+                self.move(p, seller.area)
                 return
-            chance = world.VEHICLE_KILL_CHANCE[s.vehicle] * (0.5 if self.flying(p) else 0.3)
+            chance = world.VEHICLE_KILL_CHANCE[s.vehicle] * (0.3 if self.flying(p) else 0.18)
             if self.rng.random() < chance:
                 self.kill(p, seller, "selling")
             return
@@ -430,12 +441,11 @@ class LobbySim:
         if marks:
             q = max(marks, key=lambda m: (m.bounty > 0, m.streak, self.rng.random()))
             if q.area != p.area:
-                if self.flying(p) or self.rng.random() < 0.5:
-                    self.move(p, q.area)
+                self.move(p, q.area)
                 return
             if self.rng.random() < 0.15:
-                mine = world.PVP_VEHICLES[p.vehicle]["chance"] if p.vehicle in world.PVP_VEHICLES else 0.05
-                theirs = world.PVP_VEHICLES[q.vehicle]["chance"] if q.vehicle in world.PVP_VEHICLES else 0.05
+                mine = world.PVP_KILL_CHANCE.get(p.vehicle, 0.05)
+                theirs = world.PVP_KILL_CHANCE.get(q.vehicle, 0.05)
                 win = (p.kd * (1 + mine)) / (p.kd * (1 + mine) + q.kd * (1 + theirs))
                 if self.rng.random() < win:
                     self.kill(p, q, "pvp")
@@ -453,7 +463,7 @@ class LobbySim:
         lobby = self.lobby_of(p)
         r = self.rng.random()
         if r < 0.35:
-            self.move(p, self.rng.choice(world.AREAS), "personal_vehicle" if self.rng.random() < 0.7 else None)
+            self.move(p, self.rng.choice(world.AREAS), p.personal_vehicle if self.rng.random() < 0.7 else None)
         elif r < 0.38 and not p.wanted_stars and not p.passive:
             self.wanted_gain(p, 1, "stole_vehicle" if self.rng.random() < 0.8 else "robbed_store")
         elif r < 0.39:

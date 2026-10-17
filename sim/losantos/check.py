@@ -13,6 +13,8 @@ import json
 import sys
 from collections import Counter, defaultdict
 
+from losantos import world
+
 
 def load(paths):
     for pattern in paths:
@@ -83,6 +85,13 @@ def main():
             if a not in passive:
                 fail("passive_off without passive_on", ev)
             passive.discard(a)
+        elif t == "player.move":
+            # geography: a move covers at most one tick of the stated vehicle's top speed (flying: anywhere)
+            d = world.distance(ev["from_location"], ev["location_id"])
+            if d > world.reach(ev.get("vehicle")) + 1e-6:
+                fail("move within the vehicle's reach", ev)
+            if ev["distance_m"] != round(d):
+                fail("move distance matches the map", ev)
         elif t == "combat.kill":
             v = ev["target_id"]
             if lobby_of.get(v) != lobby or v == a:

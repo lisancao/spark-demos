@@ -37,7 +37,7 @@ class GriefStreaks(gapMs: Long) extends StatefulProcessor[String, LsEv, StreakSu
       ev.event_type match {
         case "combat.kill" =>
           val cur = if (streak.exists()) streak.get() else Streak(ev.lobby_id, ev.event_time, ev.event_time, 0, 0, 0, 0, flying = false)
-          val flying = Set("oppressor_mk2", "deluxo", "sparrow", "lazer").contains(ev.attacker_vehicle)
+          val flying = Vehicles.flying.contains(ev.attacker_vehicle)
           val next = cur.copy(
             started_at = if (ev.event_time.before(cur.started_at)) ev.event_time else cur.started_at,
             last_kill = if (ev.event_time.after(cur.last_kill)) ev.event_time else cur.last_kill,

@@ -115,7 +115,7 @@ object LobbyBoard {
         case "joined"  => Seq(Signal(p.lobby_id, "joined", p.agent_id, null, 0, 0, p.last_seen))
         case "hopped"  => Seq(Signal(p.previous_lobby, "left", p.agent_id, null, 0, 0, p.last_seen), Signal(p.lobby_id, "joined", p.agent_id, null, 0, 0, p.last_seen))
         case "left"    => Seq(Signal(p.lobby_id, "left", p.agent_id, null, 0, 0, p.last_seen))
-        case "vehicle" if Set("oppressor_mk2", "deluxo", "sparrow", "lazer", "toreador").contains(p.vehicle) =>
+        case "vehicle" if Vehicles.pvp.contains(p.vehicle) =>
           Seq(Signal(p.lobby_id, "pvp_vehicle", p.agent_id, p.vehicle, 0, 0, p.last_seen))
         case _ => Seq.empty
       }

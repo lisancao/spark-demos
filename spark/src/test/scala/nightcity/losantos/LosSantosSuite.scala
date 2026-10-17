@@ -32,8 +32,8 @@ class LosSantosSuite extends AnyFunSuite {
       eventTimeExtractor = Some((e: LsEv) => e.event_time.getTime))
     val k = "g1:ls_01"
     assert(t.test(k, List(
-      ev("combat.kill", 1000, "g1", "ls_01", target = "s1", attackerVehicle = "oppressor_mk2", activity = "selling"),
-      ev("combat.kill", 2500, "g1", "ls_01", target = "t1", attackerVehicle = "oppressor_mk2", activity = "freemode"))).isEmpty)
+      ev("combat.kill", 1000, "g1", "ls_01", target = "s1", attackerVehicle = "oppressor2", activity = "selling"),
+      ev("combat.kill", 2500, "g1", "ls_01", target = "t1", attackerVehicle = "oppressor2", activity = "freemode"))).isEmpty)
     assert(t.setWatermark(7000).isEmpty)                       // 2500 + 5000 = 7500 not reached
     val closed = t.setWatermark(8000)
     assert(closed.map(s => (s.attacker_id, s.kills, s.sellers_killed, s.civilians_killed, s.flying, s.closed_by)) == List(("g1", 2, 1, 1, true, "gap")))
@@ -77,11 +77,11 @@ class LosSantosSuite extends AnyFunSuite {
       initialState = List("g1" -> LsProfile("g1", "OppressorAndy", 420, 3.5, 2000, 7000, 2000)))
     val joined = t.test("g1", List(ev("session.join", 1000, "g1", "ls_01")))
     assert(joined.map(m => (m.level, m.kd)) == List(("civilian", 3.5)))   // 3.5 * 4 = 14: the profile alone is not enough
-    val spawned = t.test("g1", List(ev("player.vehicle_spawned", 1500, "g1", "ls_01", vehicle = "oppressor_mk2")))
+    val spawned = t.test("g1", List(ev("player.vehicle_spawned", 1500, "g1", "ls_01", vehicle = "oppressor2")))
     assert(spawned.isEmpty)                                               // 24: still civilian, nothing to say
-    val killed = t.test("g1", List(ev("combat.kill", 2000, "g1", "ls_01", target = "s1", attackerVehicle = "oppressor_mk2", activity = "selling")))
+    val killed = t.test("g1", List(ev("combat.kill", 2000, "g1", "ls_01", target = "s1", attackerVehicle = "oppressor2", activity = "selling")))
     assert(killed.map(m => (m.level, m.sellers_killed)) == List(("hostile", 1L)))  // 54
-    val again = t.test("g1", List(ev("combat.kill", 2500, "g1", "ls_01", target = "s2", attackerVehicle = "oppressor_mk2", activity = "selling")))
+    val again = t.test("g1", List(ev("combat.kill", 2500, "g1", "ls_01", target = "s2", attackerVehicle = "oppressor2", activity = "selling")))
     assert(again.map(_.level) == List("menace"))
     assert(t.test("g1", List(ev("session.join", 9000, "g1", "ls_03"))).map(m => (m.level, m.session_kills)) == List(("civilian", 0L)))
   }
@@ -92,9 +92,9 @@ class LosSantosSuite extends AnyFunSuite {
     val v1 = t.test("ls_01", List(Signal("ls_01", "joined", "a", null, 0, 0, at(1000)), Signal("ls_01", "joined", "b", null, 0, 0, at(1000)))).last
     assert((v1.population, v1.score, v1.verdict) == (2, 100.0, "sell"))
     val v2 = t.test("ls_01", List(Signal("ls_01", "menace", "b", "menace", 80, 3, at(2000)))).last
-    assert((v2.menaces, v2.score, v2.verdict) == (1, 82.0, "sell"))
-    val v3 = t.test("ls_01", List(Signal("ls_01", "sell", "a", "destroyed", 90000, 0, at(3000)), Signal("ls_01", "pvp_vehicle", "b", "oppressor_mk2", 0, 0, at(2500)))).last
-    assert((v3.sells_destroyed_recent, v3.pvp_vehicles, v3.score, v3.verdict) == (1, 1, 66.0, "risky"))
+    assert((v2.menaces, v2.score, v2.verdict) == (1, 88.0, "sell"))
+    val v3 = t.test("ls_01", List(Signal("ls_01", "sell", "a", "destroyed", 90000, 0, at(3000)), Signal("ls_01", "pvp_vehicle", "b", "oppressor2", 0, 0, at(2500)))).last
+    assert((v3.sells_destroyed_recent, v3.pvp_vehicles, v3.score, v3.verdict) == (1, 1, 67.0, "risky"))
     // the same lobby under a harsher rule: the config row is applied before anything else at its timestamp
     val v4 = t.test("ls_01", List(Signal("ls_01", "config", null, null, 0, 0, at(4000), """{"menace": 50, "destroyed": 30}"""))).last
     assert((v4.score, v4.verdict) == (14.0, "hop"))

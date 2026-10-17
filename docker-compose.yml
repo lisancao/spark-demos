@@ -72,8 +72,8 @@ services:
       SIM_STDOUT_EVENTS: 0
       SIM_FILE_ROTATION_COUNT: 100000
       LS_PLAYERS: 150
-      LS_LOBBIES: 6
-      LS_CAPACITY: 30
+      LS_LOBBIES: 8
+      LS_CAPACITY: 24
     volumes:
       - ./sim/output_losantos:/output
 

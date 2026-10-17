@@ -27,7 +27,7 @@ object MenaceLevel {
 class MenaceScore extends StatefulProcessorWithInitialState[String, LsEv, MenaceUpdate, LsProfile] {
   import implicits._
   @transient private var st: ValueState[Menace] = _
-  private val flying = Set("oppressor_mk2", "deluxo", "sparrow", "lazer")
+  private val flying = Vehicles.flying
 
   override def init(outputMode: OutputMode, timeMode: TimeMode): Unit =
     st = getHandle.getValueState[Menace]("menace", TTLConfig.NONE)

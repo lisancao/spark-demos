@@ -8,7 +8,7 @@ case class Weights(menace: Double, hostile: Double, pvp_vehicle: Double, destroy
 }
 object Weights {
   /** `window_ms` is event time: how long a destroyed sell or a streak keeps counting against the lobby. */
-  val default: Weights = Weights(menace = 18, hostile = 4, pvp_vehicle = 6, destroyed = 10, streak_kill = 3, window_ms = 30000)
+  val default: Weights = Weights(menace = 12, hostile = 4, pvp_vehicle = 6, destroyed = 15, streak_kill = 1, window_ms = 30000)
   private val num = """"(\w+)"\s*:\s*(-?[0-9.]+)""".r
   /** Keys missing from the JSON keep the value in `base`: a config row is a patch, not a replacement. */
   def parse(s: String, base: Weights = default): Weights = {

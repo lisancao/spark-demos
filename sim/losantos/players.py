@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from losantos import world
 
 ARCHETYPES = ["grinder", "griefer", "tryhard", "tourist"]
-ARCHETYPE_MIX = {"grinder": 0.38, "griefer": 0.10, "tryhard": 0.12, "tourist": 0.40}
+ARCHETYPE_MIX = {"grinder": 0.40, "griefer": 0.08, "tryhard": 0.12, "tourist": 0.40}
 
 # Profile ranges per archetype. Deliberately overlapping: the point of the streaming score is that
 # the profile alone does not tell you who is going to ruin your sell.
@@ -47,6 +47,7 @@ class Player:
     career_deaths: int
     businesses: list[Business] = field(default_factory=list)
     preferred_vehicle: str | None = None   # griefers and tryhards
+    personal_vehicle: str = "blista"
 
     # session state (reset on join)
     lobby: str | None = None
@@ -108,8 +109,9 @@ def make_roster(rng: random.Random, n: int) -> list[Player]:
                 area = rng.choice(spec_b["areas"])
                 p.businesses.append(Business(f"{pid}_{kind}", kind, area, stock=int(spec_b["cap"] * rng.uniform(0.2, 0.7))))
         elif archetype == "griefer":
-            p.preferred_vehicle = rng.choices(["oppressor_mk2", "deluxo", "lazer", "toreador"], weights=[0.65, 0.15, 0.1, 0.1])[0]
+            p.preferred_vehicle = rng.choices(["oppressor2", "deluxo", "lazer", "toreador", "seasparrow2"], weights=[0.6, 0.12, 0.08, 0.1, 0.1])[0]
         elif archetype == "tryhard":
-            p.preferred_vehicle = rng.choices(["oppressor_mk2", "toreador", "sparrow", "nightshark", "kuruma"], weights=[0.35, 0.25, 0.15, 0.15, 0.1])[0]
+            p.preferred_vehicle = rng.choices(["oppressor2", "toreador", "seasparrow2", "nightshark", "kuruma2", "vigilante"], weights=[0.3, 0.25, 0.15, 0.12, 0.08, 0.1])[0]
+        p.personal_vehicle = rng.choice([k for k, v in world.VEHICLES.items() if v["role"] == "personal"])
         players.append(p)
     return players
