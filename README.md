@@ -11,14 +11,22 @@ Inspired by the structure of AWS's
 (ingestion, enrichment, leaderboard, dynamic config, late data and replay), rebuilt on Spark 4.3
 with a simulation instead of a random generator.
 
+Two cities share the pipeline. Night City (phases 1 to 6) is the NPC simulation; Los Santos (phase 8) is a
+GTA Online-style public lobby simulator whose events feed a live "is this lobby safe to sell in" board: five
+`transformWithState` processors chained into a sixth, with scoring weights changed at runtime from a config topic.
+Nothing in Los Santos comes from the game; Rockstar exposes no session telemetry, so the lobby is simulated and
+its event log is checked for internal consistency (`python -m losantos.check`) before anything is measured.
+
 ## Layout
 
 ```
-sim/                 Night City simulator (Python) + Kafka sink + replay tool
-  cyberpunk_sim/     the sim: NPC agents, factions, economy, crime, combat, event schema
-  rpg_engine/        action resolver, triggers, combat engine the sim drives
+sim/                 simulators (Python) + Kafka sink + replay tool
+  cyberpunk_sim/     Night City: NPC agents, factions, economy, crime, combat, event schema
+  rpg_engine/        action resolver, triggers, combat engine the Night City sim drives
+  losantos/          Los Santos: public lobbies, grinders, griefers, tryhards, tourists; invariant checker
   replay.py          replay a recorded NDJSON log into Kafka with lateness and duplicates
-  output/            NDJSON event logs written by live runs (replay input)
+  output/            Night City NDJSON event logs written by live runs (replay input)
+  output_losantos/   Los Santos logs plus players.jsonl (public roster), players_truth.jsonl (hidden archetypes), lobbies.json
 spark/               sbt project: processors and jobs (Scala 2.13, Spark 4.3.0)
 bin/run.sh           spark-submit wrapper used by the `spark` compose service
 docker-compose.yml   Kafka (KRaft), sim, replay, spark
@@ -98,5 +106,42 @@ Processors (`spark/src/main/scala/nightcity/processors`):
 | `FactionTerritory` | faction | MapState + ListState + cached count | None | composite state; a map keyed by location is idempotent under replay |
 | `CyberpsychosisRisk` / `V2` | NPC | ValueState seeded from the roster | ProcessingTime | initial state; v2 adds a state field and resumes v1's checkpoint (Avro encoding) |
 | `PresenceLatency` | NPC | ValueState + TTL | ProcessingTime | the latency probe, run under micro-batch and `Trigger.RealTime` |
+
+## Phase 8: Los Santos and the lobby board
+
+```bash
+docker compose build sim-ls
+docker compose run --rm -e SIM_MAX_TICKS=600 sim-ls                     # live lobby sim -> losantos.events + ./sim/output_losantos
+(cd sim && python3 -m losantos.check "output_losantos/events_*.ndjson")  # the log is airtight, or this exits 1
+docker compose run --rm replay "/output_losantos/events_*.ndjson" --topic losantos.replay   --tick-ms 50 --late-fraction 0.05 --late-delay-s 20 --dup-fraction 0.02 --shuffle-within-tick --loop --max-ticks 1800
+
+# one processor per query
+docker compose run --rm -e KAFKA_TOPIC=losantos.replay -e MAX_OFFSETS_PER_TRIGGER=3000 -e DRAIN_SECONDS=30   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro" spark LsProcessors presence --once
+#   ... streaks (add -e GAP_MS=1000 -e WATERMARK="2 seconds") | sells | orgs | menace
+# the chain: five processors feeding the lobby scorer in one query
+docker compose run --rm -e KAFKA_TOPIC=losantos.replay -e MAX_OFFSETS_PER_TRIGGER=3000 -e DRAIN_SECONDS=30   -e GAP_MS=1000 -e WATERMARK="2 seconds" -e WINDOW_MS=2500   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro" spark LobbyBoard --once
+python3 bin/losantos_report.py          # per-processor summaries, graded against the hidden archetypes
+python3 bin/losantos_grade.py           # board score vs the sim's own verdict at every snapshot
+docker compose run --rm -e OPERATOR_ID=0 spark StateInspect /app/data/checkpoints/losantos/board present
+
+# dynamic configuration, live: board unbounded on a live topic, then publish new weights
+docker compose run --rm -e KAFKA_TOPIC=losantos.live -e CONFIG_TOPIC=losantos.config -e RUN_SECONDS=175   -e GAP_MS=2000 -e WATERMARK="4 seconds" -e WINDOW_MS=5000 -e RUN_TAG=board-live   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro" spark LobbyBoard
+docker compose run --rm -e SIM_MAX_TICKS=1400 -e SIM_KAFKA_TOPIC=losantos.live -e SIM_OUTPUT_DIR=/output/live sim-ls
+docker compose run --rm tools /app/bin/publish_config.py --bootstrap kafka:9092 '{"menace": 40, "destroyed": 25}'
+
+# latency of a union-free chain (menace -> lobby) under both triggers; Real-time Mode rejects the full chain
+docker compose run --rm -e KAFKA_TOPIC=losantos.lat.rtm -e STARTING_OFFSETS=latest -e OUT_TOPIC=losantos.board.rtm   -e BOARD_INPUT=menace -e TRIGGER=rtm -e RUN_SECONDS=150 -e SPARK_MASTER='local[16]'   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro --conf spark.sql.shuffle.partitions=4" spark LobbyBoard
+```
+
+Los Santos processors (`spark/src/main/scala/nightcity/losantos`):
+
+| | key | state | time | what it shows |
+|---|---|---|---|---|
+| `LobbyPresence` | player | ValueState + TTL | ProcessingTime | lobby hops under lateness: a join into a new lobby wins over the late leave of the old one |
+| `GriefStreaks` | attacker + lobby | ValueState + event-time timers | EventTime | sessionization with no end event; a gap shorter than the watermark delay is never observed |
+| `SellMissions` | mission | ValueState + processing-time timers | ProcessingTime | the pipeline's patience vs the game's clock; terminals after a timeout are reported late, not dropped |
+| `OrgBusinesses` | organisation | MapState + ListState + ValueState | None | registration restates stock, so the map is idempotent under replay |
+| `MenaceScore` | player | ValueState seeded from the roster | ProcessingTime | the profile is the prior; seller kills move the level; duel kills are capped |
+| `LobbySafety` | lobby | two MapStates + two ListStates + ValueState weights | ProcessingTime | the chained second stage; recency as a window of event time; weights patched from a config topic |
 
 Numbers from every run are in `NOTES.md`.

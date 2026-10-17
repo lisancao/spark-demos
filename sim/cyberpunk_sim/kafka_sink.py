@@ -15,7 +15,7 @@ logger = logging.getLogger("nightcity.kafka")
 
 def partition_key(event: dict[str, Any]) -> str:
     """Pick the entity id a stateful consumer would key on."""
-    for field in ("agent_id", "faction_id", "mission_id", "source_id", "location_id"):
+    for field in ("agent_id", "faction_id", "mission_id", "source_id", "lobby_id", "location_id"):
         value = event.get(field)
         if value:
             return str(value)

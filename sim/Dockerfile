@@ -5,6 +5,7 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY rpg_engine/ /app/rpg_engine/
 COPY cyberpunk_sim/ /app/cyberpunk_sim/
+COPY losantos/ /app/losantos/
 COPY replay.py /app/replay.py
 
 VOLUME /output

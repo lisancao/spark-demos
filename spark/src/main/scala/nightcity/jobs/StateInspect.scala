@@ -17,11 +17,13 @@ object StateInspect {
     var reader = spark.read.format("statestore").option("flattenCollectionTypes", "true")
     reader = if (what == "timers") reader.option("readRegisteredTimers", "true") else reader.option("stateVarName", what)
     rest.headOption.foreach(b => reader = reader.option("batchId", b))
+    // a query with several stateful operators (the Los Santos board has five) needs the operator picked out
+    sys.env.get("OPERATOR_ID").foreach(id => reader = reader.option("operatorId", id))
     val df = reader.load(checkpoint)
     df.printSchema()
     println(s"rows: ${df.count()}")
     df.show(20, truncate = false)
-    val tag = sys.env.getOrElse("RUN_TAG", s"${checkpoint.split('/').last}-$what")
+    val tag = sys.env.getOrElse("RUN_TAG", s"${checkpoint.split('/').last}-${sys.env.getOrElse("OPERATOR_ID", "0")}-$what")
     df.write.mode("overwrite").parquet(s"$out/inspect/$tag")
     spark.stop()
   }
