@@ -20,6 +20,7 @@ import json
 import random
 import sys
 import time
+import uuid
 from datetime import datetime, timezone
 
 from confluent_kafka import Producer
@@ -43,6 +44,10 @@ def load_events(paths):
 
 def restamp(event, tick_offset, now):
     e = dict(event)
+    if tick_offset:
+        # a looped pass is a new occurrence of the same scripted event: give it its own identity
+        e["event_id"] = str(uuid.uuid5(uuid.NAMESPACE_OID, f"{event['event_id']}:{tick_offset}"))
+        e["source_event_id"] = event["event_id"]
     tick = event["sim_tick"] + tick_offset
     e["sim_tick"] = tick
     e["sim_day"] = tick // TICKS_PER_DAY + 1
