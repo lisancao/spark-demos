@@ -60,3 +60,13 @@ Territory counts at the end equal the distinct locations each faction gains in o
 **risk v2 resuming v1's checkpoint** (state case class gains `last_warning_at: Option[Timestamp]`, same variable name): started at batch 41, processed the fifth pass in 10 batches, 131 new rows, no errors, 27 s. Required `spark.sql.streaming.stateStore.encodingFormat=avro` from the first run; UnsafeRow encoding would have failed the restart. The roster initial state is not re-applied on resume (it is a batch-0 thing), which is the behaviour you want.
 
 Drain logic, third revision: "drained" now means DRAIN_SECONDS since the last batch that carried input, checked against the clock. `TimeMode.None` and `EventTime` queries run no batch at all without input, so waiting for an empty progress event never ends.
+
+## Phase 5: looking inside, and recovery (2026-10-17)
+
+`StateInspect <checkpoint> <stateVarName|timers>` reads a checkpoint with the state data source (`format("statestore")`, `stateVarName`, `readRegisteredTimers`, `flattenCollectionTypes`).
+
+- **risk** after the v2 resume: 70 state rows (one per roster NPC), the value struct now has `last_warning_at`, set on the 4 NPCs with warnings and null elsewhere; 56 rows are roster seeds that never saw an event. Top attackers in state: sergeant_okafor 214 attacks, kuro_the_31th 172 attacks / 35 defeats, detective_vasquez 76. These are five replay passes of the same recording, so the counts are 5x the recording's.
+- **faction** `territories` MapState: 31 rows, flattened to (faction, location, influence), the same per-faction counts as the processor's own cached count.
+- **ncpd** timers at the end of the run: 0. Every SLA timer had either been cancelled by a response or fired during the drain.
+
+Recovery: `STOP_AFTER_BATCHES=15` makes the driver exit without stopping the query (a hard kill mid-flight). On the five-pass topic the killed run had written 153 rows; the resumed run continued from the checkpoint and finished in 51 s. The resumed output and an uninterrupted run on the same topic are the same 537-row multiset (attacker, started_at, ended_at, rounds_seen, closed_by). Parquet sink plus Kafka offsets in the offset log plus RocksDB state plus changelog checkpointing: exactly-once, observed rather than asserted.

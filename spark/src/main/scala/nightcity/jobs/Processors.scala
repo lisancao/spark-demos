@@ -64,11 +64,14 @@ object Processors {
     val drainMs = sys.env.getOrElse("DRAIN_SECONDS", "20").toLong * 1000
     @volatile var sawData = false
     @volatile var lastDataAt = -1L
+    @volatile var dataBatches = 0
+    // Recovery experiment: STOP_AFTER_BATCHES=n stops the query (hard, mid-flight) after n batches with input.
+    val stopAfter = sys.env.get("STOP_AFTER_BATCHES").map(_.toInt).getOrElse(Int.MaxValue)
     if (once) spark.streams.addListener(new org.apache.spark.sql.streaming.StreamingQueryListener {
       override def onQueryStarted(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryStartedEvent): Unit = ()
       override def onQueryTerminated(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryTerminatedEvent): Unit = ()
       override def onQueryProgress(e: org.apache.spark.sql.streaming.StreamingQueryListener.QueryProgressEvent): Unit = {
-        if (e.progress.numInputRows > 0) { sawData = true; lastDataAt = System.currentTimeMillis() }
+        if (e.progress.numInputRows > 0) { sawData = true; lastDataAt = System.currentTimeMillis(); dataBatches += 1 }
       }
     })
 
@@ -84,7 +87,8 @@ object Processors {
       // Drained = DRAIN_SECONDS since the last batch that carried input. In EventTime and None modes no batch
       // runs at all without input, so this has to be checked against the clock, not against progress events.
       def drained = sawData && System.currentTimeMillis() - lastDataAt >= drainMs
-      while (q.isActive && !drained) Thread.sleep(200)
+      while (q.isActive && !drained && dataBatches < stopAfter) Thread.sleep(200)
+      if (dataBatches >= stopAfter) { println(s"STOP_AFTER_BATCHES reached ($dataBatches); exiting without stopping the query"); System.exit(3) }
       if (q.isActive) q.stop()
     }
     q.awaitTermination()
