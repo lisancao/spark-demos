@@ -38,6 +38,7 @@ case class Ev(
     description: String = null,
     involved_factions: Seq[String] = null,
     severity_label: String = null,
+    kafka_ts: Timestamp = null,
 )
 
 object Ev {
@@ -61,8 +62,8 @@ object Ev {
   /** Parse the raw Kafka value column into typed events. */
   def parse(raw: DataFrame)(implicit spark: SparkSession): Dataset[Ev] = {
     import spark.implicits._
-    raw.select(from_json(col("raw"), schema).as("e"), get_json_object(col("raw"), "$.severity").as("severity_raw"))
-      .select(col("e.*"), col("severity_raw"))
+    raw.select(from_json(col("raw"), schema).as("e"), get_json_object(col("raw"), "$.severity").as("severity_raw"), col("kafka_ts"))
+      .select(col("e.*"), col("severity_raw"), col("kafka_ts"))
       .withColumn("severity", when(col("event_type").startsWith("crime."), col("severity_raw").cast("int")))
       .withColumn("severity_label", when(col("event_type") === "world.cyberpsychosis", col("severity_raw")))
       .drop("severity_raw")
@@ -90,3 +91,5 @@ case class Roster(agent_id: String, agent_name: String, role: String, chrome_sco
 
 case class RiskUpdate(agent_id: String, agent_name: String, chrome_score: Int, attacks: Long, defeats: Long, warnings: Long,
                       score: Double, level: String, trigger: String, at: Timestamp)
+
+case class LatencySample(agent_id: String, location_id: String, actions: Long, source_kafka_ts: Long)

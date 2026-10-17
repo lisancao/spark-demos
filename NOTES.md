@@ -70,3 +70,16 @@ Drain logic, third revision: "drained" now means DRAIN_SECONDS since the last ba
 - **ncpd** timers at the end of the run: 0. Every SLA timer had either been cancelled by a response or fired during the drain.
 
 Recovery: `STOP_AFTER_BATCHES=15` makes the driver exit without stopping the query (a hard kill mid-flight). On the five-pass topic the killed run had written 153 rows; the resumed run continued from the checkpoint and finished in 51 s. The resumed output and an uninterrupted run on the same topic are the same 537-row multiset (attacker, started_at, ended_at, rounds_seen, closed_by). Parquet sink plus Kafka offsets in the offset log plus RocksDB state plus changelog checkpointing: exactly-once, observed rather than asserted.
+
+## Phase 6: micro-batch vs Real-time Mode (2026-10-17)
+
+Same query both times: Kafka (4 partitions) -> `Ev.parse` -> filter `agent.*` -> `groupByKey(agent_id)` -> `transformWithState(PresenceLatency, ProcessingTime, Update)` -> Kafka sink, update mode, reading from the latest offsets so only live arrivals count. Input: the recording replayed at real pace (100 ms ticks, about 215 events/s, 32,318 events over 100 s) into a fresh topic after the query was up. Latency = output record's Kafka timestamp minus the input record's Kafka timestamp (`source_kafka_ts` carried through the processor), first 15 s of output skipped. `local[8]` for micro-batch, `local[12]` for Real-time (4 reader tasks + 4 stateful tasks held for the whole batch, plus headroom), `spark.sql.shuffle.partitions=4`, RocksDB with changelog checkpointing and checkpoint format v2 in both.
+
+| trigger | output records | p50 | p90 | p99 | max | engine |
+|---|---|---|---|---|---|---|
+| `ProcessingTime("0 seconds")` (micro-batch, as fast as it can) | 22,702 | 228 ms | 331 ms | 431 ms | 787 ms | 519 batches with input in 150 s, triggerExecution p50 178 ms, max 721 ms |
+| `RealTime("30 seconds")` | 22,799 | 44 ms | 56 ms | 61 ms | 225 ms | 3 long batches of 30 s; records flowed through continuously inside them |
+
+Same code, same state store, same machine: the micro-batch floor here is the batch itself (plan, schedule, read, shuffle, commit, around 180 ms each), and Real-time Mode removes it by keeping the reader and the stateful operator alive and streaming the shuffle between them. The 30 s in the Real-time trigger is the checkpoint interval, not the latency.
+
+Two things that bit on the way: `maxOffsetsPerTrigger` is rejected in Real-time Mode (there is no trigger-sized batch to cap), and stopping a Real-time query logs "connection to streaming shuffle writer closed before termination" for every long-running task it interrupts; that is the stop, not a failure.

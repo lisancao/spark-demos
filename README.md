@@ -64,3 +64,39 @@ Every event carries `event_id`, `event_type` (`family.action`), `timestamp`, `si
 `mission_id`, `location_id`, ...). The Kafka key is that entity id, so a consumer grouping by it
 sees its events in order. Families: `agent`, `combat`, `crime`, `economy`, `faction`,
 `relationship`, `world`, `mission`.
+
+## Phases 2 to 6: the stateful part
+
+```bash
+(cd spark && sbt test)                                   # 9 TwsTester unit tests, no SparkSession
+docker compose run --rm -e KAFKA_TOPIC=nightcity.replay3 -e MAX_OFFSETS_PER_TRIGGER=1000 -e WATERMARK="10 seconds" spark Primer --once
+python3 bin/primer_report.py data/primer/10_seconds
+
+docker compose run --rm -e KAFKA_TOPIC=nightcity.replay3 -e MAX_OFFSETS_PER_TRIGGER=1000 -e DRAIN_SECONDS=30 spark Processors presence --once
+#   ... combat | ncpd | faction | risk (then risk2 to resume with the evolved state schema; both need
+#   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro")
+python3 bin/processors_report.py
+
+docker compose run --rm spark StateInspect /app/data/checkpoints/processors/risk risk        # state data source
+docker compose run --rm -e RUN_TAG=combat-recover -e STOP_AFTER_BATCHES=15 spark Processors combat --once   # hard kill
+docker compose run --rm -e RUN_TAG=combat-recover spark Processors combat --once                            # resume
+
+# latency, same query under both triggers (start the query, then the replay at real pace)
+docker compose run --rm -e KAFKA_TOPIC=nightcity.live.rtm -e OUT_TOPIC=nightcity.presence.rtm -e RUN_SECONDS=150 \
+  -e SPARK_MASTER='local[12]' -e EXTRA_CONF="--conf spark.sql.shuffle.partitions=4" spark Latency rtm
+docker compose run --rm replay "/output/events_*.ndjson" --topic nightcity.live.rtm --tick-ms 100 --max-ticks 1000 --loop
+docker compose run --rm tools /app/bin/latency_report.py --bootstrap kafka:9092 --topic nightcity.presence.rtm --skip-first-s 15
+```
+
+Processors (`spark/src/main/scala/nightcity/processors`):
+
+| | key | state | time | what it shows |
+|---|---|---|---|---|
+| `NpcPresence` | NPC | ValueState + TTL | ProcessingTime | forgetting without code; late rows do not move an NPC backwards |
+| `CombatSessions` | attacker | ValueState + event-time timers | EventTime | sessionization; lost `ended` closed by timer once the watermark passes |
+| `NcpdResponse` | location+crime | ValueState + processing-time timers | ProcessingTime | an absence (no response within the SLA) becomes an event |
+| `FactionTerritory` | faction | MapState + ListState + cached count | None | composite state; a map keyed by location is idempotent under replay |
+| `CyberpsychosisRisk` / `V2` | NPC | ValueState seeded from the roster | ProcessingTime | initial state; v2 adds a state field and resumes v1's checkpoint (Avro encoding) |
+| `PresenceLatency` | NPC | ValueState + TTL | ProcessingTime | the latency probe, run under micro-batch and `Trigger.RealTime` |
+
+Numbers from every run are in `NOTES.md`.

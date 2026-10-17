@@ -62,6 +62,13 @@ services:
     volumes:
       - ./sim/output:/output:ro
 
+  tools:
+    image: nightcity-sim:latest      # python + confluent-kafka + pyarrow-less helpers: bin/latency_report.py
+    profiles: ["tools"]
+    entrypoint: ["python"]
+    volumes:
+      - ./bin:/app/bin:ro
+
   spark:
     image: rc2-spark:base            # apache/spark 4.3.0-rc2, built locally (see README)
     profiles: ["tools"]

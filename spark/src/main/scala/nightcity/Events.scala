@@ -30,13 +30,14 @@ object Events {
   def topic: String = sys.env.getOrElse("KAFKA_TOPIC", "nightcity.events")
 
   /** Raw Kafka stream: one row per record, value as string, offsets kept for provenance. */
-  def readKafka(spark: SparkSession, startingOffsets: String = "earliest"): DataFrame =
-    spark.readStream
+  def readKafka(spark: SparkSession, startingOffsets: String = "earliest"): DataFrame = {
+    val reader = spark.readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", bootstrap)
       .option("subscribe", topic)
       .option("startingOffsets", startingOffsets)
-      .option("maxOffsetsPerTrigger", sys.env.getOrElse("MAX_OFFSETS_PER_TRIGGER", "200000"))
+    // Real-time Mode rejects maxOffsetsPerTrigger (there is no trigger-sized batch), so it is opt-in via env.
+    sys.env.get("MAX_OFFSETS_PER_TRIGGER").fold(reader)(reader.option("maxOffsetsPerTrigger", _))
       .load()
       .select(
         col("key").cast("string").as("kafka_key"),
@@ -45,6 +46,7 @@ object Events {
         col("offset").as("kafka_offset"),
         col("timestamp").as("kafka_ts"),
       )
+  }
 
   /** Parse the envelope out of the raw JSON; keep `raw` for per-processor field extraction. */
   def parsed(raw: DataFrame): DataFrame =
