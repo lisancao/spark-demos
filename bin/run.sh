@@ -14,6 +14,9 @@ exec /opt/spark/bin/spark-submit \
   --repositories "${STAGING}" \
   --conf spark.jars.ivy=/app/ivy \
   --conf spark.sql.shuffle.partitions=8 \
+  --conf spark.sql.streaming.stateStore.providerClass=org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider \
+  --conf spark.sql.streaming.stateStore.rocksdb.changelogCheckpointing.enabled=true \
+  --conf spark.sql.streaming.stateStore.checkpointFormatVersion=2 \
   --conf spark.ui.showConsoleProgress=false \
   --class "nightcity.jobs.${JOB}" \
   "$JAR" "$@"

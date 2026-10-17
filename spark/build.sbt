@@ -13,10 +13,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "org.apache.spark" %% "spark-sql" % sparkVersion % Provided,
       "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion % Provided,
-      // TwsTester (4.3) for unit-testing stateful processors
-      "org.apache.spark" %% "spark-sql" % sparkVersion % Test classifier "tests",
-      "org.apache.spark" %% "spark-core" % sparkVersion % Test classifier "tests",
-      "org.apache.spark" %% "spark-catalyst" % sparkVersion % Test classifier "tests",
+      // TwsTester (new in 4.3) ships in spark-sql itself; tests only need scalatest
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     ),
     scalacOptions ++= Seq("-deprecation", "-feature", "-Xlint:unused"),
