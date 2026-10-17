@@ -1,0 +1,86 @@
+# Night City stateful streaming demo: Kafka (KRaft) + Night City sim + Spark 4.3.
+#
+#   docker compose up -d kafka            # broker
+#   docker compose up sim                 # live simulation -> Kafka + ./sim/output
+#   docker compose run --rm replay ...    # replay a recorded log with lateness/dups
+#   docker compose run --rm spark bronze  # Kafka -> ./data/bronze (Parquet)
+services:
+  kafka:
+    image: apache/kafka:4.0.0
+    container_name: nightcity-kafka
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_NUM_PARTITIONS: 8
+      KAFKA_LOG_RETENTION_HOURS: 168
+      CLUSTER_ID: bmlnaHRjaXR5LWRlbW8tMDAwMQ
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  sim:
+    build: ./sim
+    image: nightcity-sim:latest
+    container_name: nightcity-sim
+    depends_on:
+      kafka:
+        condition: service_healthy
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      SIM_SEED: 42
+      SIM_TICK_MS: 100
+      SIM_AGENTS_PER_TICK: 10
+      SIM_MAX_TICKS: 0
+      SIM_KAFKA_BOOTSTRAP: kafka:9092
+      SIM_KAFKA_TOPIC: nightcity.events
+      SIM_STDOUT_EVENTS: 0
+      SIM_FILE_ROTATION_COUNT: 50000
+    volumes:
+      - ./sim/output:/output
+
+  replay:
+    image: nightcity-sim:latest
+    profiles: ["tools"]
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: ["python", "/app/replay.py", "--bootstrap", "kafka:9092"]
+    volumes:
+      - ./sim/output:/output:ro
+
+  spark:
+    image: rc2-spark:base            # apache/spark 4.3.0-rc2, built locally (see README)
+    profiles: ["tools"]
+    depends_on:
+      kafka:
+        condition: service_healthy
+    working_dir: /app
+    entrypoint: ["/app/bin/run.sh"]
+    user: "${UID:-1000}:${GID:-1000}"   # write ./data as you, not as the image's spark user
+    environment:
+      HOME: /tmp
+      HADOOP_USER_NAME: spark
+      KAFKA_BOOTSTRAP: kafka:9092
+      SPARK_MASTER: local[8]
+      SPARK_DRIVER_MEMORY: 4g
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./bin:/app/bin:ro
+      - ./spark/target/scala-2.13:/app/jars:ro
+      - ./data:/app/data
+      - ./ivy-cache:/app/ivy

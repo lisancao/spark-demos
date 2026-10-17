@@ -1,0 +1,31 @@
+player:
+  name: the new merc
+  class: ''
+  level: 1
+  location: food_stall_1
+  stats:
+    health: 10
+    stamina: 8
+    street_cred: 1
+    cool: 5
+  conditions: []
+  inventory:
+  - id: credchip
+    name: a basic credchip
+    description: Fifty eddies loaded. Enough for a meal and a mag of ammo. Welcome
+      to Night City.
+  - id: burner_holo
+    name: a burner holo
+    description: 'Disposable, prepaid, untraceable. One contact: a fixer who gave
+      you a number and said ''call when you''re ready.'''
+  - id: cheap_pistol
+    name: a cheap pistol
+    description: Unity model. Mass-produced, plastic-framed, thirteen rounds. The
+      gun you carry until you can afford a gun worth carrying.
+  - id: worn_jacket
+    name: a worn jacket with ballistic weave
+    description: Synth-leather, fraying at the cuffs. The ballistic lining stops small-caliber
+      rounds. Mostly. It's better than skin.
+  knowledge: []
+  event_log: []
+  location_history: []

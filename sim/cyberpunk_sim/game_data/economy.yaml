@@ -1,0 +1,93 @@
+economy:
+  currency: eddies
+  base_prices:
+    weapon:
+      cheap_pistol: 500
+      lexington: 1200
+      katana: 2500
+      tech_shotgun: 3500
+      mantis_blades_install: 15000
+      monowire_install: 12000
+    cyberware:
+      neural_link: 5000
+      kiroshi_optics: 8000
+      sandevistan: 25000
+      kerenzikov: 15000
+      subdermal_armor: 10000
+      gorilla_arms: 18000
+      cyberdeck_basic: 7000
+      cyberdeck_militech: 20000
+      pain_editor: 30000
+    consumable:
+      maxdoc: 100
+      bounce_back: 150
+      synthblood: 200
+      stim: 80
+      black_lace: 50
+      glitter: 30
+    data:
+      encrypted_shard: 500
+      corpo_intel: 2000
+      blackmail_data: 5000
+      netrunner_toolkit: 1500
+
+  district_price_modifiers:
+    # Multiplier on base prices by location tag
+    corpo_tower: 1.5
+    megabuilding: 1.0
+    gang_hideout: 0.7
+    black_market: 0.6
+    combat_zone: 0.5
+    shanty_market: 0.8
+    nomad_camp: 0.9
+    food_stall: 1.0
+
+  black_market_premium: 0.4  # 40% markup for illegal items via legit channels
+
+  supply_categories:
+    weapons:
+      base_supply: 100
+      restock_rate: 10  # units per day
+      volatility: 0.2   # price swing factor
+    cyberware:
+      base_supply: 30
+      restock_rate: 3
+      volatility: 0.3
+    consumables:
+      base_supply: 500
+      restock_rate: 50
+      volatility: 0.1
+    data:
+      base_supply: 50
+      restock_rate: 5
+      volatility: 0.4
+
+  trade_routes:
+    - from: nomad_camp
+      to: shanty_market
+      goods: [weapon, consumable]
+      reliability: 0.8
+    - from: corpo_tower
+      to: black_market
+      goods: [cyberware, data]
+      reliability: 0.5
+    - from: chop_shop
+      to: gang_hideout
+      goods: [weapon, cyberware]
+      reliability: 0.7
+    - from: ripperdoc_clinic
+      to: megabuilding
+      goods: [consumable, cyberware]
+      reliability: 0.9
+    - from: netrunner_den
+      to: fixer_office
+      goods: [data]
+      reliability: 0.6
+
+  faction_income:
+    megacorp: 10000  # eddies per day
+    gang: 3000
+    netrunner_collective: 5000
+    nomad_clan: 1500
+    law_enforcement: 4000
+    underground: 6000

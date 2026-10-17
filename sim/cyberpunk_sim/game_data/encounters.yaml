@@ -1,0 +1,109 @@
+encounters:
+- id: combat_nightclub_2
+  name: Event at Kowalski's
+  type: combat
+  location: nightclub_2
+  trigger: Player explores Kowalski's.
+  conditions:
+  - type: at_location
+    location: nightclub_2
+  - type: not_session_flag
+    flag: encounter_fired_combat_nightclub_2
+  description: Something happens at Kowalski's.
+  consequences: []
+  tone_direction: Gunfire in enclosed spaces. The muzzle flash strobes the room. Ricochet
+    sparks off chrome. Your ears stop working and your body keeps moving.
+  enemies:
+  - name: a cyberpsycho
+    desc: Too much chrome, not enough mind left. Erratic, screaming, chrome grinding
+      against chrome. They were a person once. Now they're a weapons platform with
+      a broken pilot.
+    stats:
+      health: 15
+      damage: 10
+      speed: fast
+    behavior: Unpredictable. Charges, retreats, charges again. Immense strength, no
+      self-preservation. Killing them is easy. Surviving until you do isn't.
+- id: combat_combat_zone_6
+  name: Event at Reyes's Ruin
+  type: combat
+  location: combat_zone_6
+  trigger: Player explores Reyes's Ruin.
+  conditions:
+  - type: at_location
+    location: combat_zone_6
+  - type: not_session_flag
+    flag: encounter_fired_combat_combat_zone_6
+  description: Something happens at Reyes's Ruin.
+  consequences: []
+  tone_direction: Chrome and lead. Everything moves too fast — Sandevistan fast, reflex-booster
+    fast, dying fast. The first three seconds decide it.
+  enemies:
+  - name: a MaxTac officer
+    desc: Full tactical armor, Sandevistan blur, weapons that aren't on any civilian
+      market. The thing Night City sends when the gangs aren't enough.
+    stats:
+      health: 12
+      damage: 8
+      speed: very fast
+    behavior: Lethal, efficient, zero hesitation. Breaches doors, clears rooms, neutralizes
+      threats. You are the threat.
+- id: netrun_nightclub_2
+  name: Event at Kowalski's
+  type: netrun
+  location: nightclub_2
+  trigger: Player explores Kowalski's.
+  conditions:
+  - type: at_location
+    location: nightclub_2
+  - type: not_session_flag
+    flag: encounter_fired_netrun_nightclub_2
+  description: Something happens at Kowalski's.
+  consequences: []
+  tone_direction: Quiet and lethal. The hack is silent — fingers of code sliding through
+    security layers, each one a trap waiting to spring. One wrong move and the ICE
+    fries your neural link. With your brain attached.
+- id: netrun_combat_zone_6
+  name: Event at Reyes's Ruin
+  type: netrun
+  location: combat_zone_6
+  trigger: Player explores Reyes's Ruin.
+  conditions:
+  - type: at_location
+    location: combat_zone_6
+  - type: not_session_flag
+    flag: encounter_fired_netrun_combat_zone_6
+  description: Something happens at Reyes's Ruin.
+  consequences: []
+  tone_direction: Quiet and lethal. The hack is silent — fingers of code sliding through
+    security layers, each one a trap waiting to spring. One wrong move and the ICE
+    fries your neural link. With your brain attached.
+- id: negotiation_megabuilding_0
+  name: Event at Chen Tower
+  type: negotiation
+  location: megabuilding_0
+  trigger: Player explores Chen Tower.
+  conditions:
+  - type: at_location
+    location: megabuilding_0
+  - type: not_session_flag
+    flag: encounter_fired_negotiation_megabuilding_0
+  description: Something happens at Chen Tower.
+  consequences: []
+  tone_direction: Words as weapons, silence as armor. Everyone at the table has a
+    gun they're not showing and a number they're not saying. First one to flinch loses.
+- id: negotiation_food_stall_1
+  name: Event at The Bloody Bowl
+  type: negotiation
+  location: food_stall_1
+  trigger: Player explores The Bloody Bowl.
+  conditions:
+  - type: at_location
+    location: food_stall_1
+  - type: not_session_flag
+    flag: encounter_fired_negotiation_food_stall_1
+  description: Something happens at The Bloody Bowl.
+  consequences: []
+  tone_direction: The deal happens in the space between what's said and what's meant.
+    Subtext, body language, the micro-expressions that chrome can't fake. Night City's
+    real currency is leverage.

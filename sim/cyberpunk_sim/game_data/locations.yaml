@@ -1,0 +1,1424 @@
+locations:
+- id: megabuilding_0
+  name: Chen Tower
+  description: Corridor lights flicker between yellow and dead. Apartment doors every
+    six feet, half of them dented. Vending machines casting blue glow on concrete
+    walls. The kind of place where nobody asks questions because they already know
+    the answers and the answers are all bad.
+  sensory:
+    sight: Corridor lights flicker between yellow and dead. Apartment doors every
+      six feet, half of them dented. Vending machines casting blue glow on concrete
+      walls.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Recycled air that's been through ten thousand lungs. Disinfectant that
+      doesn't disinfect. The chemical sweetness of a vending machine meal.
+    touch: Handrail greasy under your palm. The apartment door is thin enough to punch
+      through. You don't, because the lock is the only thing between you and everything.
+  atmosphere: The kind of place where nobody asks questions because they already know
+    the answers and the answers are all bad.
+  connections:
+  - to: food_stall_1
+    direction: east
+  - to: combat_zone_6
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: food_stall_1
+  name: The Bloody Bowl
+  description: Plastic tarps for walls, fairy lights strung between poles. Menu handwritten
+    on a board, half in Japanese, half in English, prices in eddies. A cat sleeping
+    on a crate of synth-noodles. Neutral ground by unspoken law. Gangers eat next
+    to corpos eat next to cops. The food doesn't care who you are. Neither does the
+    cook.
+  sensory:
+    sight: Plastic tarps for walls, fairy lights strung between poles. Menu handwritten
+      on a board, half in Japanese, half in English, prices in eddies. A cat sleeping
+      on a crate of synth-noodles.
+    sound: The hiss of steam. Chopsticks clicking on ceramic. A customer's holo ringing,
+      ignored in favor of noodles. Street noise — traffic, voices, a siren wailing
+      somewhere.
+    smell: Broth — real soy, real ginger, real garlic, or close enough that your tongue
+      can't tell. Frying oil that's been used all day, dark and fragrant. Chili paste,
+      eye-watering, on the counter.
+    touch: Steam on your face, opening your pores. Your hands wrapped around the bowl.
+      For five minutes, Night City shrinks to the size of this counter and the food
+      in front of you.
+  atmosphere: Neutral ground by unspoken law. Gangers eat next to corpos eat next
+    to cops. The food doesn't care who you are. Neither does the cook.
+  connections:
+  - to: megabuilding_0
+    direction: west
+  - to: nightclub_2
+    direction: east
+  - to: combat_zone_7
+    direction: south
+  items: []
+  tags:
+  - social
+  - safe
+  - rest
+  state: normal
+- id: nightclub_2
+  name: Kowalski's
+  description: Holographic dancers flickering between the real ones. A bouncer by
+    the VIP rope — his arms are Gorilla Arms, you can tell by the seams at the shoulders.
+    Someone's nose is bleeding at the bar. Nobody's helping. Neon and bass and the
+    beautiful lie that tonight doesn't have consequences. It does. It always does.
+  sensory:
+    sight: Holographic dancers flickering between the real ones. A bouncer by the
+      VIP rope — his arms are Gorilla Arms, you can tell by the seams at the shoulders.
+      Someone's nose is bleeding at the bar. Nobody's helping.
+    sound: Muffled conversation from VIP — corpo accents, clipped and precise. Someone
+      retching in the bathroom. The airlock-hiss of a booth curtain closing.
+    smell: Synth-alcohol sweat, ozone from the light rigs, perfume that costs more
+      than a month's rent in Watson. Underneath it all, the meat smell of too many
+      bodies.
+    touch: Drink cold in your hand. Condensation dripping down the glass. The air
+      is ten degrees too hot and humid with exhalation.
+  atmosphere: Neon and bass and the beautiful lie that tonight doesn't have consequences.
+    It does. It always does.
+  connections:
+  - to: food_stall_1
+    direction: west
+  - to: ripperdoc_clinic_3
+    direction: east
+  - to: megabuilding_8
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: ripperdoc_clinic_3
+  name: Nguyen's Clinic
+  description: Antiseptic tiles, half of them chipped. A fridge humming in the corner
+    — you don't want to know what's inside. Bioscanners blinking green on a tray.
+    You walk in meat. You walk out better. Or worse. Or you don't walk out. The waiver
+    you signed covers all three.
+  sensory:
+    sight: Antiseptic tiles, half of them chipped. A fridge humming in the corner
+      — you don't want to know what's inside. Bioscanners blinking green on a tray.
+    sound: Bioscanners pinging. The hiss of local anesthetic spraying. Someone in
+      the recovery cot groaning as the new chrome handshakes with their nervous system.
+    smell: Rubbing alcohol, synthetic skin adhesive, and the copper-sweet smell of
+      someone who's been opened up. Coffee, because the doc's been at it fourteen
+      hours.
+    touch: The doc's chrome fingers on your jaw, precise and cold. The pinch of the
+      neural jack going in. Then nothing, then everything, then you're someone with
+      new parts.
+  atmosphere: You walk in meat. You walk out better. Or worse. Or you don't walk out.
+    The waiver you signed covers all three.
+  connections:
+  - to: nightclub_2
+    direction: west
+  - to: megabuilding_4
+    direction: east
+  - to: megabuilding_9
+    direction: south
+  items: []
+  tags:
+  - commerce
+  - medical
+  state: normal
+- id: megabuilding_4
+  name: The Rusted Stack
+  description: Forty stories of stacked humanity. Laundry lines between balconies.
+    Neon advertisements bleeding through windows that don't open. Vertical slum with
+    a corporate logo on the lobby. Two thousand people living in a building that hates
+    them.
+  sensory:
+    sight: Forty stories of stacked humanity. Laundry lines between balconies. Neon
+      advertisements bleeding through windows that don't open.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Synthetic ramen steam, piss in the stairwell, ozone from a busted power
+      junction. Somebody's cooking real meat — you can tell because it smells wrong
+      after years of synth.
+    touch: The hallway wall is damp. The elevator button sticks. Your shoes leave
+      prints on whatever's coating the floor.
+  atmosphere: Vertical slum with a corporate logo on the lobby. Two thousand people
+    living in a building that hates them.
+  connections:
+  - to: ripperdoc_clinic_3
+    direction: west
+  - to: braindance_parlor_5
+    direction: east
+  - to: nightclub_10
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: braindance_parlor_5
+  name: The Razor Experience
+  description: Soft purple lighting, designed to relax. A customer in a chair, completely
+    still, visor on, body twitching — they're someone else right now. A technician
+    wiping down a headset with antiseptic. Addiction dressed up as recreation. The
+    regulars come every day. Their eyes get that flat look — the real world doesn't
+    render at high enough resolution anymore.
+  sensory:
+    sight: Soft purple lighting, designed to relax. A customer in a chair, completely
+      still, visor on, body twitching — they're someone else right now. A technician
+      wiping down a headset with antiseptic.
+    sound: The electromagnetic whine of headsets at full immersion. Breathing — deep,
+      slow, synchronized across a dozen customers. The soft chime of a session ending.
+    smell: Antiseptic on the headsets, that hospital-clean smell. The synthetic leather
+      of the chairs. Air freshener — lavender, pumped through the vents to keep people
+      calm.
+    touch: Coming out is the worst part. The visor lifts and suddenly you have a body
+      again — heavy, clumsy, yours. The chair is too firm. The air is too cold. Reality
+      is a downgrade.
+  atmosphere: Addiction dressed up as recreation. The regulars come every day. Their
+    eyes get that flat look — the real world doesn't render at high enough resolution
+    anymore.
+  connections:
+  - to: megabuilding_4
+    direction: west
+  - to: nomad_camp_11
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  state: normal
+- id: combat_zone_6
+  name: Reyes's Ruin
+  description: Bullet holes in everything. Scorch marks from incendiary grenades.
+    A market set up in a parking garage — tarps, car batteries, people with guns visible.
+    Every building is a potential ambush. Every person is a potential threat. Paranoia
+    isn't a disorder here — it's a survival skill.
+  sensory:
+    sight: Bullet holes in everything. Scorch marks from incendiary grenades. A market
+      set up in a parking garage — tarps, car batteries, people with guns visible.
+    sound: Wind through broken windows, a sound like breathing. Rubble shifting —
+      rats or people, same survival instinct. An explosion, far enough to not worry
+      about. Yet.
+    smell: Burned plastic and the acrid tang of a chemical fire that went out days
+      ago. Human waste. Cooking smoke from a camp you can't see.
+    touch: The ground is uneven. Your ankle turns on broken concrete. The cover you're
+      crouching behind is a car door and it won't stop anything bigger than a pistol
+      round.
+  atmosphere: Every building is a potential ambush. Every person is a potential threat.
+    Paranoia isn't a disorder here — it's a survival skill.
+  connections:
+  - to: megabuilding_0
+    direction: north
+  - to: combat_zone_7
+    direction: east
+  - to: combat_zone_12
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - isolated
+  state: normal
+- id: combat_zone_7
+  name: The Toxic Zone
+  description: Burned-out buildings, rebar jutting from concrete like broken bones.
+    A Militech APC rusting on its side, tires gone, stripped to the frame. Somebody's
+    living in it. The city tried to build something here once. Now it's a monument
+    to the gap between what Night City promises and what it delivers.
+  sensory:
+    sight: Burned-out buildings, rebar jutting from concrete like broken bones. A
+      Militech APC rusting on its side, tires gone, stripped to the frame. Somebody's
+      living in it.
+    sound: Gunfire — distant, sporadic, the background noise of a place with no law.
+      A generator coughing somewhere. Dogs, feral, fighting over something you don't
+      want to see.
+    smell: Rust, mold, wet earth where the pavement's cracked open. The sharp clean
+      smell of rain on rubble, which is the only clean thing here.
+    touch: The ground is uneven. Your ankle turns on broken concrete. The cover you're
+      crouching behind is a car door and it won't stop anything bigger than a pistol
+      round.
+  atmosphere: The city tried to build something here once. Now it's a monument to
+    the gap between what Night City promises and what it delivers.
+  connections:
+  - to: food_stall_1
+    direction: north
+  - to: combat_zone_6
+    direction: west
+  - to: megabuilding_8
+    direction: east
+  - to: braindance_parlor_13
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - isolated
+  state: normal
+- id: megabuilding_8
+  name: Megabuilding HGhost
+  description: Forty stories of stacked humanity. Laundry lines between balconies.
+    Neon advertisements bleeding through windows that don't open. Home. If you can
+    call a six-by-eight box with a fold-down bed and a shared bathroom home. Most
+    people can. Most people have to.
+  sensory:
+    sight: Forty stories of stacked humanity. Laundry lines between balconies. Neon
+      advertisements bleeding through windows that don't open.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Sweat, soy sauce, burnt wiring, and the flat plastic smell of everything
+      being made of the same polymer.
+    touch: Handrail greasy under your palm. The apartment door is thin enough to punch
+      through. You don't, because the lock is the only thing between you and everything.
+  atmosphere: Home. If you can call a six-by-eight box with a fold-down bed and a
+    shared bathroom home. Most people can. Most people have to.
+  connections:
+  - to: nightclub_2
+    direction: north
+  - to: combat_zone_7
+    direction: west
+  - to: megabuilding_9
+    direction: east
+  - to: chop_shop_14
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: megabuilding_9
+  name: Patel Tower
+  description: Forty stories of stacked humanity. Laundry lines between balconies.
+    Neon advertisements bleeding through windows that don't open. Vertical slum with
+    a corporate logo on the lobby. Two thousand people living in a building that hates
+    them.
+  sensory:
+    sight: Forty stories of stacked humanity. Laundry lines between balconies. Neon
+      advertisements bleeding through windows that don't open.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Synthetic ramen steam, piss in the stairwell, ozone from a busted power
+      junction. Somebody's cooking real meat — you can tell because it smells wrong
+      after years of synth.
+    touch: The hallway wall is damp. The elevator button sticks. Your shoes leave
+      prints on whatever's coating the floor.
+  atmosphere: Vertical slum with a corporate logo on the lobby. Two thousand people
+    living in a building that hates them.
+  connections:
+  - to: ripperdoc_clinic_3
+    direction: north
+  - to: megabuilding_8
+    direction: west
+  - to: nightclub_10
+    direction: east
+  - to: gang_hideout_15
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: nightclub_10
+  name: Club Shard
+  description: Neon tubes in the ceiling pulsing magenta-blue-magenta. Bodies on the
+    dance floor, chrome catching light — arms, jaws, spinal columns lit up like circuitry.
+    Braindance booths along the back wall, curtains half-drawn. Lizzie's Bar with
+    the serial numbers filed off. Braindance in the back, deals in the VIP, and enough
+    noise to cover all of it.
+  sensory:
+    sight: Neon tubes in the ceiling pulsing magenta-blue-magenta. Bodies on the dance
+      floor, chrome catching light — arms, jaws, spinal columns lit up like circuitry.
+      Braindance booths along the back wall, curtains half-drawn.
+    sound: Muffled conversation from VIP — corpo accents, clipped and precise. Someone
+      retching in the bathroom. The airlock-hiss of a booth curtain closing.
+    smell: Spilled drinks — sweet, chemical, blue. Smoke from something legal adjacent.
+      The burnt-plastic scent of a braindance headset that's been running too hot.
+    touch: Drink cold in your hand. Condensation dripping down the glass. The air
+      is ten degrees too hot and humid with exhalation.
+  atmosphere: Lizzie's Bar with the serial numbers filed off. Braindance in the back,
+    deals in the VIP, and enough noise to cover all of it.
+  connections:
+  - to: megabuilding_4
+    direction: north
+  - to: megabuilding_9
+    direction: west
+  - to: nomad_camp_11
+    direction: east
+  - to: black_market_16
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: nomad_camp_11
+  name: The Razor Convoy
+  description: Mechanic under a truck, legs sticking out. A rifle leaning on every
+    third vehicle. A woman on watch, silhouetted against the sunset, scanning the
+    horizon with enhanced optics. The road is home. The camp is temporary. The people
+    are permanent. That's the deal.
+  sensory:
+    sight: Mechanic under a truck, legs sticking out. A rifle leaning on every third
+      vehicle. A woman on watch, silhouetted against the sunset, scanning the horizon
+      with enhanced optics.
+    sound: Wind — constant, dry, carrying sand that ticks against metal. Radio chatter
+      between outriders. A dog barking at a dust devil.
+    smell: Leather, sweat, motor oil, and the open-air smell that city people forget
+      exists. No synthetics. No recycled air. Just sky.
+    touch: The truck hood is warm from the sun, even after dark. The camp chair canvas
+      sags under you. Solid ground, real ground, not concrete.
+  atmosphere: The road is home. The camp is temporary. The people are permanent. That's
+    the deal.
+  connections:
+  - to: braindance_parlor_5
+    direction: north
+  - to: nightclub_10
+    direction: west
+  - to: corpo_tower_17
+    direction: south
+  items: []
+  tags:
+  - social
+  - safe
+  - isolated
+  state: normal
+- id: combat_zone_12
+  name: The Red Zone
+  description: Bullet holes in everything. Scorch marks from incendiary grenades.
+    A market set up in a parking garage — tarps, car batteries, people with guns visible.
+    Every building is a potential ambush. Every person is a potential threat. Paranoia
+    isn't a disorder here — it's a survival skill.
+  sensory:
+    sight: Bullet holes in everything. Scorch marks from incendiary grenades. A market
+      set up in a parking garage — tarps, car batteries, people with guns visible.
+    sound: Silence that's worse than the gunfire. The creak of a structure that's
+      going to collapse eventually. Your own breathing, your own heartbeat, your own
+      footsteps.
+    smell: Burned plastic and the acrid tang of a chemical fire that went out days
+      ago. Human waste. Cooking smoke from a camp you can't see.
+    touch: The ground is uneven. Your ankle turns on broken concrete. The cover you're
+      crouching behind is a car door and it won't stop anything bigger than a pistol
+      round.
+  atmosphere: Every building is a potential ambush. Every person is a potential threat.
+    Paranoia isn't a disorder here — it's a survival skill.
+  connections:
+  - to: combat_zone_6
+    direction: north
+  - to: braindance_parlor_13
+    direction: east
+  - to: fixer_office_18
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - isolated
+  state: normal
+- id: braindance_parlor_13
+  name: BD Grid
+  description: Soft purple lighting, designed to relax. A customer in a chair, completely
+    still, visor on, body twitching — they're someone else right now. A technician
+    wiping down a headset with antiseptic. Addiction dressed up as recreation. The
+    regulars come every day. Their eyes get that flat look — the real world doesn't
+    render at high enough resolution anymore.
+  sensory:
+    sight: Soft purple lighting, designed to relax. A customer in a chair, completely
+      still, visor on, body twitching — they're someone else right now. A technician
+      wiping down a headset with antiseptic.
+    sound: The electromagnetic whine of headsets at full immersion. Breathing — deep,
+      slow, synchronized across a dozen customers. The soft chime of a session ending.
+    smell: Sweat from the customer who's been under for three hours. The chemical
+      tang of the interface gel they smear on the contact points. Recycled air, over-filtered.
+    touch: The chair reclines smooth, supports your neck. The headset visor is warm
+      from the last user, foam padding pressing your temples. The interface gel is
+      cold, then numb, then gone.
+  atmosphere: Addiction dressed up as recreation. The regulars come every day. Their
+    eyes get that flat look — the real world doesn't render at high enough resolution
+    anymore.
+  connections:
+  - to: combat_zone_7
+    direction: north
+  - to: combat_zone_12
+    direction: west
+  - to: chop_shop_14
+    direction: east
+  - to: food_stall_19
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  state: normal
+- id: chop_shop_14
+  name: Parts & Labor
+  description: Cyberware in jars on a shelf — arms, optic assemblies, a spinal column
+    shining chrome under fluorescent light. A workbench covered in tools and blood.
+    A drain in the floor. Stolen cars in, clean parts out. Or stolen chrome in, sanitized
+    implants out. Same business model, different inventory.
+  sensory:
+    sight: Cyberware in jars on a shelf — arms, optic assemblies, a spinal column
+      shining chrome under fluorescent light. A workbench covered in tools and blood.
+      A drain in the floor.
+    sound: An engine revving — testing, not running. The pop-pop of spot welds. A
+      compressor cycling on and off like a mechanical heartbeat.
+    smell: 'Grease, cutting fluid, hot metal, burned rubber. The tang of battery acid
+      from a pile of used power cells. Underneath: the antiseptic smell of cyberware
+      being prepped.'
+    touch: Concrete floor, cracked and oil-stained. The lift hydraulics shudder when
+      they hold. Your feet stick to whatever's coating the ground near the drain.
+  atmosphere: Stolen cars in, clean parts out. Or stolen chrome in, sanitized implants
+    out. Same business model, different inventory.
+  connections:
+  - to: megabuilding_8
+    direction: north
+  - to: braindance_parlor_13
+    direction: west
+  - to: gang_hideout_15
+    direction: east
+  - to: ripperdoc_clinic_20
+    direction: south
+  items: []
+  tags:
+  - criminal
+  - commerce
+  state: normal
+- id: gang_hideout_15
+  name: The Grid Pit
+  description: Valentino gold and red on the walls, religious iconography mixed with
+    gang signs. A shrine in the corner — candles, photos of the dead, a pistol laid
+    across them like an offering. Music playing, corridos, somebody singing along.
+    Family, if family means people who'd kill for you and maybe kill you. Depends
+    on the day.
+  sensory:
+    sight: Valentino gold and red on the walls, religious iconography mixed with gang
+      signs. A shrine in the corner — candles, photos of the dead, a pistol laid across
+      them like an offering. Music playing, corridos, somebody singing along.
+    sound: Somebody sparring in the back — the meaty thud of augmented fists on a
+      heavy bag. A dog barking. Radio chatter from a scanner, monitoring NCPD frequencies.
+    smell: Spray paint fumes, engine grease, ozone from overclocked implants. The
+      copper smell of someone who got chromed up recently and is still healing.
+    touch: Concrete floor, cracked and uneven. The wall is tagged so thick the paint
+      has texture. A shell casing rolls under your foot.
+  atmosphere: Family, if family means people who'd kill for you and maybe kill you.
+    Depends on the day.
+  connections:
+  - to: megabuilding_9
+    direction: north
+  - to: chop_shop_14
+    direction: west
+  - to: black_market_16
+    direction: east
+  - to: gang_hideout_21
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: black_market_16
+  name: Nguyen's Stock
+  description: Hidden behind a noodle shop, through a door that isn't there unless
+    you know the knock. LED strips, red, casting everything in the color of the merchandise's
+    provenance. Trust is the product. The dealer trusts you were referred. You trust
+    the chrome isn't booby-trapped. Both of you trust nobody followed the other one
+    in.
+  sensory:
+    sight: Hidden behind a noodle shop, through a door that isn't there unless you
+      know the knock. LED strips, red, casting everything in the color of the merchandise's
+      provenance.
+    sound: 'A scanner alarm outside — everyone freezes for three seconds, then the
+      dealer waves it off. Background: the muffled noise of the legitimate business
+      upstairs.'
+    smell: 'Gun oil, packing foam, the chemical smell of factory-sealed cyberware.
+      Underneath: fear-sweat from the buyer who knows what happens if NCPD finds this
+      place.'
+    touch: The table is solid, bolted down. The stool doesn't swivel. Everything here
+      is designed to not move quickly, including the customers.
+  atmosphere: Trust is the product. The dealer trusts you were referred. You trust
+    the chrome isn't booby-trapped. Both of you trust nobody followed the other one
+    in.
+  connections:
+  - to: nightclub_10
+    direction: north
+  - to: gang_hideout_15
+    direction: west
+  - to: corpo_tower_17
+    direction: east
+  - to: corpo_tower_22
+    direction: south
+  items: []
+  tags:
+  - commerce
+  - criminal
+  state: normal
+- id: corpo_tower_17
+  name: Tanaka Industries
+  description: Glass and steel rising sixty floors, cutting the skyline like a blade.
+    Lobby floor polished to a mirror — your reflection walks toward you, smaller.
+    Reception desk staffed by someone whose smile is contractually obligated. Arasaka,
+    Militech, Kang Tao — the name changes, the tower doesn't. Glass and steel and
+    the quiet violence of people who destroy lives with a memo.
+  sensory:
+    sight: Glass and steel rising sixty floors, cutting the skyline like a blade.
+      Lobby floor polished to a mirror — your reflection walks toward you, smaller.
+      Reception desk staffed by someone whose smile is contractually obligated.
+    sound: Security comms crackling in earpieces. The whisper-click of mag-locked
+      doors. Somewhere, a phone ringing once before being answered by someone paid
+      to answer on the first ring.
+    smell: Coffee that costs forty eddies a cup. Fresh-cut flowers replaced daily
+      — lilies, always lilies, because someone decided lilies say 'power.' Dry-cleaned
+      fabric.
+    touch: Marble floor, cold through your shoes. The elevator rail is brushed steel,
+      body-temperature from the climate control. Your visitor badge is thin plastic
+      with a tracker in it.
+  atmosphere: Arasaka, Militech, Kang Tao — the name changes, the tower doesn't. Glass
+    and steel and the quiet violence of people who destroy lives with a memo.
+  connections:
+  - to: nomad_camp_11
+    direction: north
+  - to: black_market_16
+    direction: west
+  - to: nightclub_23
+    direction: south
+  items: []
+  tags:
+  - authority
+  - commerce
+  - danger
+  state: normal
+- id: fixer_office_18
+  name: Blackwood's Office
+  description: A back room behind a legitimate front — could be a bar, a laundromat,
+    a ripperdoc's. Desk, terminal, two chairs. The screen is angled so only the fixer
+    can see it. The invisible infrastructure of Night City's real economy. Every job,
+    every merc, every corpo hit and data steal runs through a room like this.
+  sensory:
+    sight: A back room behind a legitimate front — could be a bar, a laundromat, a
+      ripperdoc's. Desk, terminal, two chairs. The screen is angled so only the fixer
+      can see it.
+    sound: The soft click of encrypted comms connecting. The fixer's voice — calm,
+      measured, every word chosen. A terminal notification chiming — new job, new
+      opportunity, new body count.
+    smell: Money. Not a literal smell — the metaphorical weight of eddies flowing
+      through this room, the invisible scent of transactions that shape the district.
+    touch: Handshake — firm, brief, sealing. The drink poured for you is cold, smooth,
+      a gesture that means you're worth the good stuff. Or that the job is bad enough
+      to need it.
+  atmosphere: The invisible infrastructure of Night City's real economy. Every job,
+    every merc, every corpo hit and data steal runs through a room like this.
+  connections:
+  - to: combat_zone_12
+    direction: north
+  - to: food_stall_19
+    direction: east
+  - to: food_stall_24
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: food_stall_19
+  name: Street Pulse
+  description: Steam rising from a vat of broth, lit neon-orange by the sign above.
+    A counter with six stools, three occupied. The cook working fast — chopping, stirring,
+    plating — chrome hands a blur. This is where the solos come after a job. Where
+    the fixers close deals over dumplings. Where everybody is just a person with a
+    bowl and a pair of chopsticks.
+  sensory:
+    sight: Steam rising from a vat of broth, lit neon-orange by the sign above. A
+      counter with six stools, three occupied. The cook working fast — chopping, stirring,
+      plating — chrome hands a blur.
+    sound: Sizzling oil, the clatter of a wok, the cook shouting orders in a language
+      that's three languages stitched together. Slurping — unapologetic, satisfied.
+    smell: Sesame oil, rice vinegar, the caramel-dark sweetness of the sauce. Your
+      jacket will smell like this place for two days. You won't mind.
+    touch: Metal stool, cold under you. The counter is scarred and warm from the cooking
+      surface below. Chopsticks — disposable, wooden, slightly splintery.
+  atmosphere: This is where the solos come after a job. Where the fixers close deals
+    over dumplings. Where everybody is just a person with a bowl and a pair of chopsticks.
+  connections:
+  - to: braindance_parlor_13
+    direction: north
+  - to: fixer_office_18
+    direction: west
+  - to: ripperdoc_clinic_20
+    direction: east
+  - to: megabuilding_25
+    direction: south
+  items: []
+  tags:
+  - social
+  - safe
+  - rest
+  state: normal
+- id: ripperdoc_clinic_20
+  name: Volkov's Clinic
+  description: Cyber limbs mounted on the wall like trophies. A patient in the chair,
+    jaw slack, eyes rolled back — installation in progress. The doc's hands are chrome
+    from the elbow down. You walk in meat. You walk out better. Or worse. Or you don't
+    walk out. The waiver you signed covers all three.
+  sensory:
+    sight: Cyber limbs mounted on the wall like trophies. A patient in the chair,
+      jaw slack, eyes rolled back — installation in progress. The doc's hands are
+      chrome from the elbow down.
+    sound: Latex gloves snapping on. The click-whir of a cybernetic eye calibrating.
+      A fridge compressor kicking in, loud in the silence between procedures.
+    smell: Rubbing alcohol, synthetic skin adhesive, and the copper-sweet smell of
+      someone who's been opened up. Coffee, because the doc's been at it fourteen
+      hours.
+    touch: The chair leather is cold, then warm, then you stop feeling things because
+      the local kicks in. The restraints are padded. That's almost kind.
+  atmosphere: You walk in meat. You walk out better. Or worse. Or you don't walk out.
+    The waiver you signed covers all three.
+  connections:
+  - to: chop_shop_14
+    direction: north
+  - to: food_stall_19
+    direction: west
+  - to: gang_hideout_21
+    direction: east
+  - to: gang_hideout_26
+    direction: south
+  items: []
+  tags:
+  - commerce
+  - medical
+  state: normal
+- id: gang_hideout_21
+  name: The Ghost Pit
+  description: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+    actually good if you look past the subject matter. Weapons on a table: iron, tech,
+    a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector. The
+    chrome is the uniform. The heavier the mod, the higher the rank. Or the more they''ve
+    lost.'
+  sensory:
+    sight: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+      actually good if you look past the subject matter. Weapons on a table: iron,
+      tech, a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector.'
+    sound: Somebody sparring in the back — the meaty thud of augmented fists on a
+      heavy bag. A dog barking. Radio chatter from a scanner, monitoring NCPD frequencies.
+    smell: Soldering flux from cyberware repair. Takeout containers — real food and
+      synth mixed together. The sharp chemical tang of combat stims, half-empty on
+      the table.
+    touch: Folding chair that's seen better decades. The table is a cable spool, sticky
+      with beer rings. Someone hands you a bottle — warm, already opened.
+  atmosphere: The chrome is the uniform. The heavier the mod, the higher the rank.
+    Or the more they've lost.
+  connections:
+  - to: gang_hideout_15
+    direction: north
+  - to: ripperdoc_clinic_20
+    direction: west
+  - to: corpo_tower_22
+    direction: east
+  - to: gang_hideout_27
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: corpo_tower_22
+  name: The Dead Spire
+  description: Holographic company logo rotating above the lobby, twenty feet tall.
+    Security checkpoints — scanners, armed guards, the subtle gleam of automated turrets
+    tracking movement. Everything is white, chrome, and precisely lit. Arasaka, Militech,
+    Kang Tao — the name changes, the tower doesn't. Glass and steel and the quiet
+    violence of people who destroy lives with a memo.
+  sensory:
+    sight: Holographic company logo rotating above the lobby, twenty feet tall. Security
+      checkpoints — scanners, armed guards, the subtle gleam of automated turrets
+      tracking movement. Everything is white, chrome, and precisely lit.
+    sound: Silence that costs. The kind you buy by putting enough steel, glass, and
+      armed personnel between you and the city. A pen signing something that ruins
+      lives, soft as a breath.
+    smell: Coffee that costs forty eddies a cup. Fresh-cut flowers replaced daily
+      — lilies, always lilies, because someone decided lilies say 'power.' Dry-cleaned
+      fabric.
+    touch: Marble floor, cold through your shoes. The elevator rail is brushed steel,
+      body-temperature from the climate control. Your visitor badge is thin plastic
+      with a tracker in it.
+  atmosphere: Arasaka, Militech, Kang Tao — the name changes, the tower doesn't. Glass
+    and steel and the quiet violence of people who destroy lives with a memo.
+  connections:
+  - to: black_market_16
+    direction: north
+  - to: gang_hideout_21
+    direction: west
+    blocked_by: Barricade. Someone doesn't want visitors.
+  - to: nightclub_23
+    direction: east
+  - to: gang_hideout_28
+    direction: south
+  items: []
+  tags:
+  - authority
+  - commerce
+  - danger
+  state: normal
+- id: nightclub_23
+  name: Club Edge
+  description: Bar top glowing from underneath, ice-blue. Bottles of synthetic liquor
+    backlit like a shrine. A joytoy leaning on the railing of the second floor, watching
+    the crowd with eyes that don't blink right. Lizzie's Bar with the serial numbers
+    filed off. Braindance in the back, deals in the VIP, and enough noise to cover
+    all of it.
+  sensory:
+    sight: Bar top glowing from underneath, ice-blue. Bottles of synthetic liquor
+      backlit like a shrine. A joytoy leaning on the railing of the second floor,
+      watching the crowd with eyes that don't blink right.
+    sound: Bass that rewires your heartbeat. Synth-wave layered over something older,
+      harder. The crowd noise is a wall — you shout to be heard at arm's length.
+    smell: Cologne, coolant — someone's leaking from a bad mod — and the sharp-clean
+      smell of the disinfectant they spray in the booths between customers.
+    touch: Drink cold in your hand. Condensation dripping down the glass. The air
+      is ten degrees too hot and humid with exhalation.
+  atmosphere: Lizzie's Bar with the serial numbers filed off. Braindance in the back,
+    deals in the VIP, and enough noise to cover all of it.
+  connections:
+  - to: corpo_tower_17
+    direction: north
+  - to: corpo_tower_22
+    direction: west
+  - to: corpo_tower_29
+    direction: south
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: food_stall_24
+  name: Street Signal
+  description: Steam rising from a vat of broth, lit neon-orange by the sign above.
+    A counter with six stools, three occupied. The cook working fast — chopping, stirring,
+    plating — chrome hands a blur. The last honest business in Night City. You pay,
+    you eat, you feel human for twenty minutes. No angle, no agenda, just noodles.
+  sensory:
+    sight: Steam rising from a vat of broth, lit neon-orange by the sign above. A
+      counter with six stools, three occupied. The cook working fast — chopping, stirring,
+      plating — chrome hands a blur.
+    sound: Sizzling oil, the clatter of a wok, the cook shouting orders in a language
+      that's three languages stitched together. Slurping — unapologetic, satisfied.
+    smell: Sesame oil, rice vinegar, the caramel-dark sweetness of the sauce. Your
+      jacket will smell like this place for two days. You won't mind.
+    touch: Steam on your face, opening your pores. Your hands wrapped around the bowl.
+      For five minutes, Night City shrinks to the size of this counter and the food
+      in front of you.
+  atmosphere: The last honest business in Night City. You pay, you eat, you feel human
+    for twenty minutes. No angle, no agenda, just noodles.
+  connections:
+  - to: fixer_office_18
+    direction: north
+  - to: megabuilding_25
+    direction: east
+  - to: megabuilding_30
+    direction: south
+  items: []
+  tags:
+  - social
+  - safe
+  - rest
+  state: normal
+- id: megabuilding_25
+  name: Kowalski Tower
+  description: Corridor lights flicker between yellow and dead. Apartment doors every
+    six feet, half of them dented. Vending machines casting blue glow on concrete
+    walls. Vertical slum with a corporate logo on the lobby. Two thousand people living
+    in a building that hates them.
+  sensory:
+    sight: Corridor lights flicker between yellow and dead. Apartment doors every
+      six feet, half of them dented. Vending machines casting blue glow on concrete
+      walls.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Synthetic ramen steam, piss in the stairwell, ozone from a busted power
+      junction. Somebody's cooking real meat — you can tell because it smells wrong
+      after years of synth.
+    touch: Concrete vibrating from the building's guts — generators, water recyclers,
+      things that keep forty floors alive. The air is body-temperature and tastes
+      used.
+  atmosphere: Vertical slum with a corporate logo on the lobby. Two thousand people
+    living in a building that hates them.
+  connections:
+  - to: food_stall_19
+    direction: north
+  - to: food_stall_24
+    direction: west
+  - to: gang_hideout_26
+    direction: east
+  - to: black_market_31
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: gang_hideout_26
+  name: Petrov's Turf
+  description: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+    actually good if you look past the subject matter. Weapons on a table: iron, tech,
+    a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector. The
+    chrome is the uniform. The heavier the mod, the higher the rank. Or the more they''ve
+    lost.'
+  sensory:
+    sight: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+      actually good if you look past the subject matter. Weapons on a table: iron,
+      tech, a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector.'
+    sound: Somebody sparring in the back — the meaty thud of augmented fists on a
+      heavy bag. A dog barking. Radio chatter from a scanner, monitoring NCPD frequencies.
+    smell: 'Gun oil, cheap beer, sweat, and the burned-metal smell of recently fired
+      weapons. Synthetic weed smoke hanging in layers. Underneath: blood. Old blood,
+      in the concrete.'
+    touch: Air thick enough to taste. The bass from the speaker vibrating in your
+      molars. Someone claps your shoulder and their hand is chrome — cold, hard, grip
+      that could crush bone.
+  atmosphere: The chrome is the uniform. The heavier the mod, the higher the rank.
+    Or the more they've lost.
+  connections:
+  - to: ripperdoc_clinic_20
+    direction: north
+  - to: megabuilding_25
+    direction: west
+  - to: gang_hideout_27
+    direction: east
+  - to: ripperdoc_clinic_32
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: gang_hideout_27
+  name: The Spike Pit
+  description: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+    actually good if you look past the subject matter. Weapons on a table: iron, tech,
+    a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector. Family,
+    if family means people who''d kill for you and maybe kill you. Depends on the
+    day.'
+  sensory:
+    sight: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+      actually good if you look past the subject matter. Weapons on a table: iron,
+      tech, a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector.'
+    sound: Tyger Claw tech-step rattling a speaker with a cracked cone. Japanese and
+      English tangling together, fast and loud. The whine of a katana being sharpened
+      on a diamond wheel.
+    smell: Soldering flux from cyberware repair. Takeout containers — real food and
+      synth mixed together. The sharp chemical tang of combat stims, half-empty on
+      the table.
+    touch: Concrete floor, cracked and uneven. The wall is tagged so thick the paint
+      has texture. A shell casing rolls under your foot.
+  atmosphere: Family, if family means people who'd kill for you and maybe kill you.
+    Depends on the day.
+  connections:
+  - to: gang_hideout_21
+    direction: north
+  - to: gang_hideout_26
+    direction: west
+  - to: gang_hideout_28
+    direction: east
+  - to: power_plant_33
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: gang_hideout_28
+  name: The Cold Den
+  description: Maelstrom chrome everywhere — faces more machine than flesh, red optic
+    implants glowing in dim rooms. Cables running from a generator to a dozen devices.
+    A workbench covered in cyberware parts, some of them still bloody. The chrome
+    is the uniform. The heavier the mod, the higher the rank. Or the more they've
+    lost.
+  sensory:
+    sight: Maelstrom chrome everywhere — faces more machine than flesh, red optic
+      implants glowing in dim rooms. Cables running from a generator to a dozen devices.
+      A workbench covered in cyberware parts, some of them still bloody.
+    sound: Tyger Claw tech-step rattling a speaker with a cracked cone. Japanese and
+      English tangling together, fast and loud. The whine of a katana being sharpened
+      on a diamond wheel.
+    smell: Soldering flux from cyberware repair. Takeout containers — real food and
+      synth mixed together. The sharp chemical tang of combat stims, half-empty on
+      the table.
+    touch: Folding chair that's seen better decades. The table is a cable spool, sticky
+      with beer rings. Someone hands you a bottle — warm, already opened.
+  atmosphere: The chrome is the uniform. The heavier the mod, the higher the rank.
+    Or the more they've lost.
+  connections:
+  - to: corpo_tower_22
+    direction: north
+  - to: gang_hideout_27
+    direction: west
+  - to: corpo_tower_29
+    direction: east
+  - to: megabuilding_34
+    direction: south
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: corpo_tower_29
+  name: Okonkwo Corp Tower
+  description: Glass and steel rising sixty floors, cutting the skyline like a blade.
+    Lobby floor polished to a mirror — your reflection walks toward you, smaller.
+    Reception desk staffed by someone whose smile is contractually obligated. Arasaka,
+    Militech, Kang Tao — the name changes, the tower doesn't. Glass and steel and
+    the quiet violence of people who destroy lives with a memo.
+  sensory:
+    sight: Glass and steel rising sixty floors, cutting the skyline like a blade.
+      Lobby floor polished to a mirror — your reflection walks toward you, smaller.
+      Reception desk staffed by someone whose smile is contractually obligated.
+    sound: Security comms crackling in earpieces. The whisper-click of mag-locked
+      doors. Somewhere, a phone ringing once before being answered by someone paid
+      to answer on the first ring.
+    smell: Nothing. That's the point. They've scrubbed the building of anything human.
+      The absence of smell is a flex.
+    touch: The chair in the waiting area is ergonomic perfection — it's comfortable
+      so you forget you're being watched. The glass desk is cold under your forearms.
+  atmosphere: Arasaka, Militech, Kang Tao — the name changes, the tower doesn't. Glass
+    and steel and the quiet violence of people who destroy lives with a memo.
+  connections:
+  - to: nightclub_23
+    direction: north
+  - to: gang_hideout_28
+    direction: west
+  - to: corpo_tower_35
+    direction: south
+  items: []
+  tags:
+  - authority
+  - commerce
+  - danger
+  state: normal
+- id: megabuilding_30
+  name: Reyes Tower
+  description: Corridor lights flicker between yellow and dead. Apartment doors every
+    six feet, half of them dented. Vending machines casting blue glow on concrete
+    walls. Home. If you can call a six-by-eight box with a fold-down bed and a shared
+    bathroom home. Most people can. Most people have to.
+  sensory:
+    sight: Corridor lights flicker between yellow and dead. Apartment doors every
+      six feet, half of them dented. Vending machines casting blue glow on concrete
+      walls.
+    sound: Elevator cables groaning. A domestic argument in 14-C, same time every
+      night. The hum of a hundred cheap holoprojectors.
+    smell: Recycled air that's been through ten thousand lungs. Disinfectant that
+      doesn't disinfect. The chemical sweetness of a vending machine meal.
+    touch: The hallway wall is damp. The elevator button sticks. Your shoes leave
+      prints on whatever's coating the floor.
+  atmosphere: Home. If you can call a six-by-eight box with a fold-down bed and a
+    shared bathroom home. Most people can. Most people have to.
+  connections:
+  - to: food_stall_24
+    direction: north
+  - to: black_market_31
+    direction: east
+  - to: nomad_camp_36
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: black_market_31
+  name: The Toxic Exchange
+  description: Weapons laid out on black cloth like a surgeon's tools. Military-grade
+    tech that has no business being here. A terminal showing encrypted transactions,
+    numbers scrolling green. The economy that actually runs Night City. Eddies flow
+    down here like water, invisible to the corpos who think they control the market.
+  sensory:
+    sight: Weapons laid out on black cloth like a surgeon's tools. Military-grade
+      tech that has no business being here. A terminal showing encrypted transactions,
+      numbers scrolling green.
+    sound: Whispered negotiations. The click of a case opening — chrome inside, nestled
+      in foam. A jammer buzzing, killing any signal in a twenty-foot radius.
+    smell: 'Gun oil, packing foam, the chemical smell of factory-sealed cyberware.
+      Underneath: fear-sweat from the buyer who knows what happens if NCPD finds this
+      place.'
+    touch: Weapons have heft. The Lexington fits your grip like it was made for you.
+      It wasn't — it was made for whoever they took it from.
+  atmosphere: The economy that actually runs Night City. Eddies flow down here like
+    water, invisible to the corpos who think they control the market.
+  connections:
+  - to: megabuilding_25
+    direction: north
+  - to: megabuilding_30
+    direction: west
+  - to: ripperdoc_clinic_32
+    direction: east
+  - to: fixer_office_37
+    direction: south
+  items: []
+  tags:
+  - commerce
+  - criminal
+  state: normal
+- id: ripperdoc_clinic_32
+  name: Vasquez's Clinic
+  description: Cyber limbs mounted on the wall like trophies. A patient in the chair,
+    jaw slack, eyes rolled back — installation in progress. The doc's hands are chrome
+    from the elbow down. Somewhere between a hospital and a chop shop. The doc's good
+    — you're here because someone vouched. The ones without vouches go to the back-alley
+    butchers.
+  sensory:
+    sight: Cyber limbs mounted on the wall like trophies. A patient in the chair,
+      jaw slack, eyes rolled back — installation in progress. The doc's hands are
+      chrome from the elbow down.
+    sound: Latex gloves snapping on. The click-whir of a cybernetic eye calibrating.
+      A fridge compressor kicking in, loud in the silence between procedures.
+    smell: Antiseptic layered over old blood that no amount of cleaning gets out.
+      Solder flux. The ozone tang of a freshly activated implant.
+    touch: The chair leather is cold, then warm, then you stop feeling things because
+      the local kicks in. The restraints are padded. That's almost kind.
+  atmosphere: Somewhere between a hospital and a chop shop. The doc's good — you're
+    here because someone vouched. The ones without vouches go to the back-alley butchers.
+  connections:
+  - to: gang_hideout_26
+    direction: north
+  - to: black_market_31
+    direction: west
+  - to: power_plant_33
+    direction: east
+  - to: gang_hideout_38
+    direction: south
+  items: []
+  tags:
+  - commerce
+  - medical
+  state: normal
+- id: power_plant_33
+  name: Santos Power Station
+  description: Control room with a wall of monitors — power grid maps, reactor readings,
+    security feeds showing empty corridors. Two techs, bored, watching numbers that
+    could kill a district if they go wrong. The beating heart of a district. If it
+    stops, fifty thousand people go dark. That makes it valuable. That makes it a
+    target.
+  sensory:
+    sight: Control room with a wall of monitors — power grid maps, reactor readings,
+      security feeds showing empty corridors. Two techs, bored, watching numbers that
+      could kill a district if they go wrong.
+    sound: Steam venting, a controlled scream. Cooling systems cycling — pumps, fans,
+      the rush of water through pipes wide enough to crawl through. Alert chimes,
+      routine, ignored.
+    smell: Ozone, heavy and constant — the smell of electricity at industrial scale.
+      Coolant, chemical and sharp. Machine oil, hot metal, and the faint burnt smell
+      of insulation working overtime.
+    touch: The catwalk grating under your feet, cold and sharp through thin soles.
+      Static on your skin near the transformers. Your hair lifts in the electromagnetic
+      field.
+  atmosphere: The beating heart of a district. If it stops, fifty thousand people
+    go dark. That makes it valuable. That makes it a target.
+  connections:
+  - to: gang_hideout_27
+    direction: north
+  - to: ripperdoc_clinic_32
+    direction: west
+  - to: megabuilding_34
+    direction: east
+  - to: nightclub_39
+    direction: south
+  items: []
+  tags:
+  - isolated
+  - danger
+  state: normal
+- id: megabuilding_34
+  name: Morrison Tower
+  description: Corridor lights flicker between yellow and dead. Apartment doors every
+    six feet, half of them dented. Vending machines casting blue glow on concrete
+    walls. Home. If you can call a six-by-eight box with a fold-down bed and a shared
+    bathroom home. Most people can. Most people have to.
+  sensory:
+    sight: Corridor lights flicker between yellow and dead. Apartment doors every
+      six feet, half of them dented. Vending machines casting blue glow on concrete
+      walls.
+    sound: HVAC rattling like a dying animal. Footsteps above, below, beside you.
+      A baby crying in a language you don't speak.
+    smell: Recycled air that's been through ten thousand lungs. Disinfectant that
+      doesn't disinfect. The chemical sweetness of a vending machine meal.
+    touch: Handrail greasy under your palm. The apartment door is thin enough to punch
+      through. You don't, because the lock is the only thing between you and everything.
+  atmosphere: Home. If you can call a six-by-eight box with a fold-down bed and a
+    shared bathroom home. Most people can. Most people have to.
+  connections:
+  - to: gang_hideout_28
+    direction: north
+  - to: power_plant_33
+    direction: west
+  - to: corpo_tower_35
+    direction: east
+  - to: megabuilding_40
+    direction: south
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: corpo_tower_35
+  name: Nakamura Industries
+  description: Executive floor. Floor-to-ceiling windows showing Night City laid out
+    below like a circuit board on fire. Furniture that costs more than most people's
+    lives. A conference table long enough to land a helicopter on. Arasaka, Militech,
+    Kang Tao — the name changes, the tower doesn't. Glass and steel and the quiet
+    violence of people who destroy lives with a memo.
+  sensory:
+    sight: Executive floor. Floor-to-ceiling windows showing Night City laid out below
+      like a circuit board on fire. Furniture that costs more than most people's lives.
+      A conference table long enough to land a helicopter on.
+    sound: Silence that costs. The kind you buy by putting enough steel, glass, and
+      armed personnel between you and the city. A pen signing something that ruins
+      lives, soft as a breath.
+    smell: Coffee that costs forty eddies a cup. Fresh-cut flowers replaced daily
+      — lilies, always lilies, because someone decided lilies say 'power.' Dry-cleaned
+      fabric.
+    touch: Marble floor, cold through your shoes. The elevator rail is brushed steel,
+      body-temperature from the climate control. Your visitor badge is thin plastic
+      with a tracker in it.
+  atmosphere: Arasaka, Militech, Kang Tao — the name changes, the tower doesn't. Glass
+    and steel and the quiet violence of people who destroy lives with a memo.
+  connections:
+  - to: corpo_tower_29
+    direction: north
+  - to: megabuilding_34
+    direction: west
+  - to: netrunner_den_41
+    direction: south
+  items: []
+  tags:
+  - authority
+  - commerce
+  - danger
+  state: normal
+- id: nomad_camp_36
+  name: The Wired Convoy
+  description: Vehicles circled like wagons — modified trucks, converted RVs, a tanker
+    with solar panels bolted to the roof. Tents and tarps between them. Kids running.
+    Family in the way that matters — chosen, tested, defended. The Badlands will kill
+    you alone. Together is the only option.
+  sensory:
+    sight: Vehicles circled like wagons — modified trucks, converted RVs, a tanker
+      with solar panels bolted to the roof. Tents and tarps between them. Kids running.
+    sound: The quiet of the desert at night, which isn't quiet at all — insects, the
+      tick of cooling engines, coyotes in the distance. Someone telling a story by
+      the fire, voice low.
+    smell: Leather, sweat, motor oil, and the open-air smell that city people forget
+      exists. No synthetics. No recycled air. Just sky.
+    touch: Handshake that means something here. Callused palms, strong grip, eye contact
+      that checks if you're real. The wind pulling at your jacket, steady and patient.
+  atmosphere: Family in the way that matters — chosen, tested, defended. The Badlands
+    will kill you alone. Together is the only option.
+  connections:
+  - to: megabuilding_30
+    direction: north
+  - to: fixer_office_37
+    direction: east
+  - to: food_stall_42
+    direction: south
+  items:
+  - id: a_blackmail_shard
+    name: a blackmail shard
+    description: Photos, recordings, transaction logs. Somebody's leverage over somebody
+      else. Now it's yours. Now you're a target too.
+  tags:
+  - social
+  - safe
+  - isolated
+  state: normal
+- id: fixer_office_37
+  name: Back Room Stack
+  description: A back room behind a legitimate front — could be a bar, a laundromat,
+    a ripperdoc's. Desk, terminal, two chairs. The screen is angled so only the fixer
+    can see it. You're here because you need work or the fixer needs a problem solved.
+    Either way, someone's getting paid and someone's getting hurt.
+  sensory:
+    sight: A back room behind a legitimate front — could be a bar, a laundromat, a
+      ripperdoc's. Desk, terminal, two chairs. The screen is angled so only the fixer
+      can see it.
+    sound: The soft click of encrypted comms connecting. The fixer's voice — calm,
+      measured, every word chosen. A terminal notification chiming — new job, new
+      opportunity, new body count.
+    smell: Money. Not a literal smell — the metaphorical weight of eddies flowing
+      through this room, the invisible scent of transactions that shape the district.
+    touch: Handshake — firm, brief, sealing. The drink poured for you is cold, smooth,
+      a gesture that means you're worth the good stuff. Or that the job is bad enough
+      to need it.
+  atmosphere: You're here because you need work or the fixer needs a problem solved.
+    Either way, someone's getting paid and someone's getting hurt.
+  connections:
+  - to: black_market_31
+    direction: north
+  - to: nomad_camp_36
+    direction: west
+  - to: gang_hideout_38
+    direction: east
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: gang_hideout_38
+  name: The Chrome Pit
+  description: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+    actually good if you look past the subject matter. Weapons on a table: iron, tech,
+    a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector. Family,
+    if family means people who''d kill for you and maybe kill you. Depends on the
+    day.'
+  sensory:
+    sight: 'Graffiti on every surface — gang tags, kill counts, crude art that''s
+      actually good if you look past the subject matter. Weapons on a table: iron,
+      tech, a mantis blade still sticky. Somebody''s gaming on a rigged holoprojector.'
+    sound: Somebody sparring in the back — the meaty thud of augmented fists on a
+      heavy bag. A dog barking. Radio chatter from a scanner, monitoring NCPD frequencies.
+    smell: 'Gun oil, cheap beer, sweat, and the burned-metal smell of recently fired
+      weapons. Synthetic weed smoke hanging in layers. Underneath: blood. Old blood,
+      in the concrete.'
+    touch: Concrete floor, cracked and uneven. The wall is tagged so thick the paint
+      has texture. A shell casing rolls under your foot.
+  atmosphere: Family, if family means people who'd kill for you and maybe kill you.
+    Depends on the day.
+  connections:
+  - to: ripperdoc_clinic_32
+    direction: north
+  - to: fixer_office_37
+    direction: west
+  - to: nightclub_39
+    direction: east
+  items: []
+  tags:
+  - dangerous
+  - criminal
+  state: normal
+- id: nightclub_39
+  name: Chen's
+  description: Bar top glowing from underneath, ice-blue. Bottles of synthetic liquor
+    backlit like a shrine. A joytoy leaning on the railing of the second floor, watching
+    the crowd with eyes that don't blink right. Neon and bass and the beautiful lie
+    that tonight doesn't have consequences. It does. It always does.
+  sensory:
+    sight: Bar top glowing from underneath, ice-blue. Bottles of synthetic liquor
+      backlit like a shrine. A joytoy leaning on the railing of the second floor,
+      watching the crowd with eyes that don't blink right.
+    sound: Bass that rewires your heartbeat. Synth-wave layered over something older,
+      harder. The crowd noise is a wall — you shout to be heard at arm's length.
+    smell: Cologne, coolant — someone's leaking from a bad mod — and the sharp-clean
+      smell of the disinfectant they spray in the booths between customers.
+    touch: Floor vibrating through your boots. Someone's shoulder — chrome, cold,
+      hard — knocking yours as they push past. The bar rail is sticky with something
+      neon-colored.
+  atmosphere: Neon and bass and the beautiful lie that tonight doesn't have consequences.
+    It does. It always does.
+  connections:
+  - to: power_plant_33
+    direction: north
+  - to: gang_hideout_38
+    direction: west
+  - to: megabuilding_40
+    direction: east
+  items: []
+  tags:
+  - social
+  - commerce
+  - criminal
+  state: normal
+- id: megabuilding_40
+  name: The Chrome Stack
+  description: Forty stories of stacked humanity. Laundry lines between balconies.
+    Neon advertisements bleeding through windows that don't open. The kind of place
+    where nobody asks questions because they already know the answers and the answers
+    are all bad.
+  sensory:
+    sight: Forty stories of stacked humanity. Laundry lines between balconies. Neon
+      advertisements bleeding through windows that don't open.
+    sound: Somebody's braindance session bleeding through the wall — moaning, gunshots,
+      moaning again. The vending machine dispensing something. A door lock cycling.
+    smell: Recycled air that's been through ten thousand lungs. Disinfectant that
+      doesn't disinfect. The chemical sweetness of a vending machine meal.
+    touch: Concrete vibrating from the building's guts — generators, water recyclers,
+      things that keep forty floors alive. The air is body-temperature and tastes
+      used.
+  atmosphere: The kind of place where nobody asks questions because they already know
+    the answers and the answers are all bad.
+  connections:
+  - to: megabuilding_34
+    direction: north
+  - to: nightclub_39
+    direction: west
+  - to: netrunner_den_41
+    direction: east
+  items: []
+  tags:
+  - residential
+  - social
+  state: normal
+- id: netrunner_den_41
+  name: ICE House
+  description: Ice-blue light from the servers. No windows. Emergency shutdown switch
+    — big, red, physical — by the door. A dead plant. A living netrunner, though you'd
+    need a bioscan to confirm it. One wrong move in there and the body in the chair
+    stops breathing. The equipment keeps humming either way.
+  sensory:
+    sight: Ice-blue light from the servers. No windows. Emergency shutdown switch
+      — big, red, physical — by the door. A dead plant. A living netrunner, though
+      you'd need a bioscan to confirm it.
+    sound: Data transfer tones — musical, almost, if you've spent enough time here.
+      The creak of the cooling chair adjusting. Someone's vitals beeping on a monitor,
+      slow and steady.
+    smell: Coolant, the sharp kind used in server rigs. Solder from recent repairs.
+      The sour smell of someone who forgot to eat, forgot to sleep, forgot they had
+      a body.
+    touch: The air is cold from the cooling system. The neural cable is smooth, warm
+      from use, and plugging it in feels like falling. The keyboard is haptic — no
+      keys, just pressure fields.
+  atmosphere: One wrong move in there and the body in the chair stops breathing. The
+    equipment keeps humming either way.
+  connections:
+  - to: corpo_tower_35
+    direction: north
+  - to: megabuilding_40
+    direction: west
+  items: []
+  tags:
+  - criminal
+  - isolated
+  state: normal
+- id: food_stall_42
+  name: Street Stack
+  description: Steam rising from a vat of broth, lit neon-orange by the sign above.
+    A counter with six stools, three occupied. The cook working fast — chopping, stirring,
+    plating — chrome hands a blur. This is where the solos come after a job. Where
+    the fixers close deals over dumplings. Where everybody is just a person with a
+    bowl and a pair of chopsticks.
+  sensory:
+    sight: Steam rising from a vat of broth, lit neon-orange by the sign above. A
+      counter with six stools, three occupied. The cook working fast — chopping, stirring,
+      plating — chrome hands a blur.
+    sound: The hiss of steam. Chopsticks clicking on ceramic. A customer's holo ringing,
+      ignored in favor of noodles. Street noise — traffic, voices, a siren wailing
+      somewhere.
+    smell: 'Steam carrying pork fat and five-spice through the air. The clean, sharp
+      smell of fresh scallions being cut. Underneath: the ever-present Night City
+      ozone and exhaust.'
+    touch: The bowl is almost too hot to hold. Ceramic, heavy, full. The broth warms
+      you from the inside out — first sip and your shoulders drop an inch.
+  atmosphere: This is where the solos come after a job. Where the fixers close deals
+    over dumplings. Where everybody is just a person with a bowl and a pair of chopsticks.
+  connections:
+  - to: nomad_camp_36
+    direction: north
+  items:
+  - id: a_corporate_intel_chip
+    name: a corporate intel chip
+    description: Board meeting minutes, project files, kill-order authorizations.
+      The kind of data that starts wars between towers.
+  - id: a_dead_netrunners_memory_core
+    name: a dead netrunner's memory core
+    description: Neural recording from someone who didn't make it out of the Net.
+      Their last run, their last thoughts, possibly their last breath. Might contain
+      what they found.
+  tags:
+  - social
+  - safe
+  - rest
+  state: normal

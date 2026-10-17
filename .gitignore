@@ -1,0 +1,10 @@
+data/
+ivy-cache/
+sim/output/*.ndjson
+sim/output/_manifest.json
+spark/target/
+spark/project/target/
+spark/project/project/
+__pycache__/
+*.pyc
+.bsp/

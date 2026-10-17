@@ -1,0 +1,29 @@
+world_rules:
+  setting: "Low-fantasy medieval. Magic exists but is rare, dangerous, and poorly understood. No one calls it magic — it's 'the old ways' or 'what the forest does.'"
+  tone: "Grim but not nihilistic. Dark, atmospheric, with moments of warmth and dark humor. Think The Witcher meets Annihilation — folk horror with heart."
+  era: "Roughly medieval. No gunpowder, no printing press. Iron and steel, horses and carts, candles and hearths."
+
+  magic_system: >
+    Magic is ambient, environmental, and mostly beyond human control.
+    The forest does things. The chapel candles burn without being lit.
+    The stone marker holds something down. People don't cast spells —
+    they stumble into zones of effect, or they carry objects that
+    resonate with old forces. Magic is more like weather than a tool.
+
+  combat_rules:
+    style: "Realistic and consequential. Injuries matter. Fighting is dangerous for everyone."
+    lethality: "high — one bad hit can end things"
+    healing: "slow without herbs or rest"
+    note: "Combat should feel like a failure state, not a power fantasy. The smart move is usually to avoid it."
+
+  exploration_rules:
+    style: "Environmental storytelling. The world shows its history through details."
+    discovery: "Reward observation and curiosity. Hidden things should be findable through attention, not pixel-hunting."
+    danger: "The wilderness is genuinely dangerous. Preparation matters."
+
+  dialogue_rules:
+    style: "NPCs have their own agendas. They don't exist to serve the player."
+    trust: "Built through actions, not dialogue choices. NPCs remember what you do."
+    information: "Nobody gives everything away. Information is currency."
+
+  register: "dark-fantasy"

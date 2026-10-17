@@ -1,0 +1,88 @@
+items:
+- id: a_monowire
+  name: a monowire
+  description: Spool in the wrist, filament thinner than hair. You flick it and things
+    come apart. Quietly.
+  properties:
+    damage: 5
+  tags: &id001
+  - weapon
+- id: a_lexington_pistol
+  name: a Lexington pistol
+  description: Mass-produced, reliable, cheap. The gun Night City gives you when it's
+    done being subtle.
+  properties:
+    damage: 2
+  tags: *id001
+- id: a_tech_shotgun
+  name: a tech shotgun
+  description: Charges between shots. The delay is the trade-off for punching through
+    walls and the person behind them.
+  properties:
+    damage: 2
+  tags: *id001
+- id: a_subdermal_armor_weave
+  name: a subdermal armor weave
+  description: Polymer mesh under the skin. Stops small-caliber rounds. The bruise
+    is spectacular but you're alive to see it.
+  properties: {}
+  tags: &id002
+  - cyberware
+  - chrome
+- id: a_kerenzikov_reflex_booster
+  name: a Kerenzikov reflex booster
+  description: Neural co-processor. Time dilates when you dodge — the bullet goes
+    where you were. You're somewhere else.
+  properties: {}
+  tags: *id002
+- id: a_sandevistan
+  name: a Sandevistan
+  description: Spinal implant. Slows the world to molasses for twelve seconds. Your
+    heart rate triples. Everything else stops.
+  properties: {}
+  tags: *id002
+- id: a_vial_of_synthblood
+  name: a vial of synthblood
+  description: Universal donor in a tube. Pour it where you're leaking. It bonds,
+    clots, seals. Tastes like copper when it gets in your mouth.
+  properties:
+    consumable: true
+    heals: 3
+  tags: &id003
+  - consumable
+  - medical
+- id: a_can_of_nicola
+  name: a can of NiCola
+  description: Night City's soda. Caffeine, taurine, something blue that doesn't have
+    a name. Tastes like battery acid and nostalgia.
+  properties:
+    consumable: true
+    heals: 4
+  tags: *id003
+- id: a_blackmail_shard
+  name: a blackmail shard
+  description: Photos, recordings, transaction logs. Somebody's leverage over somebody
+    else. Now it's yours. Now you're a target too.
+  properties: {}
+  tags: &id004
+  - clue
+  - quest_item
+- id: a_corporate_intel_chip
+  name: a corporate intel chip
+  description: Board meeting minutes, project files, kill-order authorizations. The
+    kind of data that starts wars between towers.
+  properties: {}
+  tags: *id004
+- id: a_dead_netrunners_memory_core
+  name: a dead netrunner's memory core
+  description: Neural recording from someone who didn't make it out of the Net. Their
+    last run, their last thoughts, possibly their last breath. Might contain what
+    they found.
+  properties: {}
+  tags: *id004
+- id: an_encrypted_data_shard
+  name: an encrypted data shard
+  description: Military-grade encryption. Whatever's on here, someone paid a lot to
+    hide it. Someone else is paying you to find it.
+  properties: {}
+  tags: *id004
