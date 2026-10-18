@@ -11,9 +11,12 @@ Inspired by the structure of AWS's
 (ingestion, enrichment, leaderboard, dynamic config, late data and replay), rebuilt on Spark 4.3
 with a simulation instead of a random generator.
 
-Two cities share the pipeline. Night City (phases 1 to 6) is the NPC simulation; Los Santos (phase 8) is a
-GTA Online-style public lobby simulator whose events feed a live "is this lobby safe to sell in" board: five
-`transformWithState` processors chained into a sixth, with scoring weights changed at runtime from a config topic.
+Two cities share the pipeline. Night City (phases 1 to 6) is the NPC simulation; Los Santos (phases 8 and 9) is a
+GTA Online-style public lobby simulator whose events feed a live "is this lobby safe to sell in" board. Phase 8
+runs it as five `transformWithState` processors chained into a sixth under micro-batch; phase 9 is the same board
+as a query Real-time Mode accepts (two chained stateful stages, a config topic unioned in before them) writing
+straight into Redis from a `ForeachWriter`, which is the serving path. Real-time Mode runs the JVM API only, which
+is why the processors are Scala.
 Rockstar exposes no session telemetry, so the lobby and its players are simulated, and the event log is checked
 for internal consistency (`python -m losantos.check`) before anything is measured. The map, the vehicles and
 the weapons are the game's own, taken from [DurtyFree's GTA V data dumps](https://github.com/DurtyFree/gta-v-data-dumps)
@@ -140,6 +143,25 @@ docker compose run --rm tools /app/bin/publish_config.py --bootstrap kafka:9092 
 docker compose run --rm -e KAFKA_TOPIC=losantos.lat.rtm -e STARTING_OFFSETS=latest -e OUT_TOPIC=losantos.board.rtm   -e BOARD_INPUT=menace -e TRIGGER=rtm -e RUN_SECONDS=150 -e SPARK_MASTER='local[16]'   -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro --conf spark.sql.shuffle.partitions=4" spark LobbyBoard
 ```
 
+## Phase 9: the board under Real-time Mode, served from Redis
+
+```bash
+docker compose up -d redis
+# the chain: Kafka events + config rows -> PlayerSignals (keyed by player, roster as initial state) -> LobbySafety (keyed by lobby) -> Redis
+docker compose run --rm -e KAFKA_TOPIC=losantos.live -e STARTING_OFFSETS=latest -e CONFIG_TOPIC=losantos.config -e OUT=redis \
+  -e TRIGGER=rtm -e RTM_BATCH="20 seconds" -e RUN_SECONDS=200 -e GAP_MS=2000 -e WINDOW_MS=5000 -e RUN_TAG=board-rtm-live \
+  -e SPARK_MASTER='local[16]' -e EXTRA_PACKAGES=redis.clients:jedis:5.2.0 \
+  -e EXTRA_CONF="--conf spark.sql.streaming.stateStore.encodingFormat=avro --conf spark.sql.shuffle.partitions=4" spark LobbyBoard
+docker compose run --rm -e SIM_MAX_TICKS=1400 -e SIM_KAFKA_TOPIC=losantos.live -e SIM_OUTPUT_DIR=/output/live sim-ls   # live, real pace
+docker compose run --rm tools /app/bin/publish_config.py --bootstrap kafka:9092 '{"menace": 30, "destroyed": 25}'      # mid-run
+docker compose run --rm tools /app/bin/board_report.py --redis redis board            # every lobby by safety
+docker compose run --rm tools /app/bin/board_report.py --redis redis sell ls_public_03 # the one-line answer
+docker compose run --rm tools /app/bin/board_report.py --redis redis latency           # Redis write time minus source Kafka time
+docker compose run --rm tools /app/bin/board_report.py --redis redis grade             # vs the sim's own verdict at every snapshot
+docker compose run --rm tools /app/bin/board_report.py --redis redis config            # verdicts before and after the config row
+# same query under micro-batch (OUT_TOPIC or Parquet) for the comparison; EXPLAIN=1 prints the plan and exits
+```
+
 Los Santos processors (`spark/src/main/scala/nightcity/losantos`):
 
 | | key | state | time | what it shows |
@@ -150,5 +172,7 @@ Los Santos processors (`spark/src/main/scala/nightcity/losantos`):
 | `OrgBusinesses` | organisation | MapState + ListState + ValueState | None | registration restates stock, so the map is idempotent under replay |
 | `MenaceScore` | player | ValueState seeded from the roster | ProcessingTime | the profile is the prior; seller kills move the level; duel kills are capped |
 | `LobbySafety` | lobby | two MapStates + two ListStates + ValueState weights | ProcessingTime | the chained second stage; recency as a window of event time; weights patched from a config topic |
+| `PlayerSignals` | player | the four per-player states above in one processor, roster as initial state | ProcessingTime | stage one of the Real-time chain: no union after a stateful operator, so the per-player signals are one operator |
+| `RedisVerdictWriter` | | | | the `foreach` sink: a hash per lobby, a sorted set of lobbies by safety, a capped stream of verdicts with source and write times |
 
 Numbers from every run are in `NOTES.md`.

@@ -93,12 +93,16 @@ object LsProcessors {
 
 /**
  * run.sh LobbyBoard [--once]
- * The chain: five transformWithState operators feeding a sixth, keyed by lobby, in one query. Config rows from
- * CONFIG_TOPIC are fanned out to every lobby in lobbies.json. Verdicts go to Parquet and, if OUT_TOPIC is set, to Kafka.
+ *
+ * The board as one query that Real-time Mode accepts: Kafka events and config rows are unioned before any state,
+ * then two chained transformWithState operators, player-keyed `PlayerSignals` feeding lobby-keyed `LobbySafety`.
+ * The same query runs under a micro-batch trigger (default; Parquet or Kafka sink) and under Trigger.RealTime
+ * (TRIGGER=rtm; update mode; Kafka sink with OUT_TOPIC, or Redis with OUT=redis via a ForeachWriter).
  */
 object LobbyBoard {
   def main(args: Array[String]): Unit = {
     val once = args.contains("--once")
+    val rtm = sys.env.get("TRIGGER").contains("rtm")
     val out = sys.env.getOrElse("DATA_DIR", "/app/data")
     val tag = sys.env.getOrElse("RUN_TAG", "board")
     val lsOut = sys.env.getOrElse("LS_OUTPUT", "/app/ls_output")
@@ -107,68 +111,59 @@ object LobbyBoard {
     spark.sparkContext.setLogLevel("WARN")
     ProgressLog.attach(spark, s"$out/losantos/$tag/progress.jsonl")
 
-    val ev = LosSantos.events(spark, sys.env.getOrElse("STARTING_OFFSETS", "earliest"))
+    val events = LosSantos.events(spark, sys.env.getOrElse("STARTING_OFFSETS", "earliest"))
     val roster = LosSantos.profiles(spark, sys.env.getOrElse("ROSTER", s"$lsOut/players.jsonl"))
-
-    val fromPresence = LosSantos.presence(ev).flatMap { p =>
-      p.change match {
-        case "joined"  => Seq(Signal(p.lobby_id, "joined", p.agent_id, null, 0, 0, p.last_seen))
-        case "hopped"  => Seq(Signal(p.previous_lobby, "left", p.agent_id, null, 0, 0, p.last_seen), Signal(p.lobby_id, "joined", p.agent_id, null, 0, 0, p.last_seen))
-        case "left"    => Seq(Signal(p.lobby_id, "left", p.agent_id, null, 0, 0, p.last_seen))
-        case "vehicle" if Vehicles.pvp.contains(p.vehicle) =>
-          Seq(Signal(p.lobby_id, "pvp_vehicle", p.agent_id, p.vehicle, 0, 0, p.last_seen))
-        case _ => Seq.empty
-      }
-    }
-    // a streak counts by what it did to people who were not fighting back: sellers and civilians
-    val fromStreaks = LosSantos.streaks(ev).map(s => Signal(s.lobby_id, "streak", s.attacker_id, s.closed_by, s.sellers_killed.toDouble, (s.sellers_killed + s.civilians_killed).toLong, s.ended_at))
-    val fromSells = LosSantos.sells(ev).map(s => Signal(s.lobby_id, "sell", s.seller_id, s.outcome, s.value.toDouble, s.value_delivered, s.started_at))
-    val fromMenace = LosSantos.menace(ev, roster).map(m => Signal(m.lobby_id, "menace", m.agent_id, m.level, m.score, m.session_kills, m.at, null, m.source_kafka_ts))
-    // the sim's periodic snapshot carries its own safety verdict (computed from the hidden archetypes); it is passed
-    // through as a signal so every snapshot yields a board row with both numbers side by side, for grading
-    val fromSnapshots = ev.filter(_.event_type == "lobby.snapshot")
-      .map(e => Signal(e.lobby_id, "snapshot", null, null, e.sim_safety.getOrElse(0).toDouble, e.population.getOrElse(0).toLong, e.event_time))
-
-    // dynamic configuration: one JSON row on CONFIG_TOPIC becomes one signal per lobby
     val lobbies = """"([^"]+)"""".r.findAllMatchIn(new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(s"$lsOut/lobbies.json")))).map(_.group(1)).toSeq
-    val config = sys.env.get("CONFIG_TOPIC").map { topic =>
-      spark.readStream.format("kafka")
+
+    // dynamic configuration: a JSON row on CONFIG_TOPIC becomes one `board.config` event per lobby, in the event
+    // stream's own shape, unioned in *before* the stateful stages (a union after one is not allowed in Real-time Mode)
+    val configEvents = sys.env.get("CONFIG_TOPIC").map { topic =>
+      val raw = spark.readStream.format("kafka")
         .option("kafka.bootstrap.servers", Events.bootstrap).option("subscribe", topic).option("startingOffsets", "earliest").load()
-        .select(col("value").cast("string").as("config"), col("timestamp").as("at"))
-        .as[(String, java.sql.Timestamp)]
-        .flatMap { case (cfg, at) => lobbies.map(l => Signal(l, "config", null, null, 0, 0, at, cfg)) }
+        .select(col("value").cast("string").as("config"), col("timestamp").as("kafka_ts"), explode(array(lobbies.map(lit): _*)).as("lobby_id"))
+      val overrides = Map("config" -> col("config"), "kafka_ts" -> col("kafka_ts"), "lobby_id" -> col("lobby_id"),
+        "event_time" -> col("kafka_ts"), "event_type" -> lit("board.config"), "event_id" -> concat(lit("config:"), col("lobby_id"), lit(":"), col("kafka_ts").cast("long")),
+        "agent_id" -> concat(lit("config:"), col("lobby_id")),
+        "sim_tick" -> lit(0L))   // the one primitive field in LsEv: a null here fails NOT_NULL_ASSERT_VIOLATION at runtime
+      raw.select(events.schema.fields.map(f => overrides.getOrElse(f.name, lit(null).cast(f.dataType)).as(f.name)): _*)
     }
+    val input = configEvents.fold(events.toDF())(events.toDF().unionByName(_)).as[LsEv]
 
-    // BOARD_INPUT=menace: the one-signal chain (menace -> lobby) with no union, which is what Real-time Mode accepts
-    val signals = sys.env.get("BOARD_INPUT") match {
-      // a typed map straight into groupByKey plans as AppendColumnsWithObjectExec, which Real-time Mode's allowlist
-      // rejects (a select in between does not help: the optimizer removes the serialize/deserialize pair). Building
-      // the Signal with column expressions keeps the child row-based, so groupByKey plans as AppendColumnsExec.
-      case Some("menace") => LosSantos.menace(ev, roster).select(
-        col("lobby_id"), lit("menace").as("kind"), col("agent_id").as("player_id"), col("level"), col("score"),
-        col("session_kills").as("n"), col("at"), lit(null).cast("string").as("config"), col("source_kafka_ts")).as[Signal]
-      case _ => Seq(fromPresence, fromStreaks, fromSells, fromMenace, fromSnapshots).reduce(_ union _)
+    val playerKey = (e: LsEv) => e.event_type match {
+      case "board.config" => s"config:${e.lobby_id}"
+      case "lobby.snapshot" => s"snapshot:${e.lobby_id}"
+      case "player.bounty_placed" => e.target_id   // a bounty is a fact about its target
+      case _ => e.agent_id
     }
-    val all = config.fold(signals)(signals union _)
-    val verdicts = all.filter(_.lobby_id != null).groupByKey(_.lobby_id)
+    val signals = input.filter(col("lobby_id").isNotNull).as[LsEv].groupByKey(playerKey)
+      .transformWithState(new PlayerSignals(Duration.ofSeconds(sys.env.getOrElse("IDLE_SECONDS", "120").toLong),
+        sys.env.getOrElse("SLA_MS", "15000").toLong, sys.env.getOrElse("GAP_MS", "1000").toLong),
+        TimeMode.ProcessingTime(), OutputMode.Update(), roster.groupByKey(_.agent_id))
+
+    // The second stage's child must stay row-based. groupByKey straight on a transformWithState output plans as
+    // AppendColumnsWithObjectExec (the optimizer fuses the serializer into it), which Real-time Mode's allowlist
+    // rejects; an explicit projection of the Signal columns in between keeps it AppendColumnsExec, which it accepts.
+    // (an identity projection is removed by the optimizer and the fusion happens anyway, hence the coalesce)
+    val signalCols = signals.schema.fieldNames.map(n => if (n == "lobby_id") coalesce(col(n), lit("")).as(n) else col(n))
+    val verdicts = signals.select(signalCols: _*).as[Signal].groupByKey(_.lobby_id)
       .transformWithState(new LobbySafety(Weights.default.copy(window_ms = sys.env.getOrElse("WINDOW_MS", "30000").toLong)),
-        TimeMode.ProcessingTime(), OutputMode.Append())
+        TimeMode.ProcessingTime(), OutputMode.Update())
 
+    if (sys.env.contains("EXPLAIN")) { verdicts.explain(true); spark.stop(); return }
     Bounded.run(spark, () => {
-      val w = sys.env.get("OUT_TOPIC") match {
-        case Some(topic) =>
+      val w = (sys.env.get("OUT"), sys.env.get("OUT_TOPIC")) match {
+        case (Some("redis"), _) =>
+          verdicts.writeStream.foreach(new RedisVerdictWriter(sys.env.getOrElse("REDIS_HOST", "redis"), sys.env.getOrElse("REDIS_PORT", "6379").toInt))
+        case (_, Some(topic)) =>
           verdicts.select(col("lobby_id").as("key"), to_json(struct(col("*"))).as("value"))
             .writeStream.format("kafka").option("kafka.bootstrap.servers", Events.bootstrap).option("topic", topic)
-        case None =>
+        case _ =>
           verdicts.writeStream.format("parquet").option("path", s"$out/losantos/$tag/out")
       }
-      // TRIGGER=rtm tries the whole chain under Real-time Mode (update mode, Kafka sink required)
-      val trigger = sys.env.get("TRIGGER") match {
-        case Some("rtm") => Trigger.RealTime(sys.env.getOrElse("RTM_BATCH", "30 seconds"))
-        case _ => Trigger.ProcessingTime(if (once) "1 second" else sys.env.getOrElse("MICRO_INTERVAL", "2 seconds"))
-      }
+      val trigger = if (rtm) Trigger.RealTime(sys.env.getOrElse("RTM_BATCH", "30 seconds"))
+        else Trigger.ProcessingTime(if (once) "1 second" else sys.env.getOrElse("MICRO_INTERVAL", "2 seconds"))
       w.option("checkpointLocation", s"$out/checkpoints/losantos/$tag")
-        .outputMode(if (sys.env.get("TRIGGER").contains("rtm")) OutputMode.Update() else OutputMode.Append())
+        .outputMode(if (rtm || sys.env.get("OUT").contains("redis")) OutputMode.Update() else OutputMode.Append())
         .trigger(trigger)
         .queryName("lobby-board").start()
     }, once)

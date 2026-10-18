@@ -10,7 +10,7 @@ STAGING="${SPARK_STAGING_REPO:-https://repository.apache.org/content/repositorie
 exec /opt/spark/bin/spark-submit \
   --master "${SPARK_MASTER:-local[8]}" \
   --driver-memory "${SPARK_DRIVER_MEMORY:-4g}" \
-  --packages "org.apache.spark:spark-sql-kafka-0-10_2.13:${SPARK_VERSION}" \
+  --packages "org.apache.spark:spark-sql-kafka-0-10_2.13:${SPARK_VERSION}${EXTRA_PACKAGES:+,$EXTRA_PACKAGES}" \
   --repositories "${STAGING}" \
   --conf spark.jars.ivy=/app/ivy \
   --conf spark.sql.shuffle.partitions=8 \

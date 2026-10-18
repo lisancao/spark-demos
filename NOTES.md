@@ -228,3 +228,92 @@ The batch length in a Real-time trigger is the checkpoint interval, and it sets 
 Two Kafka things on the way: deleting and immediately recreating an output topic put the first Real-time run's producer into
 `NotLeaderOrFollowerException` retries and a later one into `UnknownTopicOrPartitionException`; give the broker a few seconds after a
 delete. And every stop of a Real-time query logs an aborted `KafkaStreamingWrite` epoch with "Flush interrupted": that is the stop.
+
+## Phase 9: the board under Real-time Mode, served from Redis (2026-10-18)
+
+The micro-batch chain in phase 8 (five processors unioned into a sixth) is rejected by Real-time Mode at analysis:
+`STATEFUL_OPERATORS_BEFORE_UNION_NOT_SUPPORTED`. The rules that shape what it will run, all from the 4.3 docs and
+confirmed here: update output mode only; a sink that is Kafka, foreach, console or memory; a batch duration of at
+least 5 s (it is the checkpoint interval, not the latency); stateful operators may be chained but nothing may be
+unioned after one; every physical operator must be on an allowlist; `TimeMode.None`, `ProcessingTime` and
+`EventTime` are all allowed, with the event-time watermark fixed for the whole long batch; `handleInputRows` is called
+once per row; the JVM API only, no PySpark processor.
+
+So the board became two chained stages. Everything in Los Santos keys by player (presence, menace, streaks by
+attacker, sells by seller), so stage one is a single `PlayerSignals` processor keyed by player, seeded from the roster
+as initial state, emitting the one `Signal` shape; stage two is `LobbySafety` unchanged. Config rows from the config
+topic are turned into `board.config` events in the event stream's own shape (one per lobby, via `explode`) and
+unioned in *before* the first stateful operator; the sim's snapshots ride through stage one keyed by lobby. The sink
+is a `ForeachWriter` into Redis (jedis, resolved at run time): a hash per lobby, a sorted set of lobbies by safety, a
+capped stream of every verdict with the source record's Kafka timestamp and the write time. That is the serving path
+and the latency probe in one. The same query runs under a micro-batch trigger for the comparison.
+
+Three things the engine said on the way:
+- `groupByKey` straight on a `transformWithState` output plans as `AppendColumnsWithObjectExec`, which is not on
+  the allowlist; the optimizer fuses the serializer into it. An identity projection in between is removed by the
+  optimizer and the fusion happens anyway. A projection with one non-trivial expression (`coalesce(lobby_id, "")`)
+  survives, and the plan shows plain `AppendColumns` at every stage (`EXPLAIN=1` prints it).
+- A config row synthesised with `lit(null)` for every event field it does not set hit `NOT_NULL_ASSERT_VIOLATION`
+  the moment the first one arrived, 110 s into the run, because `sim_tick` is a bare `Long` in the event case class.
+  The first live run died at exactly the config publish time for that reason.
+- Both the Redis hash and the sorted set are idempotent per lobby, which is what the docs ask of a sink that may see a
+  record again after a failure; the stream is append-only and capped.
+
+**Live, Real-time Mode, Redis sink** (sim at real pace, 1,400 ticks, 8 lobbies of 24, `RealTime("20 seconds")`,
+window 5 s, streak gap 2 s, `local[16]`, 4 partitions): 10 batches (a 2.8 s bootstrap batch that loads the roster,
+then 20.2 s each with about 14,000 input rows), 590 and 150 state rows in the two operators at the end.
+
+| | value |
+|---|---|
+| verdicts written to Redis | 3,914 after the first 15 s |
+| latency, Kafka append of the input record to the Redis write of the verdict | p50 69 ms, p90 102 ms, p99 119 ms, max 311 ms |
+| grading against `sim_safety`, 448 snapshots | r 0.725, agreement 57.8%, sold into a hop lobby 1 |
+
+The board five seconds after the config row went out (`board_report.py board`), every lobby from the sorted set:
+
+```
+ls_public_04    58.0 risky  pop 15  menaces 1  hostiles 0  bikes 2  destroyed 0/4  last: left:p012
+ls_public_02    47.0 risky  pop 18  menaces 1  hostiles 1  bikes 3  destroyed 0/7  last: sell:p014
+ls_public_03    12.0 hop    pop 14  menaces 2  hostiles 1  bikes 4  destroyed 0/1  last: streak:
+ls_public_08     0.0 hop    pop 14  menaces 3  hostiles 0  bikes 4  destroyed 1/2  last: streak:
+...
+```
+
+and the one-line read a seller wants, from a run earlier the same afternoon:
+`ls_public_03: HOP (safety 23). 2 known griefers in session; 5 armed vehicles out; 1 sell destroyed just now.`
+After the sim's shutdown (everyone leaves) six of eight lobbies read `sell` with population 0; lobby 05 still read
+`hop` at 21 because three of its last seven sells were destroyed inside the window. An empty lobby with a fresh
+graveyard is still a lobby the board remembers.
+
+**Dynamic configuration, live:** `{"menace": 30, "destroyed": 25}` published at 12:55:15.499 UTC; the first verdict
+under the new weights carries the config record's Kafka timestamp 12:55:15.889, so the rule changed inside 400 ms of
+the publish, with eight config-triggered verdicts (one per lobby) and no restart. Before the row: 2,624 verdicts
+(sell 543, risky 701, hop 1,380), mean safety 40.6. After: 2,624 (sell 211, risky 191, hop 2,222), mean 13.5.
+Lobby 04 at the switch, one menace, two armed vehicles, one destroyed sell: 28 before, 3 after.
+
+**Same query, two triggers** (Kafka sink, the recording replayed once at real pace into a fresh 4-partition topic
+after the query was up, latency = output record's Kafka timestamp minus the input record's, rows without a source
+record such as timer-fired and pass-through signals excluded, first 15 s skipped, 1,495 records each):
+
+| trigger | p50 | p90 | p99 | max | engine |
+|---|---|---|---|---|---|
+| `ProcessingTime("0 seconds")` | 433 ms | 854 ms | 868 ms | 869 ms | 186 batches with input, triggerExecution p50 300 ms |
+| `RealTime("60 seconds")` | 68 ms | 92 ms | 102 ms | 357 ms | 2 long batches |
+
+Two stateful stages under micro-batch cost about two batches; Night City's single stage on this machine was p50
+228 ms. Real-time Mode streams the shuffle between the stages and the second stage costs milliseconds.
+
+**Late data under Real-time Mode:** the recording replayed once at real pace with 5% of events held back 20 s, 2%
+duplicated 2 s later and the order shuffled within a tick (42,974 messages), Redis sink, 20 s batches. Grading on the
+196 snapshots: r 0.744, agreement 62.8%, sold into a hop lobby 6. Latency p50 46 ms, p90 81 ms, p99 91 ms, max 318 ms.
+The stage-one streak gap and sell patience are processing-time timers here: an event-time watermark in Real-time Mode
+is fixed for the whole batch, so a 2 s gap in event time could only be observed at a 20 s boundary. That is the same
+trade the recovery experiment in phase 8 priced: processing time sees short gaps and replays approximately; event
+time replays exactly and cannot see a gap shorter than the watermark delay.
+
+**Micro-batch baseline on the same two-stage chain** (`--once` over the three-pass `losantos.replay`, 43 batches of
+3,000): r 0.764, agreement 61.1%, sold into a hop lobby 7; median batch 413 ms against 861 ms for the five-way union
+chain in phase 8 (one Kafka read instead of five), state rows 526 and 280.
+
+The Kafka latency report originally counted every output record; rows produced by a timer or a pass-through signal
+carry `source_kafka_ts` 0 and turned the p90 into an epoch. They are excluded now.

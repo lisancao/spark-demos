@@ -41,6 +41,8 @@ while not all(done.values()):
     _, out_ts = m.timestamp()
     v = json.loads(m.value())
     src = v.get("source_kafka_ts")
+    if not src:
+        continue  # timer-fired and pass-through rows carry no source record
     if first_out is None:
         first_out = out_ts
     if src is not None and out_ts - first_out >= args.skip_first_s * 1000:

@@ -52,6 +52,13 @@ services:
     volumes:
       - ./sim/output:/output
 
+  # Serving store for the Los Santos board: the Real-time query writes verdicts here with a ForeachWriter.
+  redis:
+    image: redis:7-alpine
+    container_name: losantos-redis
+    ports:
+      - "26379:6379"
+
   # Los Santos variant: public lobbies, grinders, griefers. Same image, same envelope, its own topic and output dir.
   sim-ls:
     build: ./sim
@@ -108,6 +115,7 @@ services:
       HOME: /tmp
       HADOOP_USER_NAME: spark
       KAFKA_BOOTSTRAP: kafka:9092
+      REDIS_HOST: redis
       SPARK_MASTER: local[8]
       SPARK_DRIVER_MEMORY: 4g
     ports:

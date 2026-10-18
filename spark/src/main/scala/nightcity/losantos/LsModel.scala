@@ -40,6 +40,7 @@ case class LsEv(
     destroyed_by: String = null,
     businesses: Seq[LsBusiness] = null,
     kafka_ts: Timestamp = null,
+    config: String = null,   // only on `board.config` rows, which join the event stream before any state
 )
 
 case class LsBusiness(business: String, business_type: String, stock_value: Long, location_id: String)
@@ -56,7 +57,7 @@ object LsEv {
     StructField("drops", IntegerType), StructField("value", LongType), StructField("value_delivered", LongType),
     StructField("value_lost", LongType), StructField("stock_value", LongType), StructField("stock_added", LongType),
     StructField("amount", LongType), StructField("population", IntegerType), StructField("sim_safety", IntegerType),
-    StructField("destroyed_by", StringType),
+    StructField("destroyed_by", StringType), StructField("config", StringType),
     StructField("businesses", ArrayType(StructType(Seq(
       StructField("business", StringType), StructField("business_type", StringType),
       StructField("stock_value", LongType), StructField("location_id", StringType))))),

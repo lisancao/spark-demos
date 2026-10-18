@@ -107,3 +107,42 @@ class LosSantosSuite extends AnyFunSuite {
     assert(t.peekMapState[String, Member]("known", "ls_01").contains("b"))
   }
 }
+
+/** The Real-time chain's first stage: one processor, all the per-player signals. */
+class PlayerSignalsSuite extends AnyFunSuite {
+  private def ev(t: String, ms: Long, agent: String, lobby: String, target: String = null, activity: String = "",
+                 vehicle: String = null, attackerVehicle: String = null, value: Option[Long] = None, mission: String = null, config: String = null): LsEv =
+    LsEv(s"$t-$ms", t, new Timestamp(ms), ms / 100, agent, agent, lobby, "vinewood", target, null, mission, null, vehicle, attackerVehicle,
+      null, activity, null, "bunker", None, None, None, Some(1), value, Some(0L), None, None, None, None, None, None, null, null,
+      new Timestamp(ms), config)
+
+  test("player stage: join emits joined + the menace prior; a seller kill promotes; leave closes the streak") {
+    val t = new TwsTester[String, LsEv, Signal](new PlayerSignals(Duration.ofMinutes(2), 15000, 1000), timeMode = TimeMode.ProcessingTime(),
+      initialState = List("g1" -> LsProfile("g1", "OppressorAndy", 420, 3.5, 2000, 7000, 2000)))
+    val joined = t.test("g1", List(ev("session.join", 1000, "g1", "ls_01")))
+    assert(joined.map(s => (s.kind, s.level)) == List(("joined", null), ("menace", "civilian")))
+    val killed = t.test("g1", List(ev("combat.kill", 2000, "g1", "ls_01", target = "s1", activity = "selling", attackerVehicle = "oppressor2")))
+    assert(killed.map(s => (s.kind, s.level)) == List(("menace", "hostile")))
+    assert(t.peekValueState[Streak]("streak", "g1").get.sellers == 1)
+    val left = t.test("g1", List(ev("session.leave", 3000, "g1", "ls_01")))
+    assert(left.map(s => (s.kind, s.level, s.n)) == List(("left", null, 0L), ("streak", "left", 1L)))
+    assert(t.peekValueState[PlayerState]("presence", "g1").isEmpty)
+  }
+
+  test("player stage: the streak gap and the sell patience are processing-time timers on the same key") {
+    val t = new TwsTester[String, LsEv, Signal](new PlayerSignals(Duration.ofMinutes(2), 15000, 1000), timeMode = TimeMode.ProcessingTime())
+    t.setProcessingTime(1)
+    t.test("g1", List(ev("session.join", 1000, "g1", "ls_01"), ev("combat.kill", 1500, "g1", "ls_01", target = "t1", activity = "freemode")))
+    t.test("g1", List(ev("sell.started", 1600, "g1", "ls_01", value = Some(500000L), mission = "m1")))
+    assert(t.setProcessingTime(1001).map(s => (s.kind, s.level)) == List(("streak", "gap")))   // 1 + 1000
+    assert(t.setProcessingTime(15001).map(s => (s.kind, s.level)) == List(("sell", "timeout"))) // 1 + 15000
+    val late = t.test("g1", List(ev("sell.completed", 9000, "g1", "ls_01", value = Some(500000L), mission = "m1")))
+    assert(late.map(_.level) == List("late_completed"))
+  }
+
+  test("player stage: config and snapshot rows pass through keyed by lobby") {
+    val t = new TwsTester[String, LsEv, Signal](new PlayerSignals(Duration.ofMinutes(2), 15000, 1000), timeMode = TimeMode.ProcessingTime())
+    val cfg = t.test("config:ls_01", List(ev("board.config", 1000, "config:ls_01", "ls_01", config = """{"menace": 40}""")))
+    assert(cfg.map(s => (s.kind, s.config)) == List(("config", """{"menace": 40}""")))
+  }
+}
