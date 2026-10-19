@@ -1,0 +1,28 @@
+# A single-node Spark 4.2.0 Connect server (the official image, local[*] master) for the Rust
+# client demo. The server binds all interfaces by default, so no address setting is needed. `docker compose up -d` then `SPARK_REMOTE=sc://localhost:15002 cargo run --release`.
+name: spark-connect-rust-demo
+
+services:
+  spark-connect:
+    image: apache/spark:4.2.0-scala2.13-java21-python3-ubuntu
+    entrypoint:
+      - /opt/spark/sbin/start-connect-server.sh
+      - --wait
+      - --conf
+      - spark.driver.memory=4g
+      - --conf
+      - spark.sql.warehouse.dir=/opt/spark/work-dir/warehouse
+    ports:
+      - "127.0.0.1:${CONNECT_PORT:-15002}:15002"
+      - "127.0.0.1:${UI_PORT:-4040}:4040"
+    volumes:
+      - warehouse:/opt/spark/work-dir
+    healthcheck:
+      test: ["CMD", "bash", "-c", "</dev/tcp/127.0.0.1/15002"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
+
+volumes:
+  warehouse: {}
