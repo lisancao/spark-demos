@@ -44,7 +44,8 @@ SPARK_REMOTE=sc://localhost:15002 cargo run --release
 docker compose down -v
 ```
 
-`CONNECT_PORT` and `UI_PORT` change the published ports.
+`CONNECT_PORT` and `UI_PORT` change the published ports (the run below used `CONNECT_PORT=15902`
+because 15002 was taken on this machine).
 
 ## Versions this was verified with
 
@@ -88,7 +89,7 @@ DuckDB v1.5.6  polars 0.54
 | 2025-09-01 | 55829  | 2933784.48 | 3482949.81     | 1.1868         |
 | 2025-09-02 | 55924  | 2927311.35 | 3476037.04     | 1.1881         |
 | 2025-09-03 | 55491  | 2913342.93 | 3459069.6      | 1.1877         |
-| 2025-09-04 | 55750  | 2930668.17 | 3478995.7      | 1.1875         |
+| 2025-09-04 | 55750  | 2930668.17 | 3478995.71     | 1.1875         |
 | 2025-09-05 | 55557  | 2924184.29 | 3470681.85     | 1.1867         |
 | 2025-09-06 | 55464  | 2907578.25 | 3452119.67     | 1.1879         |
 | 2025-09-07 | 54768  | 2885203.37 | 3428876.61     | 1.1883         |
@@ -130,7 +131,7 @@ shape: (8, 6)
 == 6. DuckDB -> Spark: the surge rollup saved as a Spark table
 struct<day:date,orders:bigint,revenue:double,surged_revenue:double,avg_multiplier:double>
   PASS  Spark table rows == DuckDB rows: 30
-  PASS  Spark sum(surged_revenue) == DuckDB sum: 103926081.02 vs 103926081.02
+  PASS  Spark sum(surged_revenue) == DuckDB sum: 103926081.04 vs 103926081.02
 
 == 7. Type fidelity: one Spark SQL value of each type, as each engine sees it
 | Spark type | arrow-rs (client) | DuckDB | Polars |
@@ -163,20 +164,20 @@ struct<day:date,orders:bigint,revenue:double,surged_revenue:double,avg_multiplie
 == Timings (ms)
 | step | ms |
 |---|---|
-| Spark: CREATE TABLE orders AS SELECT (20M rows, server side) | 4372 |
-| Spark -> Arrow: collect_record_batches() | 647 |
-| Spark -> Arrow IPC file: to_arrow() | 539 |
-| Arrow IPC -> Polars: IpcReader (client side only, 1.67M rows) | 73 |
-| Spark -> Rows: collect() | 1576 |
+| Spark: CREATE TABLE orders AS SELECT (20M rows, server side) | 4375 |
+| Spark -> Arrow: collect_record_batches() | 727 |
+| Spark -> Arrow IPC file: to_arrow() | 529 |
+| Arrow IPC -> Polars: IpcReader (client side only, 1.67M rows) | 70 |
+| Spark -> Rows: collect() | 1503 |
 | arrow-rs: concat_batches | 33 |
 | Arrow -> DuckDB: register RecordBatch as view (no copy) | 0 |
-| DuckDB: count + sum through the Arrow table function (1.67M rows) | 44 |
-| DuckDB: CREATE TABLE AS SELECT from the Arrow view (one copy) | 161 |
+| DuckDB: count + sum through the Arrow table function (1.67M rows) | 38 |
+| DuckDB: CREATE TABLE AS SELECT from the Arrow view (one copy) | 159 |
 | DuckDB: count + sum on the native table | 1 |
-| DuckDB: ASOF JOIN + daily rollup through the Arrow table function -> Arrow | 2182 |
-| DuckDB: the same ASOF JOIN + rollup on the native table | 168 |
-| Spark -> Polars: to_polars() (Arrow IPC bridge) | 771 |
+| DuckDB: ASOF JOIN + daily rollup through the Arrow table function -> Arrow | 2226 |
+| DuckDB: the same ASOF JOIN + rollup on the native table | 177 |
+| Spark -> Polars: to_polars() (Arrow IPC bridge) | 764 |
 | Polars: sort + rolling_mean + pct_change over city | 5 |
 | Polars -> IPC bytes -> arrow-rs -> DuckDB view | 1 |
-| Arrow -> Rows -> create_dataframe -> saveAsTable | 160 |
+| Arrow -> Rows -> create_dataframe -> saveAsTable | 191 |
 ```

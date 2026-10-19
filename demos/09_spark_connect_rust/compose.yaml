@@ -1,5 +1,5 @@
 # A single-node Spark 4.2.0 Connect server (the official image, local[*] master) for the Rust
-# client demo. `docker compose up -d` then `SPARK_REMOTE=sc://localhost:15002 cargo run --release`.
+# client demo. The server binds all interfaces by default, so no address setting is needed. `docker compose up -d` then `SPARK_REMOTE=sc://localhost:15002 cargo run --release`.
 name: spark-connect-rust-demo
 
 services:
@@ -8,8 +8,6 @@ services:
     entrypoint:
       - /opt/spark/sbin/start-connect-server.sh
       - --wait
-      - --conf
-      - spark.connect.grpc.binding.host=0.0.0.0
       - --conf
       - spark.driver.memory=4g
       - --conf
