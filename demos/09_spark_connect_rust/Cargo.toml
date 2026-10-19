@@ -1,0 +1,21 @@
+[package]
+name = "arrow_handoff"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+# The official Apache Spark Connect client for Rust. The crate version tracks the Spark
+# release it speaks (4.2.x -> Spark 4.2.0+). `polars` turns on DataFrame::to_polars().
+spark-connect = { package = "apache-spark-connect", version = "4.2", features = ["polars"] }
+
+# arrow-rs at the same major as the client and as duckdb-rs, so RecordBatches move between
+# them without a copy.
+arrow = { version = "58", features = ["prettyprint"] }
+
+# duckdb-rs, statically linked (`bundled`). `vtab-arrow` registers arrow-rs RecordBatches as
+# a DuckDB table function; `appender-arrow` appends them to a table.
+duckdb = { version = "1.10506", features = ["bundled", "vtab-arrow", "appender-arrow"] }
+
+# Same polars line the client's `to_polars()` is built against (0.54).
+polars = { version = "0.54", features = ["lazy", "ipc", "ipc_streaming", "dtype-full", "fmt", "rolling_window", "pct_change", "round_series", "parquet", "strings", "temporal", "timezones"] }
