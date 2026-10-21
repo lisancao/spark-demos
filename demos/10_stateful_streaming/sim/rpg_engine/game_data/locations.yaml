@@ -1,0 +1,240 @@
+locations:
+  - id: crossroads_inn
+    name: The Crossroads Inn
+    description: >
+      A squat stone building hunched at the junction of two muddy roads.
+      The sign above the door — a painted raven on a branch — swings
+      in the wind. Warm light leaks through shuttered windows.
+    sensory:
+      sight: "Firelight through warped glass. Smoke curling from the chimney. The sign creaking on its hinges."
+      sound: "Muffled voices inside. The sign's iron chain grinding against its bracket. Wind through bare trees."
+      smell: "Woodsmoke, roasting meat, wet earth from the road."
+      touch: "Cold wind off the hills. The door handle is iron, rough with rust."
+    atmosphere: "Weary sanctuary. The kind of place where people stop because they have to, not because they want to."
+    connections:
+      - to: market_square
+        direction: east
+        description: "A rutted road winds downhill toward town."
+      - to: dark_forest_edge
+        direction: north
+        description: "The road narrows into the treeline. The light doesn't follow."
+      - to: river_crossing
+        direction: west
+        description: "The road slopes down toward the sound of water."
+    items:
+      - id: old_notice
+        name: "a faded notice pinned to the door"
+        description: "Paper yellowed and rain-warped. Someone's handwriting, hurried."
+    tags: [safe, social, rest]
+    state: normal
+
+  - id: market_square
+    name: Market Square
+    description: >
+      The heart of Ashwick — such as it is. A dozen stalls crowd the
+      cobblestones, most of them shuttered. A stone well stands at the
+      center, its rope frayed. The buildings lean inward like they're
+      sharing a secret.
+    sensory:
+      sight: "Faded awnings, a few people moving between stalls. Crows on the rooftops."
+      sound: "Haggling, a hammer on metal from the smithy, crows."
+      smell: "Fish, tanned leather, something sweet from the baker's."
+      touch: "Uneven cobblestones underfoot. The air is damp."
+    atmosphere: "A town holding its breath. Busy enough to seem normal, quiet enough to feel wrong."
+    connections:
+      - to: crossroads_inn
+        direction: west
+        description: "The road climbs back to the inn."
+      - to: old_chapel
+        direction: south
+        description: "A narrow lane between buildings leads to the chapel yard."
+      - to: smithy
+        direction: northeast
+        description: "A narrow alley toward the sound of hammering."
+      - to: warden_office
+        direction: southeast
+        description: "A mud-streaked lane leads to a squat official building."
+    tags: [social, commerce]
+    state: normal
+
+  - id: dark_forest_edge
+    name: The Edge of Thornwood
+    description: >
+      The trees close in fast here. The road becomes a path, then barely
+      that. The canopy blocks most of the sky. Everything is green-dark
+      and dripping.
+    sensory:
+      sight: "Twisted branches. Moss on everything. The path splits ahead."
+      sound: "Dripping water. Something moving in the undergrowth. No birdsong."
+      smell: "Rot, wet bark, mushrooms."
+      touch: "The air is colder here. Damp seeps through clothing."
+    atmosphere: "The forest doesn't want you here. Not hostile — indifferent. You're small and temporary."
+    connections:
+      - to: crossroads_inn
+        direction: south
+        description: "The path back to the road and the inn."
+      - to: forest_clearing
+        direction: north
+        blocked_by: "The path is overgrown and something large has dragged branches across it."
+    tags: [dangerous, wilderness]
+    state: normal
+
+  - id: river_crossing
+    name: The Old Bridge
+    description: >
+      A stone bridge arches over dark water. The river is wider than
+      expected, moving fast. Half the bridge railing is missing. On the
+      far side, the road continues south.
+    sensory:
+      sight: "Dark water, white where it breaks around bridge pilings. Mist rising."
+      sound: "Rushing water, loud enough to cover footsteps."
+      smell: "Wet stone, river mud, something faintly metallic."
+      touch: "The bridge stones are slick. Spray from the river. Cold."
+    atmosphere: "Liminal. Between here and there. The kind of place things happen."
+    connections:
+      - to: crossroads_inn
+        direction: east
+        description: "The road back to the inn."
+      - to: riverside_camp
+        direction: south
+        description: "A muddy trail follows the riverbank downstream."
+    tags: [transitional, dangerous]
+    state: normal
+
+  - id: old_chapel
+    name: The Chapel of the Quiet
+    description: >
+      A small stone chapel, older than the town around it. The door
+      stands open. Inside, candles burn in the nave though nobody
+      tends them. The pews are empty.
+    sensory:
+      sight: "Candlelight on stone walls. Faded paintings. Dust motes drifting."
+      sound: "Absolute silence inside. The town sounds cut off at the threshold."
+      smell: "Beeswax, old incense, dust."
+      touch: "Cool stone. The air is still, almost thick."
+    atmosphere: "Something is listening. Not threatening — patient."
+    connections:
+      - to: market_square
+        direction: north
+        description: "The lane back to the market."
+    tags: [sacred, mystery]
+    state: normal
+
+  - id: forest_clearing
+    name: The Clearing
+    description: >
+      A ring of dead trees around a patch of bare earth. Nothing grows
+      here. The ground is hard-packed and stained dark. At the center,
+      a stone marker, waist-high, carved with symbols you don't recognize.
+    sensory:
+      sight: "Dead trees in a perfect circle. The stone marker. Scorch marks on the ground."
+      sound: "Nothing. Not even wind. The forest sounds stop at the treeline."
+      smell: "Ozone. Ash. Something underneath both — sweet and wrong."
+      touch: "The air vibrates faintly, like standing near a struck bell."
+    atmosphere: "Wrong. Beautiful and wrong. The silence is a held breath."
+    connections:
+      - to: dark_forest_edge
+        direction: south
+        description: "Back through the undergrowth."
+      - to: thornwood_depths
+        direction: north
+        blocked_by: "A wall of thorns, unnaturally thick, bars the way deeper."
+        description: "The forest grows denser still."
+    tags: [dangerous, mystery, magical]
+    state: dormant
+
+  - id: smithy
+    name: "Harlen's Forge"
+    description: >
+      A low-roofed building open on one side to the alley. The forge
+      glows orange in the dimness. Tools hang from pegs on every wall.
+      The anvil is scarred from decades of work.
+    sensory:
+      sight: "Orange glow of coals. Sparks when the hammer falls. Iron hanging on hooks."
+      sound: "The ring of hammer on steel. A bellows wheezing. Occasional cursing."
+      smell: "Hot metal, coal dust, leather, sweat."
+      touch: "Heat radiating from the forge. Grit on every surface."
+    atmosphere: "Honest work. The kind of place where things get fixed, not discussed."
+    connections:
+      - to: market_square
+        direction: southwest
+        description: "The alley back to the market."
+    items:
+      - id: short_sword
+        name: "a short sword on display"
+        description: "Plain steel, sharp edge, leather-wrapped grip. Functional."
+    tags: [commerce, craft]
+    state: normal
+
+  - id: thornwood_depths
+    name: "Deep Thornwood"
+    description: >
+      The trees here are wrong. They grow in spirals, bark split and
+      weeping sap that's the wrong color. The ground is soft, yielding,
+      like walking on something alive. The air tastes like iron.
+    sensory:
+      sight: "Spiral-grown trees. Sap like dark honey. Something glinting in the undergrowth."
+      sound: "A low hum — not quite audible. More felt than heard. Cracking wood."
+      smell: "Iron. Sweet rot. Something floral and out of place."
+      touch: "The ground gives under each step. The air is warm — too warm for the forest."
+    atmosphere: "The forest's heart, and something is wrong with it. This place is a wound."
+    state_sensory:
+      cleared:
+        sight: "The spiral trees are straightening. Sap runs clear. Light filters through."
+        smell: "Clean air. Wet earth. The iron smell is fading."
+        touch: "The ground is firming up. The unnatural warmth is gone."
+    connections:
+      - to: forest_clearing
+        direction: south
+        description: "Back toward the clearing."
+    items:
+      - id: seal_fragment
+        name: "a fragment of carved stone"
+        description: "Dark stone with the same spiraling symbols as the marker. Warm to the touch."
+    tags: [dangerous, magical, mystery]
+    state: corrupted
+
+  - id: warden_office
+    name: "The Warden's Office"
+    description: >
+      A squat building of grey stone, official in a way that hasn't
+      aged well. The door is heavy oak with an iron lock. Inside,
+      papers and maps cover every surface. A single desk. One chair.
+    sensory:
+      sight: "Stacked papers. Maps pinned to walls with knife marks. A cold fireplace."
+      sound: "Creaking floorboards. Wind through gaps in the shutters."
+      smell: "Old paper, ink, pipe smoke that's soaked into the walls."
+      touch: "Cold stone walls. Dust on everything except the desk."
+    atmosphere: "Authority gone to seed. Someone used to care about this place."
+    connections:
+      - to: market_square
+        direction: northwest
+        description: "The lane back to the market."
+    items:
+      - id: wardens_journal
+        name: "a leather-bound journal"
+        description: "The warden's personal record. Recent entries are erratic, then stop."
+        properties:
+          readable: true
+          quest_trigger: wardens_silence
+    tags: [official, mystery]
+    state: normal
+
+  - id: riverside_camp
+    name: "Riverside Camp"
+    description: >
+      A clearing on the riverbank, downstream from the bridge. A
+      rough camp — fire pit with fresh ash, a lean-to of branches,
+      marks in the mud. Someone's been here recently. Or is here now.
+    sensory:
+      sight: "Banked coals in the fire pit. A lean-to. Boot prints in mud. Movement across the river."
+      sound: "The river, quieter here. Insects. A twig snapping — wind, probably."
+      smell: "Woodsmoke, river mud, something cooking or recently cooked."
+      touch: "Damp ground. Warmth from the coals if you're close enough."
+    atmosphere: "Someone's watching. You can't prove it, but you know it."
+    connections:
+      - to: river_crossing
+        direction: north
+        description: "The trail back to the bridge."
+    tags: [dangerous, wilderness, camp]
+    state: normal

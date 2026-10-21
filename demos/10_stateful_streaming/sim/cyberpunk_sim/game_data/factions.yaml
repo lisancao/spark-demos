@@ -1,0 +1,55 @@
+factions:
+- id: okonkwo_group
+  name: Okonkwo Group
+  description: A megacorp faction.
+  goals:
+  - Market dominance.
+  - Eliminate competition — through acquisition or elimination.
+  - Control the council. Control the city.
+  default_reputation: neutral
+  player_reputation: []
+- id: los_nakamura
+  name: Los Nakamura
+  description: A gang faction.
+  goals:
+  - Hold territory.
+  - Control the local economy — drugs, chrome, protection.
+  - Survive the other gangs and NCPD long enough to matter.
+  default_reputation: hostile
+  player_reputation: []
+- id: subnet_drift
+  name: Subnet Drift
+  description: A netrunner_collective faction.
+  goals:
+  - Control the data.
+  - Crack the Blackwall.
+  - Stay invisible to everyone who matters.
+  default_reputation: unknown
+  player_reputation: []
+- id: the_santos_clan
+  name: The Santos Clan
+  description: A nomad_clan faction.
+  goals:
+  - Protect the family.
+  - Keep the roads open.
+  - Stay free of corpo and city control.
+  default_reputation: neutral
+  player_reputation: []
+- id: maxtac_unit_signal
+  name: MaxTac Unit Signal
+  description: A law_enforcement faction.
+  goals:
+  - Maintain order — or the illusion of it.
+  - Keep the corpos happy enough to keep funding the department.
+  - Survive the shift.
+  default_reputation: neutral
+  player_reputation: []
+- id: mbekis_circle
+  name: Mbeki's Circle
+  description: A underground faction.
+  goals:
+  - Connect the dots.
+  - Profit from every transaction.
+  - Know more than anyone else in the room.
+  default_reputation: unknown
+  player_reputation: []

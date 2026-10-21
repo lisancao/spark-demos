@@ -1,0 +1,365 @@
+npcs:
+  - id: maren
+    name: Maren
+    role: innkeeper
+    location: crossroads_inn
+    appearance: >
+      A broad woman in her fifties with burn-scarred hands and grey hair
+      pulled back tight. Her apron has seen better decades. Eyes that
+      miss nothing.
+    appearance_brief: "Broad, grey-haired, watchful eyes."
+    personality: >
+      Practical, guarded, dry humor. She's seen enough travelers to
+      read them in ten seconds. Generous to those who earn it, cold
+      to those who don't. She knows more than she lets on about
+      what's happening in Thornwood.
+    default_disposition: neutral
+    dispositions:
+      - toward: player
+        state: cautious
+        reason: "New face. Hasn't proven anything yet."
+    voice_archetype: innkeeper
+    voice_profile:
+      sentence_style: "short to medium, practical"
+      vocabulary: "domestic, food/drink, local gossip, understated"
+      contractions: "frequent"
+      formality: "low"
+      speech_habits:
+        - "Offers food/drink as social lubricant"
+        - "Answers questions with questions"
+        - "Drops pronouns ('Seen stranger things.')"
+        - "Uses local place names casually"
+      avoids:
+        - "Flowery language"
+        - "Direct answers about Thornwood"
+        - "Emotional displays"
+      example_lines:
+        - "Stew's hot. Bread's yesterday's. Take it or don't."
+        - "Thornwood? What about it."
+        - "Folks pass through. Some come back. Most don't talk about it."
+        - "You look like you've been sleeping rough. Coin buys a room."
+    knowledge:
+      - id: thornwood_disappearances
+        content: "Three woodcutters have gone missing in Thornwood this season."
+        willingness: "shares if asked directly and player seems trustworthy"
+      - id: chapel_candles
+        content: "The chapel candles have been burning for years. Nobody lights them."
+        willingness: "mentions casually if prompted about the chapel"
+      - id: stone_marker
+        content: "There's a clearing in Thornwood with a stone marker. Her grandmother warned her about it."
+        willingness: "won't share easily — needs high trust"
+    secrets:
+      - id: maren_lost_son
+        hint: "She flinches slightly when woodcutters are mentioned."
+        content: "Her son was the first to disappear. She hasn't told anyone."
+    dialogue_hooks:
+      - topic: food_drink
+        response_style: "Practical, immediate. Gets them what they need."
+      - topic: thornwood
+        response_style: "Deflects first, then cautious partial answers."
+      - topic: personal
+        response_style: "Shuts down. Changes the subject."
+    current_activity: "Wiping down the bar with a rag that's seen better days."
+    faction: ashwick_townsfolk
+    tags: [quest_giver, information]
+
+  - id: davan
+    name: Davan
+    role: traveling merchant
+    location: market_square
+    appearance: >
+      A lean man with a neatly trimmed beard and clothes too fine for
+      this town. His cart is covered with an oiled tarp. He wears
+      rings on three fingers and smiles too easily.
+    appearance_brief: "Lean, well-dressed, rings on his fingers."
+    personality: >
+      Charming on the surface, calculating underneath. He trades in
+      oddities and information. He knows the value of everything and
+      gives nothing away for free. But he's not malicious — he's a
+      businessman in a world where information is currency.
+    default_disposition: friendly
+    dispositions:
+      - toward: player
+        state: interested
+        reason: "New customer. Potential opportunity."
+    voice_archetype: merchant
+    voice_profile:
+      sentence_style: "varied, persuasive, rhythmic"
+      vocabulary: "commercial, flattering, precise about value"
+      contractions: "moderate"
+      formality: "medium — adjusts to customer"
+      speech_habits:
+        - "Prices everything — objects, information, favors"
+        - "Compliments before negotiating"
+        - "Uses 'friend' and 'my dear' as social tools"
+        - "Speaks in trade metaphors"
+      avoids:
+        - "Giving things away"
+        - "Committing to absolutes"
+        - "Crude language"
+      example_lines:
+        - "Ah, a discerning eye! That piece has a history. As do most things worth having."
+        - "Information, my friend, is the only commodity that appreciates with sharing. For the right price."
+        - "I never deal in absolutes. Only in favorable terms."
+    knowledge:
+      - id: chapel_history
+        content: "The Chapel of the Quiet predates the town by centuries. Built by a forgotten order."
+        willingness: "trades for interesting information or coin"
+      - id: stone_marker_rumors
+        content: "Traders from the north speak of a clearing where compasses spin. Bad for business."
+        willingness: "shares if player has something to trade"
+    secrets:
+      - id: davan_employer
+        hint: "He checks a sealed letter when he thinks no one is watching."
+        content: "He's been hired by someone to acquire the stone marker's carvings — a rubbing or sketch."
+    dialogue_hooks:
+      - topic: trade
+        response_style: "In his element. Warm, expert, slightly theatrical."
+      - topic: thornwood
+        response_style: "Interested but cautious. Values information about it."
+      - topic: his_background
+        response_style: "Deflects with charm. Redirects to business."
+    current_activity: "Arranging goods on his cart with practiced precision."
+    tags: [merchant, information]
+
+  - id: sister_vale
+    name: Sister Vale
+    role: chapel keeper
+    location: old_chapel
+    appearance: >
+      A young woman in plain grey robes. Barefoot despite the cold
+      stone floor. Her eyes are unusual — pale, almost colorless.
+      She moves without sound.
+    appearance_brief: "Young, grey-robed, pale eyes, barefoot."
+    personality: >
+      Serene to the point of unsettling. She speaks simply but with
+      weight. She seems to know things she shouldn't. Whether this is
+      perception or something else is unclear. She's kind, but not
+      warm — there's a distance to her, like she's listening to
+      something you can't hear.
+    default_disposition: calm
+    dispositions:
+      - toward: player
+        state: open
+        reason: "She was expecting someone."
+    voice_archetype: mystic
+    voice_profile:
+      sentence_style: "simple, measured, with pauses"
+      vocabulary: "plain but precise, occasionally symbolic"
+      contractions: "never"
+      formality: "medium-high — plain but careful"
+      speech_habits:
+        - "Speaks in present tense about future events"
+        - "Answers the question you meant to ask, not the one you did"
+        - "Comfortable with long silences"
+        - "References the candles as if they communicate"
+      avoids:
+        - "Slang"
+        - "Urgency"
+        - "Direct commands"
+        - "Explaining herself"
+      example_lines:
+        - "You are here. That is enough for now."
+        - "The candles know. I only listen."
+        - "The clearing is not a place. It is a question. You will understand when you hear it."
+        - "I do not predict. I describe what is already true."
+    knowledge:
+      - id: clearing_nature
+        content: "The stone marker in the clearing is a seal. Something is held beneath it."
+        willingness: "shares freely but in riddles"
+      - id: candle_meaning
+        content: "The candles respond to proximity — to the clearing, to whatever sleeps there."
+        willingness: "explains if asked"
+    secrets:
+      - id: vale_origin
+        hint: "She never speaks of her life before the chapel."
+        content: "She woke up in the chapel with no memory. The candles were already burning."
+    dialogue_hooks:
+      - topic: the_chapel
+        response_style: "Calm, factual, slightly otherworldly."
+      - topic: the_clearing
+        response_style: "Speaks with weight. This is the thing she cares about."
+      - topic: herself
+        response_style: "Honest about not knowing. No performance of mystery."
+    current_activity: "Standing very still, watching the candle flames."
+    faction: the_quiet
+    tags: [quest_giver, mystery, information]
+
+  - id: harlen
+    name: Harlen
+    role: smith
+    location: smithy
+    appearance: >
+      A barrel-chested man with arms like knotted rope. His left hand
+      is missing two fingers. Soot in the lines of his face. Eyes
+      sharp despite the squint from years at the forge.
+    appearance_brief: "Broad, soot-marked, missing two fingers on his left hand."
+    personality: >
+      Gruff but fair. He says what he means and means what he says.
+      Distrusts outsiders on principle but respects competence. He
+      knows the forest is wrong and he's angry nobody's doing anything
+      about it. He made the weapons the woodcutters carried.
+    default_disposition: cautious
+    dispositions:
+      - toward: player
+        state: cautious
+        reason: "Another stranger. Ashwick's had enough of those."
+    voice_archetype: soldier
+    voice_profile:
+      sentence_style: "short, declarative, blunt"
+      vocabulary: "practical, craft-related, military"
+      contractions: "frequent"
+      formality: "low"
+      speech_habits:
+        - "Answers with grunts before words"
+        - "Prices things in terms of labor ('That's a day's work.')"
+        - "Refers to the forest as 'that damned wood'"
+      avoids:
+        - "Pleasantries"
+        - "Speculation"
+        - "Anything he considers weakness"
+      example_lines:
+        - "You want steel? I make steel. Don't ask me about the forest."
+        - "Three men went in with my blades. Blades came back. Men didn't."
+        - "Talk's cheap. You want to help? Help."
+    knowledge:
+      - id: woodcutter_weapons
+        content: "He forged the axes the missing woodcutters carried. Found one broken at the forest edge."
+        willingness: "shares if asked directly about the woodcutters"
+      - id: warden_deputy
+        content: "The warden's deputy, Rohn, went into the forest two weeks ago. Hasn't been seen since."
+        willingness: "mentions if trust is established"
+    secrets:
+      - id: harlen_broken_axe
+        hint: "There's a broken axe head mounted on his wall. He doesn't talk about it."
+        content: "The axe was Edric's — the first woodcutter to vanish. Harlen found it by the forest edge, split clean through."
+    dialogue_hooks:
+      - topic: weapons
+        response_style: "Professional. This is his territory."
+      - topic: the_forest
+        response_style: "Angry, frustrated, personal."
+      - topic: the_warden
+        response_style: "Contemptuous. Thinks Aldric's hiding something."
+    current_activity: "Hammering a piece of iron flat, ignoring the world."
+    faction: ashwick_townsfolk
+    tags: [merchant, information, quest_giver]
+
+  - id: old_warden
+    name: Warden Aldric
+    role: town warden
+    location: warden_office
+    appearance: >
+      A gaunt man in his sixties, uniformed but rumpled. Ink-stained
+      fingers. His eyes are bloodshot and he hasn't shaved in days.
+      A once-commanding presence gone soft around the edges.
+    appearance_brief: "Gaunt, rumpled uniform, ink-stained, sleepless."
+    personality: >
+      Evasive, anxious, hiding something. He was competent once —
+      you can see it in the maps on his walls, the careful records.
+      But something broke. He's afraid, and the fear has turned to
+      paralysis. He knows more about the disappearances than he's
+      letting on. The guilt is eating him alive.
+    default_disposition: cautious
+    dispositions:
+      - toward: player
+        state: cautious
+        reason: "Another person asking questions he can't answer."
+    voice_archetype: noble
+    voice_profile:
+      sentence_style: "starts formal, deteriorates into fragments"
+      vocabulary: "official language mixed with nervous deflection"
+      contractions: "rare at first, more as he loses composure"
+      formality: "medium — tries for high but can't maintain it"
+      speech_habits:
+        - "Starts sentences he doesn't finish"
+        - "Refers to procedures and protocols that don't matter anymore"
+        - "Glances at the door frequently"
+        - "Fidgets with his pen"
+      avoids:
+        - "Direct answers about his deputy"
+        - "The word 'missing'"
+        - "Eye contact when lying"
+      example_lines:
+        - "The situation is... being handled. Through proper channels."
+        - "My deputy — Rohn — he's on assignment. Field work. Routine."
+        - "I've filed the reports. Everything is documented. Everything."
+    knowledge:
+      - id: warden_reports
+        content: "He filed reports about the disappearances. Nobody from the capital responded."
+        willingness: "shares reluctantly if pressed"
+      - id: deputy_rohn
+        content: "His deputy Rohn went to investigate Thornwood alone. Aldric sent him. Rohn hasn't come back."
+        willingness: "won't share easily — this is his shame"
+    secrets:
+      - id: warden_guilt
+        hint: "His hands shake when he picks up his pen. The latest report is unfinished."
+        content: "He sent Rohn into the forest against his better judgment because the capital demanded results. He knows Rohn is probably dead."
+    dialogue_hooks:
+      - topic: the_disappearances
+        response_style: "Official, deflecting, increasingly nervous."
+      - topic: deputy_rohn
+        response_style: "Immediate anxiety. Tries to change the subject."
+      - topic: the_forest
+        response_style: "Tries to be authoritative. Fails."
+    current_activity: "Staring at an unfinished report, pen in hand, not writing."
+    faction: ashwick_townsfolk
+    tags: [official, information, quest_giver]
+
+  - id: the_stranger
+    name: The Stranger
+    role: hooded traveler
+    location: riverside_camp
+    appearance: >
+      A figure in a dark, travel-worn cloak. Hood up, face in shadow.
+      Thin hands, long fingers. Moves with deliberate economy. A
+      satchel at their hip, stuffed with papers.
+    appearance_brief: "Hooded, thin, deliberate movements, satchel of papers."
+    personality: >
+      Knows too much. Speaks in statements that sound like questions.
+      Not threatening — observing. They've been here before, or
+      somewhere like here. They're tracking something, and they're
+      not sure if you're part of the problem or the solution.
+    default_disposition: neutral
+    dispositions:
+      - toward: player
+        state: cautious
+        reason: "Assessing."
+    voice_archetype: scholar
+    voice_profile:
+      sentence_style: "measured, precise, slightly formal"
+      vocabulary: "educated, observational, occasionally cryptic"
+      contractions: "rare"
+      formality: "medium-high"
+      speech_habits:
+        - "Answers questions with context you didn't expect"
+        - "References other places where similar things happened"
+        - "Watches your reactions more than they look at what they're describing"
+      avoids:
+        - "Personal details"
+        - "Direct orders"
+        - "Expressing fear"
+      example_lines:
+        - "You are the third person to come here asking questions. The other two stopped asking."
+        - "I have seen this pattern before. In Vaelmark. In Dunfeld. The forest remembers things we forget."
+        - "You should not go deeper. But you will. They always do."
+    knowledge:
+      - id: seal_pattern
+        content: "The stone marker is one of several seals across the continent. Most are already broken."
+        willingness: "shares if the player has been to the clearing"
+      - id: seekers_identity
+        content: "The ones who hired Davan are called the Seekers. They want the seals broken."
+        willingness: "shares only at high trust — this is dangerous knowledge"
+    secrets:
+      - id: stranger_purpose
+        hint: "Their satchel contains maps with X marks. Several are crossed out."
+        content: "They are tracking seal locations, trying to reach them before the Seekers do. They failed at two already."
+    dialogue_hooks:
+      - topic: the_clearing
+        response_style: "Grave. This is what they came for."
+      - topic: the_seekers
+        response_style: "Careful, testing what you know before sharing."
+      - topic: themselves
+        response_style: "Deflects. Changes to something you should know instead."
+    current_activity: "Sitting by the banked coals, reading a folded map."
+    faction: the_quiet
+    tags: [mystery, information, quest_giver]

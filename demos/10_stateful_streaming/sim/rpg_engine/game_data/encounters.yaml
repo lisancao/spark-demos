@@ -1,0 +1,191 @@
+encounters:
+  - id: forest_ambush
+    name: "Something in the Trees"
+    type: combat
+    location: dark_forest_edge
+    trigger: "Player spends too long in the forest or makes excessive noise."
+    conditions:
+      - type: at_location
+        location: dark_forest_edge
+      - type: turn_count
+        min: 3
+      - type: not_session_flag
+        flag: encounter_fired_forest_ambush
+    description: >
+      Something drops from the canopy — fast, quiet, wrong number of
+      limbs. Not a wolf. Not a bear. Something the forest made.
+    enemies:
+      - name: "forest-twisted thing"
+        description: "It was an animal once. Now it's branches and teeth."
+        stats:
+          health: 6
+          damage: 3
+          speed: fast
+        behavior: "Ambush predator. Strikes and retreats into the canopy."
+    rewards:
+      - id: twisted_claw
+        name: "a twisted claw"
+        description: "Black, woody, sharp. Still warm."
+    consequences:
+      - type: set_flag
+        flag: forest_combat_happened
+        value: true
+    tone_direction: "Sudden, visceral, disorienting. The player shouldn't fully understand what attacked them."
+
+  - id: chapel_vigil
+    name: "The Candles Respond"
+    type: discovery
+    location: old_chapel
+    trigger: "Player examines the candles closely or mentions the clearing to Sister Vale."
+    conditions:
+      - type: at_location
+        location: old_chapel
+      - type: text_contains
+        keywords: ["candle", "candles", "clearing", "thornwood", "flame", "light"]
+      - type: not_session_flag
+        flag: encounter_fired_chapel_vigil
+    description: >
+      The candle flames lean — all of them, simultaneously, toward the
+      north wall. Toward Thornwood. They burn brighter for a moment,
+      then settle. Sister Vale watches them with recognition, not surprise.
+    consequences:
+      - type: learn
+        fact:
+          id: candle_response
+          content: "The chapel candles respond to something in Thornwood. They lean toward it."
+      - type: npc_disposition
+        npc_id: sister_vale
+        new_state: trusting
+        reason: "The player saw the candles respond. She's been waiting for this."
+    tone_direction: "Quiet, eerie, significant. This is a turning point — play it slow."
+
+  - id: merchant_proposition
+    name: "Davan's Offer"
+    type: dialogue
+    location: market_square
+    trigger: "Player mentions Thornwood or the clearing to Davan."
+    conditions:
+      - type: at_location
+        location: market_square
+      - type: action_type
+        type: talk
+      - type: action_target
+        target: davan
+      - type: text_contains
+        keywords: ["thornwood", "clearing", "forest", "stone", "marker"]
+      - type: not_session_flag
+        flag: encounter_fired_merchant_proposition
+    description: >
+      Davan's professional smile sharpens into something genuine.
+      He leans in. He has a proposition — and he's willing to pay.
+    consequences:
+      - type: advance_quest
+        quest_id: davans_commission
+    tone_direction: "Shift from casual commerce to real stakes. Davan drops the salesman act, briefly."
+
+  - id: thornwood_whispers
+    name: "The Whispers Below"
+    type: discovery
+    location: thornwood_depths
+    trigger: "Player reaches the deep forest and examines the corruption."
+    conditions:
+      - type: at_location
+        location: thornwood_depths
+      - type: text_contains
+        keywords: ["look", "examine", "search", "listen", "ground", "tree", "sap"]
+      - type: not_session_flag
+        flag: encounter_fired_thornwood_whispers
+    description: >
+      The ground pulses beneath your feet. The sap on the trees
+      shifts — spelling something you almost understand. A whisper
+      rises from below, not in any language but carrying meaning:
+      loneliness, hunger, a request. The seal fragment on the ground
+      glows faintly.
+    consequences:
+      - type: learn
+        fact:
+          id: whisper_below
+          content: "Something beneath the forest is alive, sealed, and trying to communicate. It isn't hostile — it's desperate."
+      - type: location_state
+        location_id: thornwood_depths
+        new_state: awakening
+        reason: "The whispers respond to the player's presence."
+    tone_direction: "Cosmic horror meets empathy. The thing below isn't evil — it's trapped. That's worse."
+
+  - id: smith_warning
+    name: "The Smith's Warning"
+    type: dialogue
+    location: smithy
+    trigger: "Player talks to Harlen about the forest or weapons."
+    conditions:
+      - type: at_location
+        location: smithy
+      - type: action_type
+        type: talk
+      - type: action_target
+        target: harlen
+      - type: text_contains
+        keywords: ["forest", "thornwood", "weapon", "sword", "woodcutter", "missing"]
+      - type: not_session_flag
+        flag: encounter_fired_smith_warning
+    description: >
+      Harlen puts down his hammer. Slowly, deliberately. He pulls
+      a broken axe head from a shelf — black iron, split clean
+      through the middle. "This was Edric's. I made it myself.
+      Nothing natural breaks iron like that."
+    consequences:
+      - type: learn
+        fact:
+          id: broken_axe
+          content: "Harlen found Edric's axe at the forest edge, broken clean through. No natural force could do that."
+      - type: npc_disposition
+        npc_id: harlen
+        new_state: open
+        reason: "The player is asking the right questions."
+    tone_direction: "A man trying to be tough while terrified. The broken axe is the most honest thing in the room."
+
+  - id: riverside_ambush
+    name: "Wolves at the River"
+    type: combat
+    location: riverside_camp
+    trigger: "Player lingers at the riverside camp."
+    conditions:
+      - type: at_location
+        location: riverside_camp
+      - type: turn_count
+        min: 5
+      - type: not_session_flag
+        flag: encounter_fired_riverside_ambush
+    description: >
+      A growl from the tree line. Then another. Two shapes emerge —
+      lean, grey, ribs showing through matted fur. Their eyes
+      catch the firelight. These aren't normal wolves. Something
+      has driven them from the forest, and they're hungry.
+    enemies:
+      - name: "starving wolf"
+        description: "Grey, gaunt, desperate. Fights like it has nothing to lose."
+        stats:
+          health: 4
+          damage: 2
+          speed: fast
+        behavior: "Pack hunter. One attacks while the other flanks."
+      - name: "scarred wolf"
+        description: "Larger. Old scars across its muzzle. The leader."
+        stats:
+          health: 5
+          damage: 3
+          speed: normal
+        behavior: "Defensive. Waits for an opening, then strikes hard."
+    rewards:
+      - id: wolf_pelt
+        name: "a wolf pelt"
+        description: "Coarse grey fur. Worth something to the right trader."
+    consequences:
+      - type: set_flag
+        flag: riverside_combat_happened
+        value: true
+      - type: npc_disposition
+        npc_id: the_stranger
+        new_state: interested
+        reason: "The player fought off the wolves. The stranger is reassessing."
+    tone_direction: "Fast, brutal, primal. These animals are suffering — killing them should feel necessary, not heroic."

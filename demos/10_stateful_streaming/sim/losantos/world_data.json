@@ -1,0 +1,1093 @@
+{
+ "source": "https://github.com/DurtyFree/gta-v-data-dumps",
+ "zones": {
+  "los_santos_international_airport": {
+   "name": "Los Santos International Airport",
+   "code": "AirP",
+   "x": -608.6,
+   "y": -2445.0
+  },
+  "alamo_sea": {
+   "name": "Alamo Sea",
+   "code": "Alamo",
+   "x": 1720.4,
+   "y": 4167.5
+  },
+  "alta": {
+   "name": "Alta",
+   "code": "Alta",
+   "x": 168.8,
+   "y": -415.8
+  },
+  "fort_zancudo": {
+   "name": "Fort Zancudo",
+   "code": "ArmyB",
+   "x": -2223.2,
+   "y": 3179.3
+  },
+  "banning": {
+   "name": "Banning",
+   "code": "Banning",
+   "x": -8.0,
+   "y": -2095.8
+  },
+  "baytree_canyon": {
+   "name": "Baytree Canyon",
+   "code": "Baytre",
+   "x": 256.3,
+   "y": 966.8
+  },
+  "vespucci_beach": {
+   "name": "Vespucci Beach",
+   "code": "Beach",
+   "x": -1212.5,
+   "y": -1491.1
+  },
+  "banham_canyon": {
+   "name": "Banham Canyon",
+   "code": "BhamCa",
+   "x": -2987.9,
+   "y": 629.4
+  },
+  "braddock_pass": {
+   "name": "Braddock Pass",
+   "code": "BradP",
+   "x": 2395.5,
+   "y": 5654.1
+  },
+  "braddock_tunnel": {
+   "name": "Braddock Tunnel",
+   "code": "BradT",
+   "x": 2128.8,
+   "y": 6025.3
+  },
+  "burton": {
+   "name": "Burton",
+   "code": "Burton",
+   "x": -420.7,
+   "y": -56.7
+  },
+  "calafia_bridge": {
+   "name": "Calafia Bridge",
+   "code": "CalafB",
+   "x": -167.1,
+   "y": 4240.7
+  },
+  "raton_canyon": {
+   "name": "Raton Canyon",
+   "code": "CANNY",
+   "x": -2003.0,
+   "y": 4473.0
+  },
+  "cassidy_creek": {
+   "name": "Cassidy Creek",
+   "code": "CCreak",
+   "x": -1043.8,
+   "y": 4402.9
+  },
+  "chamberlain_hills": {
+   "name": "Chamberlain Hills",
+   "code": "ChamH",
+   "x": -173.9,
+   "y": -1643.7
+  },
+  "vinewood_hills": {
+   "name": "Vinewood Hills",
+   "code": "CHIL",
+   "x": 1635.7,
+   "y": 1078.1
+  },
+  "chumash": {
+   "name": "Chumash",
+   "code": "CHU",
+   "x": -3096.0,
+   "y": 1194.1
+  },
+  "chiliad_mountain_state_wilderness": {
+   "name": "Chiliad Mountain State Wilderness",
+   "code": "CMSW",
+   "x": -1829.3,
+   "y": 4682.0
+  },
+  "cypress_flats": {
+   "name": "Cypress Flats",
+   "code": "Cypre",
+   "x": 713.2,
+   "y": -2213.4
+  },
+  "davis": {
+   "name": "Davis",
+   "code": "Davis",
+   "x": 103.8,
+   "y": -1731.3
+  },
+  "del_perro_beach": {
+   "name": "Del Perro Beach",
+   "code": "Delbe",
+   "x": -1788.9,
+   "y": -895.3
+  },
+  "del_perro": {
+   "name": "Del Perro",
+   "code": "DelPe",
+   "x": -1149.9,
+   "y": -662.2
+  },
+  "la_puerta": {
+   "name": "La Puerta",
+   "code": "DelSol",
+   "x": -958.5,
+   "y": -1491.1
+  },
+  "grand_senora_desert": {
+   "name": "Grand Senora Desert",
+   "code": "Desrt",
+   "x": 2356.8,
+   "y": 3161.8
+  },
+  "downtown": {
+   "name": "Downtown",
+   "code": "Downt",
+   "x": -376.9,
+   "y": -617.2
+  },
+  "downtown_vinewood": {
+   "name": "Downtown Vinewood",
+   "code": "DTVine",
+   "x": 372.2,
+   "y": 212.1
+  },
+  "east_vinewood": {
+   "name": "East Vinewood",
+   "code": "East_V",
+   "x": 677.8,
+   "y": -445.0
+  },
+  "el_burro_heights": {
+   "name": "El Burro Heights",
+   "code": "EBuro",
+   "x": 1267.2,
+   "y": -2354.9
+  },
+  "el_gordo_lighthouse": {
+   "name": "El Gordo Lighthouse",
+   "code": "ELGorL",
+   "x": 3457.2,
+   "y": 5167.0
+  },
+  "elysian_island": {
+   "name": "Elysian Island",
+   "code": "Elysian",
+   "x": 597.7,
+   "y": -3064.5
+  },
+  "galilee": {
+   "name": "Galilee",
+   "code": "Galfish",
+   "x": 1275.6,
+   "y": 4303.7
+  },
+  "galileo_park": {
+   "name": "Galileo Park",
+   "code": "Galli",
+   "x": 640.6,
+   "y": 1267.5
+  },
+  "gwc_and_golfing_society": {
+   "name": "GWC and Golfing Society",
+   "code": "Golf",
+   "x": -1261.3,
+   "y": 93.5
+  },
+  "grapeseed": {
+   "name": "Grapeseed",
+   "code": "GrapeS",
+   "x": 2009.6,
+   "y": 4906.5
+  },
+  "great_chaparral": {
+   "name": "Great Chaparral",
+   "code": "Greatc",
+   "x": -1295.1,
+   "y": 2519.1
+  },
+  "harmony": {
+   "name": "Harmony",
+   "code": "Harmo",
+   "x": 426.1,
+   "y": 2642.1
+  },
+  "hawick": {
+   "name": "Hawick",
+   "code": "Hawick",
+   "x": 661.4,
+   "y": -182.5
+  },
+  "vinewood_racetrack": {
+   "name": "Vinewood Racetrack",
+   "code": "Hors",
+   "x": 1260.6,
+   "y": 425.0
+  },
+  "humane_labs_and_research": {
+   "name": "Humane Labs and Research",
+   "code": "HumLab",
+   "x": 3530.4,
+   "y": 3708.2
+  },
+  "bolingbroke_penitentiary": {
+   "name": "Bolingbroke Penitentiary",
+   "code": "Jail",
+   "x": 1856.6,
+   "y": 2428.2
+  },
+  "little_seoul": {
+   "name": "Little Seoul",
+   "code": "Koreat",
+   "x": -1100.2,
+   "y": -649.8
+  },
+  "land_act_reservoir": {
+   "name": "Land Act Reservoir",
+   "code": "LAct",
+   "x": 1891.4,
+   "y": 187.3
+  },
+  "land_act_dam": {
+   "name": "Land Act Dam",
+   "code": "LDam",
+   "x": 1665.2,
+   "y": -14.8
+  },
+  "legion_square": {
+   "name": "Legion Square",
+   "code": "LegSqu",
+   "x": 229.8,
+   "y": -861.6
+  },
+  "la_mesa": {
+   "name": "La Mesa",
+   "code": "LMesa",
+   "x": 687.4,
+   "y": -618.9
+  },
+  "mirror_park": {
+   "name": "Mirror Park",
+   "code": "Mirr",
+   "x": 1130.4,
+   "y": -551.6
+  },
+  "morningwood": {
+   "name": "Morningwood",
+   "code": "Morn",
+   "x": -1507.3,
+   "y": -182.3
+  },
+  "richards_majestic": {
+   "name": "Richards Majestic",
+   "code": "Movie",
+   "x": -1220.2,
+   "y": -566.9
+  },
+  "mount_chiliad": {
+   "name": "Mount Chiliad",
+   "code": "MTChil",
+   "x": 2011.2,
+   "y": 6184.2
+  },
+  "mount_gordo": {
+   "name": "Mount Gordo",
+   "code": "MTGordo",
+   "x": 2576.4,
+   "y": 5319.1
+  },
+  "mount_josiah": {
+   "name": "Mount Josiah",
+   "code": "MTJose",
+   "x": -1607.3,
+   "y": 3782.9
+  },
+  "murrieta_heights": {
+   "name": "Murrieta Heights",
+   "code": "Murri",
+   "x": 1014.0,
+   "y": -913.7
+  },
+  "north_chumash": {
+   "name": "North Chumash",
+   "code": "NCHU",
+   "x": -2462.1,
+   "y": 3665.5
+  },
+  "n_o_o_s_e": {
+   "name": "N.O.O.S.E",
+   "code": "Noose",
+   "x": 2515.8,
+   "y": -351.3
+  },
+  "galileo_observatory": {
+   "name": "Galileo Observatory",
+   "code": "Observ",
+   "x": -437.4,
+   "y": 1144.8
+  },
+  "paleto_cove": {
+   "name": "Paleto Cove",
+   "code": "PalCov",
+   "x": -1054.6,
+   "y": 6051.3
+  },
+  "paleto_bay": {
+   "name": "Paleto Bay",
+   "code": "Paleto",
+   "x": -261.5,
+   "y": 6077.4
+  },
+  "paleto_forest": {
+   "name": "Paleto Forest",
+   "code": "PalFor",
+   "x": -683.5,
+   "y": 5558.1
+  },
+  "palomino_highlands": {
+   "name": "Palomino Highlands",
+   "code": "PalHigh",
+   "x": 2279.2,
+   "y": -503.5
+  },
+  "palmer_taylor_power_station": {
+   "name": "Palmer-Taylor Power Station",
+   "code": "Palmpow",
+   "x": 2685.0,
+   "y": 1308.5
+  },
+  "pacific_bluffs": {
+   "name": "Pacific Bluffs",
+   "code": "PBluff",
+   "x": -1804.2,
+   "y": -52.1
+  },
+  "pillbox_hill": {
+   "name": "Pillbox Hill",
+   "code": "PBOX",
+   "x": 4.6,
+   "y": -648.0
+  },
+  "procopio_beach": {
+   "name": "Procopio Beach",
+   "code": "ProcoB",
+   "x": 1088.7,
+   "y": 6648.8
+  },
+  "rancho": {
+   "name": "Rancho",
+   "code": "RANCHO",
+   "x": 432.3,
+   "y": -1638.8
+  },
+  "richman_glen": {
+   "name": "Richman Glen",
+   "code": "RGLEN",
+   "x": -1738.8,
+   "y": 970.7
+  },
+  "richman": {
+   "name": "Richman",
+   "code": "Richm",
+   "x": -1559.3,
+   "y": -9.3
+  },
+  "rockford_hills": {
+   "name": "Rockford Hills",
+   "code": "Rockf",
+   "x": -972.5,
+   "y": 335.1
+  },
+  "redwood_lights_track": {
+   "name": "Redwood Lights Track",
+   "code": "RTRAK",
+   "x": 1033.5,
+   "y": 2300.1
+  },
+  "san_chianski_mountain_range": {
+   "name": "San Chianski Mountain Range",
+   "code": "SanChia",
+   "x": 2660.2,
+   "y": 4958.5
+  },
+  "sandy_shores": {
+   "name": "Sandy Shores",
+   "code": "Sandy",
+   "x": 1720.4,
+   "y": 3733.9
+  },
+  "mission_row": {
+   "name": "Mission Row",
+   "code": "SKID",
+   "x": 352.2,
+   "y": -1018.0
+  },
+  "stab_city": {
+   "name": "Stab City",
+   "code": "Slab",
+   "x": 78.4,
+   "y": 3731.5
+  },
+  "maze_bank_arena": {
+   "name": "Maze Bank Arena",
+   "code": "Stad",
+   "x": -300.3,
+   "y": -1966.0
+  },
+  "strawberry": {
+   "name": "Strawberry",
+   "code": "STRAW",
+   "x": -308.6,
+   "y": -1357.1
+  },
+  "tataviam_mountains": {
+   "name": "Tataviam Mountains",
+   "code": "Tatamo",
+   "x": 1438.5,
+   "y": -280.8
+  },
+  "terminal": {
+   "name": "Terminal",
+   "code": "Termina",
+   "x": 1028.4,
+   "y": -3064.5
+  },
+  "textile_city": {
+   "name": "Textile City",
+   "code": "TEXTI",
+   "x": 395.2,
+   "y": -725.5
+  },
+  "tongva_hills": {
+   "name": "Tongva Hills",
+   "code": "TongvaH",
+   "x": -2169.2,
+   "y": 1954.0
+  },
+  "tongva_valley": {
+   "name": "Tongva Valley",
+   "code": "TongvaV",
+   "x": -1442.1,
+   "y": 1814.3
+  },
+  "vespucci_canals": {
+   "name": "Vespucci Canals",
+   "code": "VCana",
+   "x": -1207.6,
+   "y": -1017.6
+  },
+  "vespucci": {
+   "name": "Vespucci",
+   "code": "Vesp",
+   "x": -1274.5,
+   "y": -1262.2
+  },
+  "vinewood": {
+   "name": "Vinewood",
+   "code": "Vine",
+   "x": 70.3,
+   "y": -482.2
+  },
+  "ron_alternates_wind_farm": {
+   "name": "Ron Alternates Wind Farm",
+   "code": "WindF",
+   "x": 2010.1,
+   "y": 1559.1
+  },
+  "west_vinewood": {
+   "name": "West Vinewood",
+   "code": "WVine",
+   "x": -494.9,
+   "y": 321.8
+  },
+  "zancudo_river": {
+   "name": "Zancudo River",
+   "code": "Zancudo",
+   "x": -1294.2,
+   "y": 2711.7
+  },
+  "port_of_south_los_santos": {
+   "name": "Port of South Los Santos",
+   "code": "ZP_ORT",
+   "x": -156.6,
+   "y": -2147.8
+  },
+  "davis_quartz": {
+   "name": "Davis Quartz",
+   "code": "zQ_UAR",
+   "x": 2967.3,
+   "y": 2850.4
+  }
+ },
+ "vehicles": {
+  "oppressor2": {
+   "name": "Oppressor Mk II",
+   "role": "pvp",
+   "vclass": "MOTORCYCLE",
+   "vtype": "BIKE",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_OPPRESSOR2_MG",
+    "VEHICLE_WEAPON_OPPRESSOR2_CANNON",
+    "VEHICLE_WEAPON_OPPRESSOR2_MISSILE"
+   ],
+   "max_speed": 47.1,
+   "seats": 1,
+   "dlc": "mpbattle",
+   "manufacturer": "Pegassi"
+  },
+  "deluxo": {
+   "name": "Deluxo",
+   "role": "pvp",
+   "vclass": "SPORT_CLASSIC",
+   "vtype": "CAR",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_DELUXO_MG",
+    "VEHICLE_WEAPON_DELUXO_MISSILE"
+   ],
+   "max_speed": 42.7,
+   "seats": 2,
+   "dlc": "mpchristmas2017",
+   "manufacturer": "Imponte"
+  },
+  "toreador": {
+   "name": "Toreador",
+   "role": "pvp",
+   "vclass": "SPORT_CLASSIC",
+   "vtype": "SUBMARINECAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_SUBCAR_MG",
+    "VEHICLE_WEAPON_SUBCAR_MISSILE",
+    "VEHICLE_WEAPON_SUBCAR_TORPEDO"
+   ],
+   "max_speed": 47.0,
+   "seats": 4,
+   "dlc": "mpheist4",
+   "manufacturer": "Pegassi"
+  },
+  "seasparrow2": {
+   "name": "Sparrow",
+   "role": "pvp",
+   "vclass": "HELICOPTER",
+   "vtype": "HELI",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_SEASPARROW2_MINIGUN",
+    "VEHICLE_WEAPON_SPACE_ROCKET"
+   ],
+   "max_speed": 69.5,
+   "seats": 2,
+   "dlc": "mpheist4",
+   "manufacturer": null
+  },
+  "lazer": {
+   "name": "P-996 LAZER",
+   "role": "pvp",
+   "vclass": "PLANE",
+   "vtype": "PLANE",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_PLAYER_LAZER",
+    "VEHICLE_WEAPON_PLANE_ROCKET"
+   ],
+   "max_speed": 91.3,
+   "seats": 1,
+   "dlc": "TitleUpdate",
+   "manufacturer": null
+  },
+  "nightshark": {
+   "name": "Nightshark",
+   "role": "pvp",
+   "vclass": "OFF_ROAD",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_NIGHTSHARK_MG"
+   ],
+   "max_speed": 36.8,
+   "seats": 4,
+   "dlc": "mpgunrunning",
+   "manufacturer": "HVY"
+  },
+  "kuruma2": {
+   "name": "Kuruma (Armored)",
+   "role": "pvp",
+   "vclass": "SPORT",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 45.9,
+   "seats": 4,
+   "dlc": "mpheist",
+   "manufacturer": "Karin"
+  },
+  "scramjet": {
+   "name": "Scramjet",
+   "role": "pvp",
+   "vclass": "SUPER",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_SCRAMJET_MG",
+    "VEHICLE_WEAPON_SCRAMJET_MISSILE"
+   ],
+   "max_speed": 49.4,
+   "seats": 2,
+   "dlc": "mpbattle",
+   "manufacturer": "Declasse"
+  },
+  "vigilante": {
+   "name": "Vigilante",
+   "role": "pvp",
+   "vclass": "SUPER",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_VIGILANTE_MG",
+    "VEHICLE_WEAPON_VIGILANTE_MISSILE"
+   ],
+   "max_speed": 52.2,
+   "seats": 2,
+   "dlc": "mpsmuggler",
+   "manufacturer": null
+  },
+  "akula": {
+   "name": "Akula",
+   "role": "pvp",
+   "vclass": "HELICOPTER",
+   "vtype": "HELI",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_AKULA_TURRET_SINGLE",
+    "VEHICLE_WEAPON_AKULA_MISSILE",
+    "VEHICLE_WEAPON_AKULA_TURRET_DUAL",
+    "VEHICLE_WEAPON_AKULA_MINIGUN",
+    "VEHICLE_WEAPON_AKULA_BARRAGE"
+   ],
+   "max_speed": 61.1,
+   "seats": 4,
+   "dlc": "mpchristmas2017",
+   "manufacturer": null
+  },
+  "buzzard": {
+   "name": "Buzzard Attack Chopper",
+   "role": "pvp",
+   "vclass": "HELICOPTER",
+   "vtype": "HELI",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_PLAYER_BUZZARD",
+    "VEHICLE_WEAPON_SPACE_ROCKET",
+    "VEHICLE_WEAPON_SEARCHLIGHT"
+   ],
+   "max_speed": 57.9,
+   "seats": 4,
+   "dlc": "TitleUpdate",
+   "manufacturer": null
+  },
+  "hydra": {
+   "name": "Hydra",
+   "role": "pvp",
+   "vclass": "PLANE",
+   "vtype": "PLANE",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_PLAYER_LAZER",
+    "VEHICLE_WEAPON_SPACE_ROCKET"
+   ],
+   "max_speed": 109.8,
+   "seats": 1,
+   "dlc": "mpheist",
+   "manufacturer": "Mammoth"
+  },
+  "raiju": {
+   "name": "F-160 Raiju",
+   "role": "pvp",
+   "vclass": "PLANE",
+   "vtype": "PLANE",
+   "flying": true,
+   "weapons": [
+    "VEHICLE_WEAPON_RAIJU_CANNONS",
+    "VEHICLE_WEAPON_RAIJU_MISSILES"
+   ],
+   "max_speed": 104.0,
+   "seats": 1,
+   "dlc": "mp2023_01",
+   "manufacturer": null
+  },
+  "insurgent2": {
+   "name": "Insurgent",
+   "role": "sell",
+   "vclass": "OFF_ROAD",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_TURRET_INSURGENT"
+   ],
+   "max_speed": 35.4,
+   "seats": 9,
+   "dlc": "mpheist",
+   "manufacturer": "HVY"
+  },
+  "speedo4": {
+   "name": "Speedo Custom",
+   "role": "sell",
+   "vclass": "VAN",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_SPEEDO4_MG",
+    "VEHICLE_WEAPON_SPEEDO4_TURRET_MG",
+    "VEHICLE_WEAPON_SPEEDO4_TURRET_MINI"
+   ],
+   "max_speed": 42.7,
+   "seats": 4,
+   "dlc": "mpbattle",
+   "manufacturer": "Vapid"
+  },
+  "mule4": {
+   "name": "Mule Custom",
+   "role": "sell",
+   "vclass": "COMMERCIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_MULE4_MG",
+    "VEHICLE_WEAPON_MULE4_MISSILE",
+    "VEHICLE_WEAPON_MULE4_TURRET_GL"
+   ],
+   "max_speed": 28.7,
+   "seats": 4,
+   "dlc": "mpbattle",
+   "manufacturer": "Maibatsu"
+  },
+  "pounder2": {
+   "name": "Pounder Custom",
+   "role": "sell",
+   "vclass": "COMMERCIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_POUNDER2_MINI",
+    "VEHICLE_WEAPON_POUNDER2_MISSILE",
+    "VEHICLE_WEAPON_POUNDER2_BARRAGE",
+    "VEHICLE_WEAPON_POUNDER2_GL"
+   ],
+   "max_speed": 36.9,
+   "seats": 8,
+   "dlc": "mpbattle",
+   "manufacturer": "MTL"
+  },
+  "cuban800": {
+   "name": "Cuban 800",
+   "role": "sell",
+   "vclass": "PLANE",
+   "vtype": "PLANE",
+   "flying": true,
+   "weapons": [],
+   "max_speed": 76.8,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": null
+  },
+  "mule": {
+   "name": "Mule",
+   "role": "sell",
+   "vclass": "COMMERCIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 28.7,
+   "seats": 6,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Maibatsu"
+  },
+  "speedo": {
+   "name": "Speedo",
+   "role": "sell",
+   "vclass": "VAN",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 39.9,
+   "seats": 4,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Vapid"
+  },
+  "pounder": {
+   "name": "Pounder",
+   "role": "sell",
+   "vclass": "COMMERCIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 33.8,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": "MTL"
+  },
+  "phantom3": {
+   "name": "Phantom Custom",
+   "role": "sell",
+   "vclass": "COMMERCIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 41.8,
+   "seats": 5,
+   "dlc": "mpgunrunning",
+   "manufacturer": "JoBuilt"
+  },
+  "brickade": {
+   "name": "Brickade",
+   "role": "sell",
+   "vclass": "SERVICE",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 32.8,
+   "seats": 6,
+   "dlc": "mpexecutive",
+   "manufacturer": "MTL"
+  },
+  "tiptruck": {
+   "name": "Tipper",
+   "role": "sell",
+   "vclass": "INDUSTRIAL",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 28.7,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Brute"
+  },
+  "insurgent": {
+   "name": "Insurgent Pick-Up",
+   "role": "sell",
+   "vclass": "OFF_ROAD",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [
+    "VEHICLE_WEAPON_TURRET_INSURGENT"
+   ],
+   "max_speed": 35.4,
+   "seats": 9,
+   "dlc": "mpheist",
+   "manufacturer": "HVY"
+  },
+  "adder": {
+   "name": "Adder",
+   "role": "personal",
+   "vclass": "SUPER",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 51.8,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Truffade"
+  },
+  "zentorno": {
+   "name": "Zentorno",
+   "role": "personal",
+   "vclass": "SUPER",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 49.7,
+   "seats": 2,
+   "dlc": "mpbusiness2",
+   "manufacturer": "Pegassi"
+  },
+  "elegy2": {
+   "name": "Elegy RH8",
+   "role": "personal",
+   "vclass": "SPORT",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 48.7,
+   "seats": 4,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Annis"
+  },
+  "sultanrs": {
+   "name": "Sultan RS",
+   "role": "personal",
+   "vclass": "SUPER",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 49.3,
+   "seats": 4,
+   "dlc": "mpjanuary2016",
+   "manufacturer": "Karin"
+  },
+  "bati": {
+   "name": "Bati 801",
+   "role": "personal",
+   "vclass": "MOTORCYCLE",
+   "vtype": "BIKE",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 49.3,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Pegassi"
+  },
+  "faggio": {
+   "name": "Faggio Sport",
+   "role": "personal",
+   "vclass": "MOTORCYCLE",
+   "vtype": "BIKE",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 28.3,
+   "seats": 2,
+   "dlc": "mpbiker",
+   "manufacturer": "Pegassi"
+  },
+  "blista": {
+   "name": "Blista",
+   "role": "personal",
+   "vclass": "COMPACT",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 41.9,
+   "seats": 4,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Dinka"
+  },
+  "sanchez": {
+   "name": "Sanchez (livery)",
+   "role": "personal",
+   "vclass": "MOTORCYCLE",
+   "vtype": "BIKE",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 39.3,
+   "seats": 2,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Maibatsu"
+  },
+  "dominator": {
+   "name": "Dominator",
+   "role": "personal",
+   "vclass": "MUSCLE",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 48.3,
+   "seats": 4,
+   "dlc": "TitleUpdate",
+   "manufacturer": "Vapid"
+  },
+  "kuruma": {
+   "name": "Kuruma",
+   "role": "personal",
+   "vclass": "SPORT",
+   "vtype": "CAR",
+   "flying": false,
+   "weapons": [],
+   "max_speed": 46.9,
+   "seats": 4,
+   "dlc": "mpheist",
+   "manufacturer": "Karin"
+  }
+ },
+ "weapons": {
+  "carbinerifle_mk2": {
+   "id": "WEAPON_CARBINERIFLE_MK2",
+   "name": "Carbine Rifle Mk II",
+   "category": "GROUP_RIFLE",
+   "damage": "BULLET",
+   "dlc": "mpgunrunning"
+  },
+  "heavysniper_mk2": {
+   "id": "WEAPON_HEAVYSNIPER_MK2",
+   "name": "Heavy Sniper Mk II",
+   "category": "GROUP_SNIPER",
+   "damage": "BULLET",
+   "dlc": "mpgunrunning"
+  },
+  "stickybomb": {
+   "id": "WEAPON_STICKYBOMB",
+   "name": "Sticky Bomb",
+   "category": "GROUP_THROWN",
+   "damage": "EXPLOSIVE",
+   "dlc": "TitleUpdate"
+  },
+  "hominglauncher": {
+   "id": "WEAPON_HOMINGLAUNCHER",
+   "name": "Homing Launcher",
+   "category": "GROUP_HEAVY",
+   "damage": "EXPLOSIVE",
+   "dlc": "mpchristmas2"
+  },
+  "raypistol": {
+   "id": "WEAPON_RAYPISTOL",
+   "name": "Up-n-Atomizer",
+   "category": "GROUP_PISTOL",
+   "damage": "BULLET",
+   "dlc": "mpchristmas2018"
+  },
+  "specialcarbine_mk2": {
+   "id": "WEAPON_SPECIALCARBINE_MK2",
+   "name": "Special Carbine Mk II",
+   "category": "GROUP_RIFLE",
+   "damage": "BULLET",
+   "dlc": "mpchristmas2017"
+  },
+  "rpg": {
+   "id": "WEAPON_RPG",
+   "name": "RPG",
+   "category": "GROUP_HEAVY",
+   "damage": "EXPLOSIVE",
+   "dlc": "TitleUpdate"
+  },
+  "railgun": {
+   "id": "WEAPON_RAILGUN",
+   "name": "Railgun",
+   "category": "GROUP_HEAVY",
+   "damage": "EXPLOSIVE",
+   "dlc": "spupgrade"
+  },
+  "pumpshotgun_mk2": {
+   "id": "WEAPON_PUMPSHOTGUN_MK2",
+   "name": "Pump Shotgun Mk II",
+   "category": "GROUP_SHOTGUN",
+   "damage": "BULLET",
+   "dlc": "mpchristmas2017"
+  },
+  "microsmg": {
+   "id": "WEAPON_MICROSMG",
+   "name": "Micro SMG",
+   "category": "GROUP_SMG",
+   "damage": "BULLET",
+   "dlc": "TitleUpdate"
+  },
+  "pistol_mk2": {
+   "id": "WEAPON_PISTOL_MK2",
+   "name": "Pistol Mk II",
+   "category": "GROUP_PISTOL",
+   "damage": "BULLET",
+   "dlc": "mpgunrunning"
+  },
+  "knife": {
+   "id": "WEAPON_KNIFE",
+   "name": "Knife",
+   "category": "GROUP_MELEE",
+   "damage": "MELEE",
+   "dlc": "TitleUpdate"
+  }
+ }
+}

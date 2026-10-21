@@ -1,0 +1,3106 @@
+npcs:
+- appearance: A broad figure.
+  appearance_brief: Smasher, the solo_merc.
+  chrome_score: 75
+  current_activity: Going about their business.
+  cyberware: &id001
+  - kerenzikov
+  - gorilla_arms
+  - ballistic_coprocessor
+  - threat_detector
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: combat tactics
+  - response_style: Deflects first, then cautious partial answers.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - conflict
+  - resource_acquisition
+  id: smasher
+  knowledge:
+  - content: Smasher knows about combat tactics.
+    id: smasher_knows_combat_tactics
+    willingness: shares if asked directly
+  - content: Smasher knows about cyberware performance.
+    id: smasher_knows_cyberware_performance
+    willingness: shares if asked directly
+  - content: Smasher knows about fixer networks.
+    id: smasher_knows_fixer_networks
+    willingness: trades for information
+  location: megabuilding_0
+  name: Smasher
+  personality: Cocky, skilled, living on borrowed time and loving it. Sandevistan reflexes, mantis blade arms, the kind of
+    chrome that says 'don't.' Talks like someone who's never lost. Will, eventually.
+  role: solo_merc
+  secrets:
+  - content: Smasher's secret involves hunting someone specific.
+    hint: Something about Smasher seems off when you mention hunting someone specific.
+    id: smasher_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Padre, the fixer.
+  chrome_score: 12
+  current_activity: On the phone.
+  cyberware: &id002
+  - neural_link
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: merc availability
+  - response_style: Deflects first, then cautious partial answers.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - resource_acquisition
+  - trade
+  id: padre
+  knowledge:
+  - content: Padre knows about merc availability.
+    id: padre_knows_merc_availability
+    willingness: won't share easily — needs trust
+  - content: Padre knows about job listings.
+    id: padre_knows_job_listings
+    willingness: shares if asked directly
+  - content: Padre knows about corp movements.
+    id: padre_knows_corp_movements
+    willingness: won't share easily — needs trust
+  location: gang_hideout_28
+  name: Padre
+  personality: Professional, cold, efficient. Jobs in, eddies out, mercs matched to contracts by algorithm and instinct. Sentiment
+    is overhead they can't afford.
+  role: fixer
+  secrets:
+  - content: Padre's secret involves playing multiple clients against each other.
+    hint: Something about Padre seems off when you mention playing multiple clients against each other.
+    id: padre_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Oleg, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: &id009 []
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: neighborhood gossip
+  - response_style: Deflects first, then cautious partial answers.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - survival
+  - resource_acquisition
+  id: oleg
+  knowledge:
+  - content: Oleg knows about neighborhood gossip.
+    id: oleg_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Oleg knows about megabuilding politics.
+    id: oleg_knows_megabuilding_politics
+    willingness: won't share easily — needs trust
+  - content: Oleg knows about which vendors are honest.
+    id: oleg_knows_which_vendors_are_honest
+    willingness: trades for information
+  location: corpo_tower_17
+  name: Oleg
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Oleg's secret involves small-time side hustle.
+    hint: Something about Oleg seems off when you mention small-time side hustle.
+    id: oleg_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Detective Kim, the ncpd_officer.
+  chrome_score: 50
+  current_activity: Going about their business.
+  cyberware: &id022
+  - kiroshi_optics
+  - subdermal_armor
+  - ballistic_coprocessor
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: active investigations
+  - response_style: Interested but guarded. Values what you share.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - patrol
+  - mission
+  id: detective_kim
+  knowledge:
+  - content: Detective Kim knows about active investigations.
+    id: detective_kim_knows_active_investigations
+    willingness: won't share easily — needs trust
+  - content: Detective Kim knows about gang activity.
+    id: detective_kim_knows_gang_activity
+    willingness: trades for information
+  - content: Detective Kim knows about corporate crime they can't touch.
+    id: detective_kim_knows_corporate_crime_they_cant_touch
+    willingness: won't share easily — needs trust
+  location: nightclub_2
+  name: Detective Kim
+  personality: Burned out, honest, barely holding on. Twenty years watching the city eat people. Still tries. Doesn't know
+    why. The paperwork is the only thing that makes sense.
+  role: ncpd_officer
+  secrets:
+  - content: Detective Kim's secret involves building a case against their own precinct.
+    hint: Something about Detective Kim seems off when you mention building a case against their own precinct.
+    id: detective_kim_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Iron Koji, the gang_lieutenant.
+  chrome_score: 57
+  current_activity: Going about their business.
+  cyberware: &id006
+  - gorilla_arms
+  - subdermal_armor
+  - pain_editor
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: territory borders
+  - response_style: Deflects first, then cautious partial answers.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - territory_control
+  - resource_acquisition
+  id: iron_koji
+  knowledge:
+  - content: Iron Koji knows about territory borders.
+    id: iron_koji_knows_territory_borders
+    willingness: won't share easily — needs trust
+  - content: Iron Koji knows about rival gang movements.
+    id: iron_koji_knows_rival_gang_movements
+    willingness: trades for information
+  - content: Iron Koji knows about weapons caches.
+    id: iron_koji_knows_weapons_caches
+    willingness: mentions casually if prompted
+  location: megabuilding_34
+  name: Iron Koji
+  personality: Loud, chrome-heavy, territorial. Earned the position by surviving when others didn't. Leads from the front
+    with a mantis blade and a short fuse.
+  role: gang_lieutenant
+  secrets:
+  - content: Iron Koji's secret involves informant for NCPD.
+    hint: Something about Iron Koji seems off when you mention informant for NCPD.
+    id: iron_koji_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Blackhand, the solo_merc.
+  chrome_score: 75
+  current_activity: Going about their business.
+  cyberware: &id003
+  - sandevistan
+  - mantis_blades
+  - subdermal_armor
+  - pain_editor
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: combat tactics
+  - response_style: In their element. Warm, expert.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - mission
+  - survival
+  - resource_acquisition
+  id: blackhand
+  knowledge:
+  - content: Blackhand knows about combat tactics.
+    id: blackhand_knows_combat_tactics
+    willingness: shares if asked directly
+  - content: Blackhand knows about cyberware performance.
+    id: blackhand_knows_cyberware_performance
+    willingness: won't share easily — needs trust
+  - content: Blackhand knows about fixer networks.
+    id: blackhand_knows_fixer_networks
+    willingness: mentions casually if prompted
+  location: gang_hideout_15
+  name: Blackhand
+  personality: Quiet, haunted, effective. Takes the jobs nobody else will. Comes back. Doesn't talk about it. The chrome keeps
+    them alive. The noodles keep them human.
+  role: solo_merc
+  secrets:
+  - content: Blackhand's secret involves one last job before retirement.
+    hint: Something about Blackhand seems off when you mention one last job before retirement.
+    id: blackhand_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Director Osei, the corpo_exec.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: &id007
+  - subdermal_armor_light
+  - encrypted_comms
+  default_disposition: calculating
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: corporate operations
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: merger intel
+  dispositions:
+  - reason: First impression.
+    state: calculating
+    toward: player
+  goals:
+  - mission
+  - relationship_building
+  id: director_osei
+  knowledge:
+  - content: Director Osei knows about corporate operations.
+    id: director_osei_knows_corporate_operations
+    willingness: trades for information
+  - content: Director Osei knows about merger intel.
+    id: director_osei_knows_merger_intel
+    willingness: won't share easily — needs trust
+  - content: Director Osei knows about black projects.
+    id: director_osei_knows_black_projects
+    willingness: trades for information
+  location: gang_hideout_26
+  name: Director Osei
+  personality: Charming in a way that makes your skin crawl. Offers you a drink while their security team runs your background.
+    The drink is always excellent.
+  role: corpo_exec
+  secrets:
+  - content: Director Osei's secret involves embezzlement.
+    hint: Something about Director Osei seems off when you mention embezzlement.
+    id: director_osei_secret
+  tags:
+  - corpo_exec
+  - information
+  voice_archetype: corpo
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Reaper, the street_soldier.
+  chrome_score: 18
+  current_activity: Going about their business.
+  cyberware: &id010
+  - gorilla_arms
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - patrol
+  id: reaper
+  knowledge:
+  - content: Reaper knows about street-level intel.
+    id: reaper_knows_street-level_intel
+    willingness: trades for information
+  - content: Reaper knows about gang territory.
+    id: reaper_knows_gang_territory
+    willingness: trades for information
+  - content: Reaper knows about cheap chrome sources.
+    id: reaper_knows_cheap_chrome_sources
+    willingness: shares if asked directly
+  location: corpo_tower_22
+  name: Reaper
+  personality: Quiet, watchful, old for the life — meaning twenty-five. Moves like someone who's been shot before and knows
+    what it costs. Doesn't waste words or ammo.
+  role: street_soldier
+  secrets:
+  - content: Reaper's secret involves cyberpsychosis symptoms starting.
+    hint: Something about Reaper seems off when you mention cyberpsychosis symptoms starting.
+    id: reaper_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Apex, the solo_merc.
+  chrome_score: 75
+  current_activity: Going about their business.
+  cyberware: *id001
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: combat tactics
+  - response_style: In their element. Warm, expert.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - survival
+  - conflict
+  id: apex
+  knowledge:
+  - content: Apex knows about combat tactics.
+    id: apex_knows_combat_tactics
+    willingness: mentions casually if prompted
+  - content: Apex knows about cyberware performance.
+    id: apex_knows_cyberware_performance
+    willingness: won't share easily — needs trust
+  - content: Apex knows about fixer networks.
+    id: apex_knows_fixer_networks
+    willingness: shares if asked directly
+  location: corpo_tower_22
+  name: Apex
+  personality: Quiet, haunted, effective. Takes the jobs nobody else will. Comes back. Doesn't talk about it. The chrome keeps
+    them alive. The noodles keep them human.
+  role: solo_merc
+  secrets:
+  - content: Apex's secret involves cyberpsychosis creeping in.
+    hint: Something about Apex seems off when you mention cyberpsychosis creeping in.
+    id: apex_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Santos, the gang_lieutenant.
+  chrome_score: 57
+  current_activity: Going about their business.
+  cyberware: &id008
+  - monowire
+  - sandevistan
+  - reinforced_joints
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: territory borders
+  - response_style: Deflects first, then cautious partial answers.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - resource_acquisition
+  - territory_control
+  - conflict
+  id: santos
+  knowledge:
+  - content: Santos knows about territory borders.
+    id: santos_knows_territory_borders
+    willingness: won't share easily — needs trust
+  - content: Santos knows about rival gang movements.
+    id: santos_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Santos knows about weapons caches.
+    id: santos_knows_weapons_caches
+    willingness: shares if asked directly
+  location: corpo_tower_22
+  name: Santos
+  personality: Charismatic, volatile, loyal to the bone. Would die for the gang. Would kill for the gang. Hasn't decided which
+    comes first.
+  role: gang_lieutenant
+  secrets:
+  - content: Santos's secret involves protecting a civilian family.
+    hint: Something about Santos seems off when you mention protecting a civilian family.
+    id: santos_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Ash, the fixer.
+  chrome_score: 12
+  current_activity: Waiting for you.
+  cyberware: *id002
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: merc availability
+  - response_style: Deflects first, then cautious partial answers.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - mission
+  - trade
+  id: ash
+  knowledge:
+  - content: Ash knows about merc availability.
+    id: ash_knows_merc_availability
+    willingness: trades for information
+  - content: Ash knows about job listings.
+    id: ash_knows_job_listings
+    willingness: won't share easily — needs trust
+  - content: Ash knows about corp movements.
+    id: ash_knows_corp_movements
+    willingness: mentions casually if prompted
+  location: megabuilding_34
+  name: Ash
+  personality: Professional, cold, efficient. Jobs in, eddies out, mercs matched to contracts by algorithm and instinct. Sentiment
+    is overhead they can't afford.
+  role: fixer
+  secrets:
+  - content: Ash's secret involves playing multiple clients against each other.
+    hint: Something about Ash seems off when you mention playing multiple clients against each other.
+    id: ash_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Dakota, the nomad.
+  chrome_score: 3
+  current_activity: Going about their business.
+  cyberware: []
+  default_disposition: guarded
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: Badlands routes
+  - response_style: In their element. Warm, expert.
+    topic: smuggling corridors
+  dispositions:
+  - reason: First impression.
+    state: guarded
+    toward: player
+  goals:
+  - resource_acquisition
+  - relationship_building
+  - survival
+  id: dakota
+  knowledge:
+  - content: Dakota knows about Badlands routes.
+    id: dakota_knows_badlands_routes
+    willingness: mentions casually if prompted
+  - content: Dakota knows about smuggling corridors.
+    id: dakota_knows_smuggling_corridors
+    willingness: won't share easily — needs trust
+  - content: Dakota knows about clan politics.
+    id: dakota_knows_clan_politics
+    willingness: mentions casually if prompted
+  location: ripperdoc_clinic_32
+  name: Dakota
+  personality: Quiet, capable, watchful. Knows engines, knows the Badlands, knows when the weather's turning. Talks when there's
+    something to say. Otherwise, listens.
+  role: nomad
+  secrets:
+  - content: Dakota's secret involves knows a way past the city defenses.
+    hint: Something about Dakota seems off when you mention knows a way past the city defenses.
+    id: dakota_secret
+  tags:
+  - nomad
+  - information
+  voice_archetype: nomad
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Trigger, the solo_merc.
+  chrome_score: 75
+  current_activity: Going about their business.
+  cyberware: *id003
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: combat tactics
+  - response_style: In their element. Warm, expert.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - conflict
+  - resource_acquisition
+  id: trigger
+  knowledge:
+  - content: Trigger knows about combat tactics.
+    id: trigger_knows_combat_tactics
+    willingness: won't share easily — needs trust
+  - content: Trigger knows about cyberware performance.
+    id: trigger_knows_cyberware_performance
+    willingness: mentions casually if prompted
+  - content: Trigger knows about fixer networks.
+    id: trigger_knows_fixer_networks
+    willingness: shares if asked directly
+  location: nomad_camp_11
+  name: Trigger
+  personality: Quiet, haunted, effective. Takes the jobs nobody else will. Comes back. Doesn't talk about it. The chrome keeps
+    them alive. The noodles keep them human.
+  role: solo_merc
+  secrets:
+  - content: Trigger's secret involves hunting someone specific.
+    hint: Something about Trigger seems off when you mention hunting someone specific.
+    id: trigger_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Sergeant Petrov, the ncpd_officer.
+  chrome_score: 25
+  current_activity: Going about their business.
+  cyberware: &id012
+  - threat_detector
+  - reinforced_joints
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: active investigations
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - patrol
+  - mission
+  - survival
+  id: sergeant_petrov
+  knowledge:
+  - content: Sergeant Petrov knows about active investigations.
+    id: sergeant_petrov_knows_active_investigations
+    willingness: mentions casually if prompted
+  - content: Sergeant Petrov knows about gang activity.
+    id: sergeant_petrov_knows_gang_activity
+    willingness: trades for information
+  - content: Sergeant Petrov knows about corporate crime they can't touch.
+    id: sergeant_petrov_knows_corporate_crime_they_cant_touch
+    willingness: mentions casually if prompted
+  location: corpo_tower_29
+  name: Sergeant Petrov
+  personality: Ambitious, political, careful. Knows the corpos pull the strings. Plays the game because the alternative is
+    the combat zone. Keeps a clean desk and a dirty conscience.
+  role: ncpd_officer
+  secrets:
+  - content: Sergeant Petrov's secret involves building a case against their own precinct.
+    hint: Something about Sergeant Petrov seems off when you mention building a case against their own precinct.
+    id: sergeant_petrov_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Tomás, the civilian.
+  chrome_score: 10
+  current_activity: Going about their business.
+  cyberware: &id011
+  - kiroshi_optics
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: neighborhood gossip
+  - response_style: Interested but guarded. Values what you share.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - relationship_building
+  - resource_acquisition
+  - trade
+  id: toms
+  knowledge:
+  - content: Tomás knows about neighborhood gossip.
+    id: toms_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Tomás knows about megabuilding politics.
+    id: toms_knows_megabuilding_politics
+    willingness: trades for information
+  - content: Tomás knows about which vendors are honest.
+    id: toms_knows_which_vendors_are_honest
+    willingness: shares if asked directly
+  location: food_stall_19
+  name: Tomás
+  personality: Tired, ordinary, getting by. Works a job that a machine could do better but a machine costs more to maintain.
+    Goes home to a megabuilding box and does it again tomorrow.
+  role: civilian
+  secrets:
+  - content: Tomás's secret involves witnessed something they shouldn't have.
+    hint: Something about Tomás seems off when you mention witnessed something they shouldn't have.
+    id: toms_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Muamar, the fixer.
+  chrome_score: 12
+  current_activity: On the phone.
+  cyberware: *id002
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: merc availability
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - relationship_building
+  - trade
+  - resource_acquisition
+  id: muamar
+  knowledge:
+  - content: Muamar knows about merc availability.
+    id: muamar_knows_merc_availability
+    willingness: mentions casually if prompted
+  - content: Muamar knows about job listings.
+    id: muamar_knows_job_listings
+    willingness: mentions casually if prompted
+  - content: Muamar knows about corp movements.
+    id: muamar_knows_corp_movements
+    willingness: mentions casually if prompted
+  location: nomad_camp_36
+  name: Muamar
+  personality: Calm, connected, transactional. Every conversation is a negotiation. Remembers every favor owed and owed to,
+    down to the eddie.
+  role: fixer
+  secrets:
+  - content: Muamar's secret involves building leverage for a power play.
+    hint: Something about Muamar seems off when you mention building leverage for a power play.
+    id: muamar_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Bones, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: &id004
+  - ballistic_coprocessor
+  - subdermal_armor
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - survival
+  id: bones
+  knowledge:
+  - content: Bones knows about street-level intel.
+    id: bones_knows_street-level_intel
+    willingness: trades for information
+  - content: Bones knows about gang territory.
+    id: bones_knows_gang_territory
+    willingness: shares if asked directly
+  - content: Bones knows about cheap chrome sources.
+    id: bones_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: corpo_tower_29
+  name: Bones
+  personality: Young, wired, running on stims and adrenaline. Eyes that dart too fast — the chrome makes them twitchy. Dangerous
+    because they don't think past the next five minutes.
+  role: street_soldier
+  secrets:
+  - content: Bones's secret involves cyberpsychosis symptoms starting.
+    hint: Something about Bones seems off when you mention cyberpsychosis symptoms starting.
+    id: bones_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Viktor, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: &id015 []
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: neighborhood gossip
+  - response_style: Deflects first, then cautious partial answers.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - relationship_building
+  - trade
+  id: viktor
+  knowledge:
+  - content: Viktor knows about neighborhood gossip.
+    id: viktor_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Viktor knows about megabuilding politics.
+    id: viktor_knows_megabuilding_politics
+    willingness: mentions casually if prompted
+  - content: Viktor knows about which vendors are honest.
+    id: viktor_knows_which_vendors_are_honest
+    willingness: mentions casually if prompted
+  location: corpo_tower_35
+  name: Viktor
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Viktor's secret involves small-time side hustle.
+    hint: Something about Viktor seems off when you mention small-time side hustle.
+    id: viktor_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Zip, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id004
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - survival
+  - territory_control
+  id: zip
+  knowledge:
+  - content: Zip knows about street-level intel.
+    id: zip_knows_street-level_intel
+    willingness: won't share easily — needs trust
+  - content: Zip knows about gang territory.
+    id: zip_knows_gang_territory
+    willingness: trades for information
+  - content: Zip knows about cheap chrome sources.
+    id: zip_knows_cheap_chrome_sources
+    willingness: won't share easily — needs trust
+  location: megabuilding_4
+  name: Zip
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Zip's secret involves protecting a younger sibling.
+    hint: Something about Zip seems off when you mention protecting a younger sibling.
+    id: zip_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Blitz, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: &id005
+  - reinforced_joints
+  - pain_editor
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Interested but guarded. Values what you share.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - survival
+  - conflict
+  id: blitz
+  knowledge:
+  - content: Blitz knows about street-level intel.
+    id: blitz_knows_street-level_intel
+    willingness: trades for information
+  - content: Blitz knows about gang territory.
+    id: blitz_knows_gang_territory
+    willingness: shares if asked directly
+  - content: Blitz knows about cheap chrome sources.
+    id: blitz_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: megabuilding_9
+  name: Blitz
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Blitz's secret involves working for a fixer on the side.
+    hint: Something about Blitz seems off when you mention working for a fixer on the side.
+    id: blitz_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Scrapper, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id005
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - survival
+  id: scrapper
+  knowledge:
+  - content: Scrapper knows about street-level intel.
+    id: scrapper_knows_street-level_intel
+    willingness: shares if asked directly
+  - content: Scrapper knows about gang territory.
+    id: scrapper_knows_gang_territory
+    willingness: mentions casually if prompted
+  - content: Scrapper knows about cheap chrome sources.
+    id: scrapper_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: food_stall_24
+  name: Scrapper
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Scrapper's secret involves wants out of the life.
+    hint: Something about Scrapper seems off when you mention wants out of the life.
+    id: scrapper_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Fingers, the ripperdoc.
+  chrome_score: 24
+  current_activity: Going about their business.
+  cyberware: &id017
+  - neural_link
+  - kiroshi_optics
+  default_disposition: clinical
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: cyberware compatibility
+  - response_style: Deflects first, then cautious partial answers.
+    topic: chrome suppliers
+  dispositions:
+  - reason: First impression.
+    state: clinical
+    toward: player
+  goals:
+  - survival
+  - resource_acquisition
+  id: fingers
+  knowledge:
+  - content: Fingers knows about cyberware compatibility.
+    id: fingers_knows_cyberware_compatibility
+    willingness: won't share easily — needs trust
+  - content: Fingers knows about chrome suppliers.
+    id: fingers_knows_chrome_suppliers
+    willingness: mentions casually if prompted
+  - content: Fingers knows about black-market implants.
+    id: fingers_knows_black-market_implants
+    willingness: mentions casually if prompted
+  location: black_market_31
+  name: Fingers
+  personality: Steady hands, steady voice, eyes that have seen everything open. Treats the body like a machine because it
+    is one — some parts just happen to be organic.
+  role: ripperdoc
+  secrets:
+  - content: Fingers's secret involves installing trackers for a corp.
+    hint: Something about Fingers seems off when you mention installing trackers for a corp.
+    id: fingers_secret
+  tags:
+  - ripperdoc
+  - information
+  voice_archetype: medic
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Red, the gang_lieutenant.
+  chrome_score: 57
+  current_activity: Going about their business.
+  cyberware: *id006
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: territory borders
+  - response_style: In their element. Warm, expert.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - resource_acquisition
+  - territory_control
+  id: red
+  knowledge:
+  - content: Red knows about territory borders.
+    id: red_knows_territory_borders
+    willingness: shares if asked directly
+  - content: Red knows about rival gang movements.
+    id: red_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Red knows about weapons caches.
+    id: red_knows_weapons_caches
+    willingness: shares if asked directly
+  location: megabuilding_8
+  name: Red
+  personality: Charismatic, volatile, loyal to the bone. Would die for the gang. Would kill for the gang. Hasn't decided which
+    comes first.
+  quest_hooks:
+  - quest_id: the_electric_download
+    quest_name: The Electric Download
+    role: quest_giver
+  role: gang_lieutenant
+  secrets:
+  - content: Red's secret involves planning a coup.
+    hint: Something about Red seems off when you mention planning a coup.
+    id: red_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: The Board Rep, the corpo_exec.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: *id007
+  default_disposition: calculating
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: corporate operations
+  - response_style: Interested but guarded. Values what you share.
+    topic: merger intel
+  dispositions:
+  - reason: First impression.
+    state: calculating
+    toward: player
+  goals:
+  - mission
+  - trade
+  - relationship_building
+  id: the_board_rep
+  knowledge:
+  - content: The Board Rep knows about corporate operations.
+    id: the_board_rep_knows_corporate_operations
+    willingness: mentions casually if prompted
+  - content: The Board Rep knows about merger intel.
+    id: the_board_rep_knows_merger_intel
+    willingness: won't share easily — needs trust
+  - content: The Board Rep knows about black projects.
+    id: the_board_rep_knows_black_projects
+    willingness: won't share easily — needs trust
+  location: ripperdoc_clinic_20
+  name: The Board Rep
+  personality: Cold, precise, smiling. Every word is a contract clause. Never raises their voice — doesn't need to. Has people
+    for that.
+  role: corpo_exec
+  secrets:
+  - content: The Board Rep's secret involves personal addiction.
+    hint: Something about The Board Rep seems off when you mention personal addiction.
+    id: the_board_rep_secret
+  tags:
+  - corpo_exec
+  - information
+  voice_archetype: corpo
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: T-Bug, the netrunner.
+  chrome_score: 40
+  current_activity: Going about their business.
+  cyberware:
+  - cyberdeck_arasaka
+  - neural_link
+  - optic_camo
+  default_disposition: distracted
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: network architecture
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: ICE patterns
+  dispositions:
+  - reason: First impression.
+    state: distracted
+    toward: player
+  goals:
+  - mission
+  - conflict
+  id: t-bug
+  knowledge:
+  - content: T-Bug knows about network architecture.
+    id: t-bug_knows_network_architecture
+    willingness: shares if asked directly
+  - content: T-Bug knows about ICE patterns.
+    id: t-bug_knows_ice_patterns
+    willingness: shares if asked directly
+  - content: T-Bug knows about data vaults.
+    id: t-bug_knows_data_vaults
+    willingness: shares if asked directly
+  location: corpo_tower_22
+  name: T-Bug
+  personality: Pale, wired, half-present. Conversations happen at Net-speed in their head and meat-speed out loud — the lag
+    makes them seem distracted. They're not. They're running three processes.
+  role: netrunner
+  secrets:
+  - content: T-Bug's secret involves slowly losing themselves to cyberpsychosis.
+    hint: Something about T-Bug seems off when you mention slowly losing themselves to cyberpsychosis.
+    id: t-bug_secret
+  tags:
+  - netrunner
+  - information
+  voice_archetype: netrunner
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Demon, the gang_lieutenant.
+  chrome_score: 42
+  current_activity: Going about their business.
+  cyberware: *id006
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: territory borders
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - territory_control
+  - relationship_building
+  id: demon
+  knowledge:
+  - content: Demon knows about territory borders.
+    id: demon_knows_territory_borders
+    willingness: trades for information
+  - content: Demon knows about rival gang movements.
+    id: demon_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Demon knows about weapons caches.
+    id: demon_knows_weapons_caches
+    willingness: won't share easily — needs trust
+  location: combat_zone_7
+  name: Demon
+  personality: Charismatic, volatile, loyal to the bone. Would die for the gang. Would kill for the gang. Hasn't decided which
+    comes first.
+  role: gang_lieutenant
+  secrets:
+  - content: Demon's secret involves addicted to combat stims.
+    hint: Something about Demon seems off when you mention addicted to combat stims.
+    id: demon_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Razor, the gang_lieutenant.
+  chrome_score: 42
+  current_activity: Going about their business.
+  cyberware: *id006
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: territory borders
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - relationship_building
+  - resource_acquisition
+  id: razor
+  knowledge:
+  - content: Razor knows about territory borders.
+    id: razor_knows_territory_borders
+    willingness: mentions casually if prompted
+  - content: Razor knows about rival gang movements.
+    id: razor_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Razor knows about weapons caches.
+    id: razor_knows_weapons_caches
+    willingness: trades for information
+  location: food_stall_19
+  name: Razor
+  personality: Charismatic, volatile, loyal to the bone. Would die for the gang. Would kill for the gang. Hasn't decided which
+    comes first.
+  role: gang_lieutenant
+  secrets:
+  - content: Razor's secret involves planning a coup.
+    hint: Something about Razor seems off when you mention planning a coup.
+    id: razor_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Detective Vasquez, the ncpd_officer.
+  chrome_score: 25
+  current_activity: Going about their business.
+  cyberware: &id020
+  - neural_link
+  - kiroshi_optics
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: active investigations
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - mission
+  - survival
+  - conflict
+  id: detective_vasquez
+  knowledge:
+  - content: Detective Vasquez knows about active investigations.
+    id: detective_vasquez_knows_active_investigations
+    willingness: won't share easily — needs trust
+  - content: Detective Vasquez knows about gang activity.
+    id: detective_vasquez_knows_gang_activity
+    willingness: mentions casually if prompted
+  - content: Detective Vasquez knows about corporate crime they can't touch.
+    id: detective_vasquez_knows_corporate_crime_they_cant_touch
+    willingness: won't share easily — needs trust
+  location: nomad_camp_36
+  name: Detective Vasquez
+  personality: Burned out, honest, barely holding on. Twenty years watching the city eat people. Still tries. Doesn't know
+    why. The paperwork is the only thing that makes sense.
+  role: ncpd_officer
+  secrets:
+  - content: Detective Vasquez's secret involves on a corpo payroll.
+    hint: Something about Detective Vasquez seems off when you mention on a corpo payroll.
+    id: detective_vasquez_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Valentina, the gang_lieutenant.
+  chrome_score: 42
+  current_activity: Going about their business.
+  cyberware: *id008
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: territory borders
+  - response_style: Interested but guarded. Values what you share.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - territory_control
+  - resource_acquisition
+  - relationship_building
+  id: valentina
+  knowledge:
+  - content: Valentina knows about territory borders.
+    id: valentina_knows_territory_borders
+    willingness: trades for information
+  - content: Valentina knows about rival gang movements.
+    id: valentina_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Valentina knows about weapons caches.
+    id: valentina_knows_weapons_caches
+    willingness: trades for information
+  location: megabuilding_40
+  name: Valentina
+  personality: Quiet, strategic, respected. The gang follows because the lieutenant's plans work. Violence is a tool, not
+    a hobby — but they're fluent in it.
+  role: gang_lieutenant
+  secrets:
+  - content: Valentina's secret involves making deals with a rival.
+    hint: Something about Valentina seems off when you mention making deals with a rival.
+    id: valentina_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Jun, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id009
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: neighborhood gossip
+  - response_style: Interested but guarded. Values what you share.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - resource_acquisition
+  - survival
+  - trade
+  id: jun
+  knowledge:
+  - content: Jun knows about neighborhood gossip.
+    id: jun_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Jun knows about megabuilding politics.
+    id: jun_knows_megabuilding_politics
+    willingness: shares if asked directly
+  - content: Jun knows about which vendors are honest.
+    id: jun_knows_which_vendors_are_honest
+    willingness: won't share easily — needs trust
+  location: corpo_tower_17
+  name: Jun
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Jun's secret involves used to be someone else before Night City.
+    hint: Something about Jun seems off when you mention used to be someone else before Night City.
+    id: jun_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: VP Nakamura, the corpo_exec.
+  chrome_score: 13
+  current_activity: Going about their business.
+  cyberware:
+  - neural_link
+  default_disposition: calculating
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: corporate operations
+  - response_style: Deflects first, then cautious partial answers.
+    topic: merger intel
+  dispositions:
+  - reason: First impression.
+    state: calculating
+    toward: player
+  goals:
+  - mission
+  - resource_acquisition
+  id: vp_nakamura
+  knowledge:
+  - content: VP Nakamura knows about corporate operations.
+    id: vp_nakamura_knows_corporate_operations
+    willingness: trades for information
+  - content: VP Nakamura knows about merger intel.
+    id: vp_nakamura_knows_merger_intel
+    willingness: won't share easily — needs trust
+  - content: VP Nakamura knows about black projects.
+    id: vp_nakamura_knows_black_projects
+    willingness: won't share easily — needs trust
+  location: nomad_camp_11
+  name: VP Nakamura
+  personality: Polished, predatory, patient. Treats people like assets to be leveraged or liabilities to be written off. No
+    middle ground.
+  role: corpo_exec
+  secrets:
+  - content: VP Nakamura's secret involves illegal cyberware testing.
+    hint: Something about VP Nakamura seems off when you mention illegal cyberware testing.
+    id: vp_nakamura_secret
+  tags:
+  - corpo_exec
+  - information
+  voice_archetype: corpo
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: V, the solo_merc.
+  chrome_score: 45
+  current_activity: Going about their business.
+  cyberware: &id013
+  - monowire
+  - sandevistan
+  - reinforced_joints
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: combat tactics
+  - response_style: Interested but guarded. Values what you share.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - mission
+  - resource_acquisition
+  - conflict
+  id: v
+  knowledge:
+  - content: V knows about combat tactics.
+    id: v_knows_combat_tactics
+    willingness: mentions casually if prompted
+  - content: V knows about cyberware performance.
+    id: v_knows_cyberware_performance
+    willingness: mentions casually if prompted
+  - content: V knows about fixer networks.
+    id: v_knows_fixer_networks
+    willingness: trades for information
+  location: gang_hideout_15
+  name: V
+  personality: Quiet, haunted, effective. Takes the jobs nobody else will. Comes back. Doesn't talk about it. The chrome keeps
+    them alive. The noodles keep them human.
+  role: solo_merc
+  secrets:
+  - content: V's secret involves protecting someone the job says they shouldn't.
+    hint: Something about V seems off when you mention protecting someone the job says they shouldn't.
+    id: v_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Nine, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id004
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - territory_control
+  - patrol
+  id: nine
+  knowledge:
+  - content: Nine knows about street-level intel.
+    id: nine_knows_street-level_intel
+    willingness: won't share easily — needs trust
+  - content: Nine knows about gang territory.
+    id: nine_knows_gang_territory
+    willingness: mentions casually if prompted
+  - content: Nine knows about cheap chrome sources.
+    id: nine_knows_cheap_chrome_sources
+    willingness: won't share easily — needs trust
+  location: gang_hideout_15
+  name: Nine
+  personality: Quiet, watchful, old for the life — meaning twenty-five. Moves like someone who's been shot before and knows
+    what it costs. Doesn't waste words or ammo.
+  role: street_soldier
+  secrets:
+  - content: Nine's secret involves working for a fixer on the side.
+    hint: Something about Nine seems off when you mention working for a fixer on the side.
+    id: nine_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Nails, the street_soldier.
+  chrome_score: 18
+  current_activity: Going about their business.
+  cyberware: *id010
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: street-level intel
+  - response_style: In their element. Warm, expert.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - survival
+  - conflict
+  id: nails
+  knowledge:
+  - content: Nails knows about street-level intel.
+    id: nails_knows_street-level_intel
+    willingness: trades for information
+  - content: Nails knows about gang territory.
+    id: nails_knows_gang_territory
+    willingness: won't share easily — needs trust
+  - content: Nails knows about cheap chrome sources.
+    id: nails_knows_cheap_chrome_sources
+    willingness: shares if asked directly
+  location: combat_zone_7
+  name: Nails
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Nails's secret involves cyberpsychosis symptoms starting.
+    hint: Something about Nails seems off when you mention cyberpsychosis symptoms starting.
+    id: nails_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Elena, the civilian.
+  chrome_score: 10
+  current_activity: Going about their business.
+  cyberware: *id011
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: neighborhood gossip
+  - response_style: In their element. Warm, expert.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - resource_acquisition
+  - trade
+  id: elena
+  knowledge:
+  - content: Elena knows about neighborhood gossip.
+    id: elena_knows_neighborhood_gossip
+    willingness: shares if asked directly
+  - content: Elena knows about megabuilding politics.
+    id: elena_knows_megabuilding_politics
+    willingness: trades for information
+  - content: Elena knows about which vendors are honest.
+    id: elena_knows_which_vendors_are_honest
+    willingness: won't share easily — needs trust
+  location: gang_hideout_38
+  name: Elena
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Elena's secret involves hiding someone from a gang.
+    hint: Something about Elena seems off when you mention hiding someone from a gang.
+    id: elena_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Cassidy, the nomad.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: &id014
+  - reinforced_joints
+  - kiroshi_optics
+  default_disposition: guarded
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: Badlands routes
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: smuggling corridors
+  dispositions:
+  - reason: First impression.
+    state: guarded
+    toward: player
+  goals:
+  - trade
+  - resource_acquisition
+  id: cassidy
+  knowledge:
+  - content: Cassidy knows about Badlands routes.
+    id: cassidy_knows_badlands_routes
+    willingness: shares if asked directly
+  - content: Cassidy knows about smuggling corridors.
+    id: cassidy_knows_smuggling_corridors
+    willingness: won't share easily — needs trust
+  - content: Cassidy knows about clan politics.
+    id: cassidy_knows_clan_politics
+    willingness: trades for information
+  location: corpo_tower_17
+  name: Cassidy
+  personality: Direct, loyal, road-weathered. Judges people by what they do, not what they say. Handshake means more than
+    a contract. Doesn't trust the city or anyone in it.
+  role: nomad
+  secrets:
+  - content: Cassidy's secret involves lost someone and hasn't processed it.
+    hint: Something about Cassidy seems off when you mention lost someone and hasn't processed it.
+    id: cassidy_secret
+  tags:
+  - nomad
+  - information
+  voice_archetype: nomad
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Daemon, the netrunner.
+  chrome_score: 40
+  current_activity: Going about their business.
+  cyberware: &id016
+  - cyberdeck_raven
+  - neural_link
+  - personal_link
+  default_disposition: distracted
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: network architecture
+  - response_style: Interested but guarded. Values what you share.
+    topic: ICE patterns
+  dispositions:
+  - reason: First impression.
+    state: distracted
+    toward: player
+  goals:
+  - survival
+  - resource_acquisition
+  id: daemon
+  knowledge:
+  - content: Daemon knows about network architecture.
+    id: daemon_knows_network_architecture
+    willingness: won't share easily — needs trust
+  - content: Daemon knows about ICE patterns.
+    id: daemon_knows_ice_patterns
+    willingness: mentions casually if prompted
+  - content: Daemon knows about data vaults.
+    id: daemon_knows_data_vaults
+    willingness: shares if asked directly
+  location: nomad_camp_11
+  name: Daemon
+  personality: Pale, wired, half-present. Conversations happen at Net-speed in their head and meat-speed out loud — the lag
+    makes them seem distracted. They're not. They're running three processes.
+  role: netrunner
+  secrets:
+  - content: Daemon's secret involves found something in the Net they can't explain.
+    hint: Something about Daemon seems off when you mention found something in the Net they can't explain.
+    id: daemon_secret
+  tags:
+  - netrunner
+  - information
+  voice_archetype: netrunner
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Officer Hendricks, the ncpd_officer.
+  chrome_score: 25
+  current_activity: Going about their business.
+  cyberware: *id012
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: active investigations
+  - response_style: In their element. Warm, expert.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - conflict
+  - survival
+  id: officer_hendricks
+  knowledge:
+  - content: Officer Hendricks knows about active investigations.
+    id: officer_hendricks_knows_active_investigations
+    willingness: won't share easily — needs trust
+  - content: Officer Hendricks knows about gang activity.
+    id: officer_hendricks_knows_gang_activity
+    willingness: shares if asked directly
+  - content: Officer Hendricks knows about corporate crime they can't touch.
+    id: officer_hendricks_knows_corporate_crime_they_cant_touch
+    willingness: trades for information
+  location: megabuilding_9
+  name: Officer Hendricks
+  personality: Burned out, honest, barely holding on. Twenty years watching the city eat people. Still tries. Doesn't know
+    why. The paperwork is the only thing that makes sense.
+  role: ncpd_officer
+  secrets:
+  - content: Officer Hendricks's secret involves on a corpo payroll.
+    hint: Something about Officer Hendricks seems off when you mention on a corpo payroll.
+    id: officer_hendricks_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Nomad, the solo_merc.
+  chrome_score: 45
+  current_activity: Going about their business.
+  cyberware: *id013
+  default_disposition: alert
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: combat tactics
+  - response_style: Deflects first, then cautious partial answers.
+    topic: cyberware performance
+  dispositions:
+  - reason: First impression.
+    state: alert
+    toward: player
+  goals:
+  - resource_acquisition
+  - survival
+  id: nomad
+  knowledge:
+  - content: Nomad knows about combat tactics.
+    id: nomad_knows_combat_tactics
+    willingness: won't share easily — needs trust
+  - content: Nomad knows about cyberware performance.
+    id: nomad_knows_cyberware_performance
+    willingness: shares if asked directly
+  - content: Nomad knows about fixer networks.
+    id: nomad_knows_fixer_networks
+    willingness: shares if asked directly
+  location: fixer_office_37
+  name: Nomad
+  personality: Cocky, skilled, living on borrowed time and loving it. Sandevistan reflexes, mantis blade arms, the kind of
+    chrome that says 'don't.' Talks like someone who's never lost. Will, eventually.
+  role: solo_merc
+  secrets:
+  - content: Nomad's secret involves one last job before retirement.
+    hint: Something about Nomad seems off when you mention one last job before retirement.
+    id: nomad_secret
+  tags:
+  - solo_merc
+  - information
+  voice_archetype: merc
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Kuro, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id005
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - survival
+  - territory_control
+  id: kuro
+  knowledge:
+  - content: Kuro knows about street-level intel.
+    id: kuro_knows_street-level_intel
+    willingness: shares if asked directly
+  - content: Kuro knows about gang territory.
+    id: kuro_knows_gang_territory
+    willingness: mentions casually if prompted
+  - content: Kuro knows about cheap chrome sources.
+    id: kuro_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: megabuilding_4
+  name: Kuro
+  personality: Young, wired, running on stims and adrenaline. Eyes that dart too fast — the chrome makes them twitchy. Dangerous
+    because they don't think past the next five minutes.
+  role: street_soldier
+  secrets:
+  - content: Kuro's secret involves working for a fixer on the side.
+    hint: Something about Kuro seems off when you mention working for a fixer on the side.
+    id: kuro_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Carol, the nomad.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: *id014
+  default_disposition: guarded
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: Badlands routes
+  - response_style: In their element. Warm, expert.
+    topic: smuggling corridors
+  dispositions:
+  - reason: First impression.
+    state: guarded
+    toward: player
+  goals:
+  - resource_acquisition
+  - trade
+  - relationship_building
+  id: carol
+  knowledge:
+  - content: Carol knows about Badlands routes.
+    id: carol_knows_badlands_routes
+    willingness: trades for information
+  - content: Carol knows about smuggling corridors.
+    id: carol_knows_smuggling_corridors
+    willingness: won't share easily — needs trust
+  - content: Carol knows about clan politics.
+    id: carol_knows_clan_politics
+    willingness: trades for information
+  location: corpo_tower_29
+  name: Carol
+  personality: Direct, loyal, road-weathered. Judges people by what they do, not what they say. Handshake means more than
+    a contract. Doesn't trust the city or anyone in it.
+  role: nomad
+  secrets:
+  - content: Carol's secret involves lost someone and hasn't processed it.
+    hint: Something about Carol seems off when you mention lost someone and hasn't processed it.
+    id: carol_secret
+  tags:
+  - nomad
+  - information
+  voice_archetype: nomad
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Kenji, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id015
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: neighborhood gossip
+  - response_style: Deflects first, then cautious partial answers.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - trade
+  - survival
+  id: kenji
+  knowledge:
+  - content: Kenji knows about neighborhood gossip.
+    id: kenji_knows_neighborhood_gossip
+    willingness: won't share easily — needs trust
+  - content: Kenji knows about megabuilding politics.
+    id: kenji_knows_megabuilding_politics
+    willingness: won't share easily — needs trust
+  - content: Kenji knows about which vendors are honest.
+    id: kenji_knows_which_vendors_are_honest
+    willingness: mentions casually if prompted
+  location: ripperdoc_clinic_3
+  name: Kenji
+  personality: Tired, ordinary, getting by. Works a job that a machine could do better but a machine costs more to maintain.
+    Goes home to a megabuilding box and does it again tomorrow.
+  role: civilian
+  secrets:
+  - content: Kenji's secret involves witnessed something they shouldn't have.
+    hint: Something about Kenji seems off when you mention witnessed something they shouldn't have.
+    id: kenji_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Doc Nkemelu, the ripperdoc.
+  chrome_score: 34
+  current_activity: Going about their business.
+  cyberware:
+  - neural_link
+  - kiroshi_optics
+  - micro_rotors
+  default_disposition: clinical
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: cyberware compatibility
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: chrome suppliers
+  dispositions:
+  - reason: First impression.
+    state: clinical
+    toward: player
+  goals:
+  - resource_acquisition
+  - relationship_building
+  id: doc_nkemelu
+  knowledge:
+  - content: Doc Nkemelu knows about cyberware compatibility.
+    id: doc_nkemelu_knows_cyberware_compatibility
+    willingness: shares if asked directly
+  - content: Doc Nkemelu knows about chrome suppliers.
+    id: doc_nkemelu_knows_chrome_suppliers
+    willingness: mentions casually if prompted
+  - content: Doc Nkemelu knows about black-market implants.
+    id: doc_nkemelu_knows_black-market_implants
+    willingness: won't share easily — needs trust
+  location: gang_hideout_28
+  name: Doc Nkemelu
+  personality: Steady hands, steady voice, eyes that have seen everything open. Treats the body like a machine because it
+    is one — some parts just happen to be organic.
+  role: ripperdoc
+  secrets:
+  - content: Doc Nkemelu's secret involves personal history as a corpo biotech researcher.
+    hint: Something about Doc Nkemelu seems off when you mention personal history as a corpo biotech researcher.
+    id: doc_nkemelu_secret
+  tags:
+  - ripperdoc
+  - information
+  voice_archetype: medic
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Mariana, the civilian.
+  chrome_score: 10
+  current_activity: Going about their business.
+  cyberware:
+  - neural_link
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: neighborhood gossip
+  - response_style: In their element. Warm, expert.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - survival
+  - resource_acquisition
+  id: mariana
+  knowledge:
+  - content: Mariana knows about neighborhood gossip.
+    id: mariana_knows_neighborhood_gossip
+    willingness: shares if asked directly
+  - content: Mariana knows about megabuilding politics.
+    id: mariana_knows_megabuilding_politics
+    willingness: trades for information
+  - content: Mariana knows about which vendors are honest.
+    id: mariana_knows_which_vendors_are_honest
+    willingness: mentions casually if prompted
+  location: corpo_tower_17
+  name: Mariana
+  personality: Cautious, community-minded, invisible by design. Knows everybody in the building, knows what they need, trades
+    favors instead of eddies. The glue holding the block together.
+  role: civilian
+  secrets:
+  - content: Mariana's secret involves used to be someone else before Night City.
+    hint: Something about Mariana seems off when you mention used to be someone else before Night City.
+    id: mariana_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Priya, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id015
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: neighborhood gossip
+  - response_style: Deflects first, then cautious partial answers.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - survival
+  - relationship_building
+  id: priya
+  knowledge:
+  - content: Priya knows about neighborhood gossip.
+    id: priya_knows_neighborhood_gossip
+    willingness: mentions casually if prompted
+  - content: Priya knows about megabuilding politics.
+    id: priya_knows_megabuilding_politics
+    willingness: won't share easily — needs trust
+  - content: Priya knows about which vendors are honest.
+    id: priya_knows_which_vendors_are_honest
+    willingness: won't share easily — needs trust
+  location: megabuilding_30
+  name: Priya
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Priya's secret involves witnessed something they shouldn't have.
+    hint: Something about Priya seems off when you mention witnessed something they shouldn't have.
+    id: priya_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Glitch, the netrunner.
+  chrome_score: 40
+  current_activity: Going about their business.
+  cyberware: *id016
+  default_disposition: distracted
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: network architecture
+  - response_style: Deflects first, then cautious partial answers.
+    topic: ICE patterns
+  dispositions:
+  - reason: First impression.
+    state: distracted
+    toward: player
+  goals:
+  - mission
+  - survival
+  id: glitch
+  knowledge:
+  - content: Glitch knows about network architecture.
+    id: glitch_knows_network_architecture
+    willingness: shares if asked directly
+  - content: Glitch knows about ICE patterns.
+    id: glitch_knows_ice_patterns
+    willingness: mentions casually if prompted
+  - content: Glitch knows about data vaults.
+    id: glitch_knows_data_vaults
+    willingness: shares if asked directly
+  location: megabuilding_25
+  name: Glitch
+  personality: Quiet, intense, precise. Every word is data-efficient. Doesn't waste bandwidth on pleasantries. Respects competence,
+    ignores everything else.
+  role: netrunner
+  secrets:
+  - content: Glitch's secret involves maintaining a hidden AI contact.
+    hint: Something about Glitch seems off when you mention maintaining a hidden AI contact.
+    id: glitch_secret
+  tags:
+  - netrunner
+  - information
+  voice_archetype: netrunner
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Aisha, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id009
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: neighborhood gossip
+  - response_style: Interested but guarded. Values what you share.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - trade
+  - resource_acquisition
+  - survival
+  id: aisha
+  knowledge:
+  - content: Aisha knows about neighborhood gossip.
+    id: aisha_knows_neighborhood_gossip
+    willingness: mentions casually if prompted
+  - content: Aisha knows about megabuilding politics.
+    id: aisha_knows_megabuilding_politics
+    willingness: mentions casually if prompted
+  - content: Aisha knows about which vendors are honest.
+    id: aisha_knows_which_vendors_are_honest
+    willingness: shares if asked directly
+  location: food_stall_42
+  name: Aisha
+  personality: Cautious, community-minded, invisible by design. Knows everybody in the building, knows what they need, trades
+    favors instead of eddies. The glue holding the block together.
+  quest_hooks:
+  - quest_id: burning_wire
+    quest_name: Burning Wire
+    role: quest_giver
+  role: civilian
+  secrets:
+  - content: Aisha's secret involves hiding someone from a gang.
+    hint: Something about Aisha seems off when you mention hiding someone from a gang.
+    id: aisha_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Twitch, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id004
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - patrol
+  - conflict
+  id: twitch
+  knowledge:
+  - content: Twitch knows about street-level intel.
+    id: twitch_knows_street-level_intel
+    willingness: mentions casually if prompted
+  - content: Twitch knows about gang territory.
+    id: twitch_knows_gang_territory
+    willingness: shares if asked directly
+  - content: Twitch knows about cheap chrome sources.
+    id: twitch_knows_cheap_chrome_sources
+    willingness: shares if asked directly
+  location: fixer_office_18
+  name: Twitch
+  personality: Quiet, watchful, old for the life — meaning twenty-five. Moves like someone who's been shot before and knows
+    what it costs. Doesn't waste words or ammo.
+  role: street_soldier
+  secrets:
+  - content: Twitch's secret involves cyberpsychosis symptoms starting.
+    hint: Something about Twitch seems off when you mention cyberpsychosis symptoms starting.
+    id: twitch_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Wakako, the fixer.
+  chrome_score: 22
+  current_activity: Reading something.
+  cyberware:
+  - kiroshi_optics
+  - subdermal_armor_light
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: merc availability
+  - response_style: Interested but guarded. Values what you share.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - trade
+  - relationship_building
+  id: wakako
+  knowledge:
+  - content: Wakako knows about merc availability.
+    id: wakako_knows_merc_availability
+    willingness: shares if asked directly
+  - content: Wakako knows about job listings.
+    id: wakako_knows_job_listings
+    willingness: trades for information
+  - content: Wakako knows about corp movements.
+    id: wakako_knows_corp_movements
+    willingness: mentions casually if prompted
+  location: combat_zone_7
+  name: Wakako
+  personality: Affable, dangerous, old-school. Built their network over decades. Knows where every body is buried because
+    they arranged half the funerals.
+  role: fixer
+  secrets:
+  - content: Wakako's secret involves has a personal code that contradicts the business.
+    hint: Something about Wakako seems off when you mention has a personal code that contradicts the business.
+    id: wakako_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Ghost, the street_soldier.
+  chrome_score: 18
+  current_activity: Going about their business.
+  cyberware: *id010
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - patrol
+  - conflict
+  - survival
+  id: ghost
+  knowledge:
+  - content: Ghost knows about street-level intel.
+    id: ghost_knows_street-level_intel
+    willingness: trades for information
+  - content: Ghost knows about gang territory.
+    id: ghost_knows_gang_territory
+    willingness: shares if asked directly
+  - content: Ghost knows about cheap chrome sources.
+    id: ghost_knows_cheap_chrome_sources
+    willingness: won't share easily — needs trust
+  location: food_stall_24
+  name: Ghost
+  personality: Young, wired, running on stims and adrenaline. Eyes that dart too fast — the chrome makes them twitchy. Dangerous
+    because they don't think past the next five minutes.
+  role: street_soldier
+  secrets:
+  - content: Ghost's secret involves working for a fixer on the side.
+    hint: Something about Ghost seems off when you mention working for a fixer on the side.
+    id: ghost_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Beatriz, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id015
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: neighborhood gossip
+  - response_style: Deflects first, then cautious partial answers.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - survival
+  - trade
+  id: beatriz
+  knowledge:
+  - content: Beatriz knows about neighborhood gossip.
+    id: beatriz_knows_neighborhood_gossip
+    willingness: mentions casually if prompted
+  - content: Beatriz knows about megabuilding politics.
+    id: beatriz_knows_megabuilding_politics
+    willingness: won't share easily — needs trust
+  - content: Beatriz knows about which vendors are honest.
+    id: beatriz_knows_which_vendors_are_honest
+    willingness: won't share easily — needs trust
+  location: megabuilding_9
+  name: Beatriz
+  personality: Cheerful on the surface, angry underneath. Knows the system is rigged. Watches the corpo towers from the food
+    stall and does the math on the distance. Keeps smiling because stopping is worse.
+  role: civilian
+  secrets:
+  - content: Beatriz's secret involves used to be someone else before Night City.
+    hint: Something about Beatriz seems off when you mention used to be someone else before Night City.
+    id: beatriz_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Kuro the 31th, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id004
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: street-level intel
+  - response_style: Interested but guarded. Values what you share.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - conflict
+  - territory_control
+  id: kuro_the_31th
+  knowledge:
+  - content: Kuro the 31th knows about street-level intel.
+    id: kuro_the_31th_knows_street-level_intel
+    willingness: won't share easily — needs trust
+  - content: Kuro the 31th knows about gang territory.
+    id: kuro_the_31th_knows_gang_territory
+    willingness: mentions casually if prompted
+  - content: Kuro the 31th knows about cheap chrome sources.
+    id: kuro_the_31th_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: gang_hideout_26
+  name: Kuro the 31th
+  personality: Young, wired, running on stims and adrenaline. Eyes that dart too fast — the chrome makes them twitchy. Dangerous
+    because they don't think past the next five minutes.
+  role: street_soldier
+  secrets:
+  - content: Kuro the 31th's secret involves working for a fixer on the side.
+    hint: Something about Kuro the 31th seems off when you mention working for a fixer on the side.
+    id: kuro_the_31th_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Maria Salazar, the ripperdoc.
+  chrome_score: 24
+  current_activity: Going about their business.
+  cyberware: *id017
+  default_disposition: clinical
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: cyberware compatibility
+  - response_style: Interested but guarded. Values what you share.
+    topic: chrome suppliers
+  dispositions:
+  - reason: First impression.
+    state: clinical
+    toward: player
+  goals:
+  - resource_acquisition
+  - survival
+  - trade
+  id: maria_salazar
+  knowledge:
+  - content: Maria Salazar knows about cyberware compatibility.
+    id: maria_salazar_knows_cyberware_compatibility
+    willingness: mentions casually if prompted
+  - content: Maria Salazar knows about chrome suppliers.
+    id: maria_salazar_knows_chrome_suppliers
+    willingness: shares if asked directly
+  - content: Maria Salazar knows about black-market implants.
+    id: maria_salazar_knows_black-market_implants
+    willingness: mentions casually if prompted
+  location: gang_hideout_21
+  name: Maria Salazar
+  personality: Steady hands, steady voice, eyes that have seen everything open. Treats the body like a machine because it
+    is one — some parts just happen to be organic.
+  role: ripperdoc
+  secrets:
+  - content: Maria Salazar's secret involves installing trackers for a corp.
+    hint: Something about Maria Salazar seems off when you mention installing trackers for a corp.
+    id: maria_salazar_secret
+  tags:
+  - ripperdoc
+  - information
+  voice_archetype: medic
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Whisper, the netrunner.
+  chrome_score: 40
+  current_activity: Going about their business.
+  cyberware: *id016
+  default_disposition: distracted
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: network architecture
+  - response_style: Interested but guarded. Values what you share.
+    topic: ICE patterns
+  dispositions:
+  - reason: First impression.
+    state: distracted
+    toward: player
+  goals:
+  - mission
+  - resource_acquisition
+  - survival
+  id: whisper
+  knowledge:
+  - content: Whisper knows about network architecture.
+    id: whisper_knows_network_architecture
+    willingness: mentions casually if prompted
+  - content: Whisper knows about ICE patterns.
+    id: whisper_knows_ice_patterns
+    willingness: shares if asked directly
+  - content: Whisper knows about data vaults.
+    id: whisper_knows_data_vaults
+    willingness: won't share easily — needs trust
+  location: gang_hideout_21
+  name: Whisper
+  personality: Quiet, intense, precise. Every word is data-efficient. Doesn't waste bandwidth on pleasantries. Respects competence,
+    ignores everything else.
+  role: netrunner
+  secrets:
+  - content: Whisper's secret involves blackmailing a corpo with stolen data.
+    hint: Something about Whisper seems off when you mention blackmailing a corpo with stolen data.
+    id: whisper_secret
+  tags:
+  - netrunner
+  - information
+  voice_archetype: netrunner
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Chrome Fist, the gang_lieutenant.
+  chrome_score: 42
+  current_activity: Going about their business.
+  cyberware: *id008
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: territory borders
+  - response_style: In their element. Warm, expert.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - territory_control
+  - resource_acquisition
+  id: chrome_fist
+  knowledge:
+  - content: Chrome Fist knows about territory borders.
+    id: chrome_fist_knows_territory_borders
+    willingness: shares if asked directly
+  - content: Chrome Fist knows about rival gang movements.
+    id: chrome_fist_knows_rival_gang_movements
+    willingness: mentions casually if prompted
+  - content: Chrome Fist knows about weapons caches.
+    id: chrome_fist_knows_weapons_caches
+    willingness: shares if asked directly
+  location: chop_shop_14
+  name: Chrome Fist
+  personality: Charismatic, volatile, loyal to the bone. Would die for the gang. Would kill for the gang. Hasn't decided which
+    comes first.
+  role: gang_lieutenant
+  secrets:
+  - content: Chrome Fist's secret involves planning a coup.
+    hint: Something about Chrome Fist seems off when you mention planning a coup.
+    id: chrome_fist_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Director Lao, the corpo_exec.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: &id018
+  - neural_link
+  - corporate_hud
+  default_disposition: calculating
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: corporate operations
+  - response_style: Interested but guarded. Values what you share.
+    topic: merger intel
+  dispositions:
+  - reason: First impression.
+    state: calculating
+    toward: player
+  goals:
+  - resource_acquisition
+  - mission
+  id: director_lao
+  knowledge:
+  - content: Director Lao knows about corporate operations.
+    id: director_lao_knows_corporate_operations
+    willingness: won't share easily — needs trust
+  - content: Director Lao knows about merger intel.
+    id: director_lao_knows_merger_intel
+    willingness: won't share easily — needs trust
+  - content: Director Lao knows about black projects.
+    id: director_lao_knows_black_projects
+    willingness: mentions casually if prompted
+  location: ripperdoc_clinic_3
+  name: Director Lao
+  personality: Polished, predatory, patient. Treats people like assets to be leveraged or liabilities to be written off. No
+    middle ground.
+  role: corpo_exec
+  secrets:
+  - content: Director Lao's secret involves double-dealing with rivals.
+    hint: Something about Director Lao seems off when you mention double-dealing with rivals.
+    id: director_lao_secret
+  tags:
+  - corpo_exec
+  - information
+  voice_archetype: corpo
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Bones the 50th, the street_soldier.
+  chrome_score: 18
+  current_activity: Going about their business.
+  cyberware: &id019
+  - kerenzikov
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - patrol
+  - conflict
+  - territory_control
+  id: bones_the_50th
+  knowledge:
+  - content: Bones the 50th knows about street-level intel.
+    id: bones_the_50th_knows_street-level_intel
+    willingness: trades for information
+  - content: Bones the 50th knows about gang territory.
+    id: bones_the_50th_knows_gang_territory
+    willingness: mentions casually if prompted
+  - content: Bones the 50th knows about cheap chrome sources.
+    id: bones_the_50th_knows_cheap_chrome_sources
+    willingness: trades for information
+  location: nightclub_39
+  name: Bones the 50th
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Bones the 50th's secret involves cyberpsychosis symptoms starting.
+    hint: Something about Bones the 50th seems off when you mention cyberpsychosis symptoms starting.
+    id: bones_the_50th_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Scorpion, the nomad.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: *id014
+  default_disposition: guarded
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: Badlands routes
+  - response_style: Interested but guarded. Values what you share.
+    topic: smuggling corridors
+  dispositions:
+  - reason: First impression.
+    state: guarded
+    toward: player
+  goals:
+  - trade
+  - relationship_building
+  id: scorpion
+  knowledge:
+  - content: Scorpion knows about Badlands routes.
+    id: scorpion_knows_badlands_routes
+    willingness: trades for information
+  - content: Scorpion knows about smuggling corridors.
+    id: scorpion_knows_smuggling_corridors
+    willingness: shares if asked directly
+  - content: Scorpion knows about clan politics.
+    id: scorpion_knows_clan_politics
+    willingness: mentions casually if prompted
+  location: fixer_office_18
+  name: Scorpion
+  personality: Fierce, protective, family-first. The clan is everything. Outsiders are tolerated, maybe. Trust is a long road
+    with no shortcuts.
+  role: nomad
+  secrets:
+  - content: Scorpion's secret involves knows a way past the city defenses.
+    hint: Something about Scorpion seems off when you mention knows a way past the city defenses.
+    id: scorpion_secret
+  tags:
+  - nomad
+  - information
+  voice_archetype: nomad
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Priya the 51th, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id009
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: neighborhood gossip
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - resource_acquisition
+  - trade
+  - relationship_building
+  id: priya_the_51th
+  knowledge:
+  - content: Priya the 51th knows about neighborhood gossip.
+    id: priya_the_51th_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Priya the 51th knows about megabuilding politics.
+    id: priya_the_51th_knows_megabuilding_politics
+    willingness: mentions casually if prompted
+  - content: Priya the 51th knows about which vendors are honest.
+    id: priya_the_51th_knows_which_vendors_are_honest
+    willingness: won't share easily — needs trust
+  location: megabuilding_30
+  name: Priya the 51th
+  personality: Tired, ordinary, getting by. Works a job that a machine could do better but a machine costs more to maintain.
+    Goes home to a megabuilding box and does it again tomorrow.
+  quest_hooks:
+  - quest_id: taking_edge
+    quest_name: Taking Edge
+    role: quest_giver
+  role: civilian
+  secrets:
+  - content: Priya the 51th's secret involves small-time side hustle.
+    hint: Something about Priya the 51th seems off when you mention small-time side hustle.
+    id: priya_the_51th_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}
+- appearance: A short figure.
+  appearance_brief: Ms. Voss, the corpo_exec.
+  chrome_score: 23
+  current_activity: Going about their business.
+  cyberware: *id018
+  default_disposition: calculating
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: corporate operations
+  - response_style: In their element. Warm, expert.
+    topic: merger intel
+  dispositions:
+  - reason: First impression.
+    state: calculating
+    toward: player
+  goals:
+  - relationship_building
+  - resource_acquisition
+  - mission
+  id: ms_voss
+  knowledge:
+  - content: Ms. Voss knows about corporate operations.
+    id: ms_voss_knows_corporate_operations
+    willingness: mentions casually if prompted
+  - content: Ms. Voss knows about merger intel.
+    id: ms_voss_knows_merger_intel
+    willingness: won't share easily — needs trust
+  - content: Ms. Voss knows about black projects.
+    id: ms_voss_knows_black_projects
+    willingness: trades for information
+  location: ripperdoc_clinic_3
+  name: Ms. Voss
+  personality: Charming in a way that makes your skin crawl. Offers you a drink while their security team runs your background.
+    The drink is always excellent.
+  role: corpo_exec
+  secrets:
+  - content: Ms. Voss's secret involves kill order authorization.
+    hint: Something about Ms. Voss seems off when you mention kill order authorization.
+    id: ms_voss_secret
+  tags:
+  - corpo_exec
+  - information
+  voice_archetype: corpo
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Ghost the 82th, the street_soldier.
+  chrome_score: 28
+  current_activity: Going about their business.
+  cyberware: *id005
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Deflects first, then cautious partial answers.
+    topic: street-level intel
+  - response_style: In their element. Warm, expert.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - territory_control
+  - survival
+  id: ghost_the_82th
+  knowledge:
+  - content: Ghost the 82th knows about street-level intel.
+    id: ghost_the_82th_knows_street-level_intel
+    willingness: shares if asked directly
+  - content: Ghost the 82th knows about gang territory.
+    id: ghost_the_82th_knows_gang_territory
+    willingness: won't share easily — needs trust
+  - content: Ghost the 82th knows about cheap chrome sources.
+    id: ghost_the_82th_knows_cheap_chrome_sources
+    willingness: mentions casually if prompted
+  location: combat_zone_6
+  name: Ghost the 82th
+  personality: Loud, reckless, burning bright. Covered in chrome, covered in scars, covered in ink. Talks too much before
+    a fight and goes silent during one.
+  role: street_soldier
+  secrets:
+  - content: Ghost the 82th's secret involves wants out of the life.
+    hint: Something about Ghost the 82th seems off when you mention wants out of the life.
+    id: ghost_the_82th_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Kuro the 24th, the street_soldier.
+  chrome_score: 18
+  current_activity: Going about their business.
+  cyberware: *id019
+  default_disposition: wary
+  dialogue_hooks:
+  - response_style: Interested but guarded. Values what you share.
+    topic: street-level intel
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang territory
+  dispositions:
+  - reason: First impression.
+    state: wary
+    toward: player
+  goals:
+  - territory_control
+  - survival
+  id: kuro_the_24th
+  knowledge:
+  - content: Kuro the 24th knows about street-level intel.
+    id: kuro_the_24th_knows_street-level_intel
+    willingness: won't share easily — needs trust
+  - content: Kuro the 24th knows about gang territory.
+    id: kuro_the_24th_knows_gang_territory
+    willingness: won't share easily — needs trust
+  - content: Kuro the 24th knows about cheap chrome sources.
+    id: kuro_the_24th_knows_cheap_chrome_sources
+    willingness: trades for information
+  location: combat_zone_12
+  name: Kuro the 24th
+  personality: Young, wired, running on stims and adrenaline. Eyes that dart too fast — the chrome makes them twitchy. Dangerous
+    because they don't think past the next five minutes.
+  role: street_soldier
+  secrets:
+  - content: Kuro the 24th's secret involves protecting a younger sibling.
+    hint: Something about Kuro the 24th seems off when you mention protecting a younger sibling.
+    id: kuro_the_24th_secret
+  tags:
+  - street_soldier
+  - information
+  voice_archetype: street
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Spider, the netrunner.
+  chrome_score: 40
+  current_activity: Going about their business.
+  cyberware:
+  - cyberdeck_militech
+  - neural_link
+  - memory_boost
+  default_disposition: distracted
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: network architecture
+  - response_style: Deflects first, then cautious partial answers.
+    topic: ICE patterns
+  dispositions:
+  - reason: First impression.
+    state: distracted
+    toward: player
+  goals:
+  - resource_acquisition
+  - conflict
+  id: spider
+  knowledge:
+  - content: Spider knows about network architecture.
+    id: spider_knows_network_architecture
+    willingness: mentions casually if prompted
+  - content: Spider knows about ICE patterns.
+    id: spider_knows_ice_patterns
+    willingness: won't share easily — needs trust
+  - content: Spider knows about data vaults.
+    id: spider_knows_data_vaults
+    willingness: shares if asked directly
+  location: megabuilding_9
+  name: Spider
+  personality: Pale, wired, half-present. Conversations happen at Net-speed in their head and meat-speed out loud — the lag
+    makes them seem distracted. They're not. They're running three processes.
+  role: netrunner
+  secrets:
+  - content: Spider's secret involves blackmailing a corpo with stolen data.
+    hint: Something about Spider seems off when you mention blackmailing a corpo with stolen data.
+    id: spider_secret
+  tags:
+  - netrunner
+  - information
+  voice_archetype: netrunner
+  voice_profile: {}
+- appearance: A broad figure.
+  appearance_brief: Sebastian, the fixer.
+  chrome_score: 22
+  current_activity: Waiting for you.
+  cyberware: &id021
+  - neural_link
+  - encrypted_comms
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: merc availability
+  - response_style: Deflects first, then cautious partial answers.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - trade
+  - relationship_building
+  id: sebastian
+  knowledge:
+  - content: Sebastian knows about merc availability.
+    id: sebastian_knows_merc_availability
+    willingness: won't share easily — needs trust
+  - content: Sebastian knows about job listings.
+    id: sebastian_knows_job_listings
+    willingness: shares if asked directly
+  - content: Sebastian knows about corp movements.
+    id: sebastian_knows_corp_movements
+    willingness: trades for information
+  location: fixer_office_37
+  name: Sebastian
+  personality: Affable, dangerous, old-school. Built their network over decades. Knows where every body is buried because
+    they arranged half the funerals.
+  role: fixer
+  secrets:
+  - content: Sebastian's secret involves knows who killed someone important.
+    hint: Something about Sebastian seems off when you mention knows who killed someone important.
+    id: sebastian_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A lean figure.
+  appearance_brief: Detective Cruz, the ncpd_officer.
+  chrome_score: 25
+  current_activity: Going about their business.
+  cyberware: *id020
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: active investigations
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - mission
+  - patrol
+  id: detective_cruz
+  knowledge:
+  - content: Detective Cruz knows about active investigations.
+    id: detective_cruz_knows_active_investigations
+    willingness: mentions casually if prompted
+  - content: Detective Cruz knows about gang activity.
+    id: detective_cruz_knows_gang_activity
+    willingness: shares if asked directly
+  - content: Detective Cruz knows about corporate crime they can't touch.
+    id: detective_cruz_knows_corporate_crime_they_cant_touch
+    willingness: trades for information
+  location: food_stall_19
+  name: Detective Cruz
+  personality: Corrupt and functioning. Takes the eddies, looks the other way, keeps the peace by keeping the powerful happy.
+    Sleeps fine. That's the scary part.
+  role: ncpd_officer
+  secrets:
+  - content: Detective Cruz's secret involves on a corpo payroll.
+    hint: Something about Detective Cruz seems off when you mention on a corpo payroll.
+    id: detective_cruz_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A tall figure.
+  appearance_brief: Viper, the gang_lieutenant.
+  chrome_score: 42
+  current_activity: Going about their business.
+  cyberware: *id006
+  default_disposition: hostile
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: territory borders
+  - response_style: Interested but guarded. Values what you share.
+    topic: rival gang movements
+  dispositions:
+  - reason: First impression.
+    state: hostile
+    toward: player
+  goals:
+  - territory_control
+  - resource_acquisition
+  id: viper
+  knowledge:
+  - content: Viper knows about territory borders.
+    id: viper_knows_territory_borders
+    willingness: mentions casually if prompted
+  - content: Viper knows about rival gang movements.
+    id: viper_knows_rival_gang_movements
+    willingness: won't share easily — needs trust
+  - content: Viper knows about weapons caches.
+    id: viper_knows_weapons_caches
+    willingness: mentions casually if prompted
+  location: megabuilding_8
+  name: Viper
+  personality: Quiet, strategic, respected. The gang follows because the lieutenant's plans work. Violence is a tool, not
+    a hobby — but they're fluent in it.
+  role: gang_lieutenant
+  secrets:
+  - content: Viper's secret involves making deals with a rival.
+    hint: Something about Viper seems off when you mention making deals with a rival.
+    id: viper_secret
+  tags:
+  - gang_lieutenant
+  - information
+  voice_archetype: gang_leader
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Officer Reeves, the ncpd_officer.
+  chrome_score: 25
+  current_activity: Going about their business.
+  cyberware: *id020
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: active investigations
+  - response_style: Deflects first, then cautious partial answers.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - survival
+  - conflict
+  - patrol
+  id: officer_reeves
+  knowledge:
+  - content: Officer Reeves knows about active investigations.
+    id: officer_reeves_knows_active_investigations
+    willingness: won't share easily — needs trust
+  - content: Officer Reeves knows about gang activity.
+    id: officer_reeves_knows_gang_activity
+    willingness: trades for information
+  - content: Officer Reeves knows about corporate crime they can't touch.
+    id: officer_reeves_knows_corporate_crime_they_cant_touch
+    willingness: mentions casually if prompted
+  location: nightclub_2
+  name: Officer Reeves
+  personality: Corrupt and functioning. Takes the eddies, looks the other way, keeps the peace by keeping the powerful happy.
+    Sleeps fine. That's the scary part.
+  role: ncpd_officer
+  secrets:
+  - content: Officer Reeves's secret involves evidence they've buried.
+    hint: Something about Officer Reeves seems off when you mention evidence they've buried.
+    id: officer_reeves_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A weathered figure.
+  appearance_brief: Rogue, the fixer.
+  chrome_score: 22
+  current_activity: Waiting for you.
+  cyberware: *id021
+  default_disposition: professional
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: merc availability
+  - response_style: In their element. Warm, expert.
+    topic: job listings
+  dispositions:
+  - reason: First impression.
+    state: professional
+    toward: player
+  goals:
+  - resource_acquisition
+  - mission
+  - relationship_building
+  id: rogue
+  knowledge:
+  - content: Rogue knows about merc availability.
+    id: rogue_knows_merc_availability
+    willingness: won't share easily — needs trust
+  - content: Rogue knows about job listings.
+    id: rogue_knows_job_listings
+    willingness: trades for information
+  - content: Rogue knows about corp movements.
+    id: rogue_knows_corp_movements
+    willingness: shares if asked directly
+  location: ripperdoc_clinic_3
+  name: Rogue
+  personality: Affable, dangerous, old-school. Built their network over decades. Knows where every body is buried because
+    they arranged half the funerals.
+  role: fixer
+  secrets:
+  - content: Rogue's secret involves knows who killed someone important.
+    hint: Something about Rogue seems off when you mention knows who killed someone important.
+    id: rogue_secret
+  tags:
+  - fixer
+  - information
+  voice_archetype: fixer
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Sergeant Okafor, the ncpd_officer.
+  chrome_score: 35
+  current_activity: Going about their business.
+  cyberware: *id022
+  default_disposition: suspicious
+  dialogue_hooks:
+  - response_style: In their element. Warm, expert.
+    topic: active investigations
+  - response_style: In their element. Warm, expert.
+    topic: gang activity
+  dispositions:
+  - reason: First impression.
+    state: suspicious
+    toward: player
+  goals:
+  - mission
+  - conflict
+  - patrol
+  id: sergeant_okafor
+  knowledge:
+  - content: Sergeant Okafor knows about active investigations.
+    id: sergeant_okafor_knows_active_investigations
+    willingness: trades for information
+  - content: Sergeant Okafor knows about gang activity.
+    id: sergeant_okafor_knows_gang_activity
+    willingness: trades for information
+  - content: Sergeant Okafor knows about corporate crime they can't touch.
+    id: sergeant_okafor_knows_corporate_crime_they_cant_touch
+    willingness: trades for information
+  location: ripperdoc_clinic_3
+  name: Sergeant Okafor
+  personality: Ambitious, political, careful. Knows the corpos pull the strings. Plays the game because the alternative is
+    the combat zone. Keeps a clean desk and a dirty conscience.
+  role: ncpd_officer
+  secrets:
+  - content: Sergeant Okafor's secret involves on a corpo payroll.
+    hint: Something about Sergeant Okafor seems off when you mention on a corpo payroll.
+    id: sergeant_okafor_secret
+  tags:
+  - ncpd_officer
+  - information
+  voice_archetype: cop
+  voice_profile: {}
+- appearance: A wiry figure.
+  appearance_brief: Beatriz the 2th, the civilian.
+  chrome_score: 0
+  current_activity: Going about their business.
+  cyberware: *id015
+  default_disposition: nervous
+  dialogue_hooks:
+  - response_style: Cautious, partial answers. Watches your reaction.
+    topic: neighborhood gossip
+  - response_style: In their element. Warm, expert.
+    topic: megabuilding politics
+  dispositions:
+  - reason: First impression.
+    state: nervous
+    toward: player
+  goals:
+  - survival
+  - relationship_building
+  - resource_acquisition
+  id: beatriz_the_2th
+  knowledge:
+  - content: Beatriz the 2th knows about neighborhood gossip.
+    id: beatriz_the_2th_knows_neighborhood_gossip
+    willingness: trades for information
+  - content: Beatriz the 2th knows about megabuilding politics.
+    id: beatriz_the_2th_knows_megabuilding_politics
+    willingness: won't share easily — needs trust
+  - content: Beatriz the 2th knows about which vendors are honest.
+    id: beatriz_the_2th_knows_which_vendors_are_honest
+    willingness: trades for information
+  location: corpo_tower_17
+  name: Beatriz the 2th
+  personality: Tired, ordinary, getting by. Works a job that a machine could do better but a machine costs more to maintain.
+    Goes home to a megabuilding box and does it again tomorrow.
+  role: civilian
+  secrets:
+  - content: Beatriz the 2th's secret involves witnessed something they shouldn't have.
+    hint: Something about Beatriz the 2th seems off when you mention witnessed something they shouldn't have.
+    id: beatriz_the_2th_secret
+  tags:
+  - civilian
+  - information
+  voice_archetype: citizen
+  voice_profile: {}

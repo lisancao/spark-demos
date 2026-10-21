@@ -1,0 +1,42 @@
+factions:
+  - id: ashwick_townsfolk
+    name: "Ashwick Townsfolk"
+    description: >
+      The people of Ashwick. Farmers, traders, craftspeople.
+      Suspicious of outsiders, protective of their own. They
+      know something is wrong in Thornwood but nobody wants
+      to be the one to say it out loud.
+    goals:
+      - "Survive the season."
+      - "Pretend everything is normal."
+      - "Quietly hope someone else deals with Thornwood."
+    default_reputation: neutral
+    player_reputation: []
+
+  - id: the_quiet
+    name: "The Quiet"
+    description: >
+      Whatever Sister Vale serves. Not a religion exactly — more
+      like a tendency. The chapel predates the town. The Quiet
+      seems to be a force, or a presence, or a principle. It
+      opposes what sleeps beneath the clearing.
+    goals:
+      - "Maintain the seal."
+      - "Find someone who can strengthen it."
+    default_reputation: unknown
+    player_reputation: []
+
+  - id: the_seekers
+    name: "The Seekers"
+    description: >
+      A shadowy group interested in unsealing ancient sites. They
+      hired Davan. They've been to other seal locations. Their
+      motives are unclear — they might believe they're freeing
+      something that deserves to be free, or they might want
+      what's underneath for themselves.
+    goals:
+      - "Unseal the clearing."
+      - "Acquire knowledge of all seal locations."
+      - "Prevent interference from the Quiet."
+    default_reputation: unknown
+    player_reputation: []

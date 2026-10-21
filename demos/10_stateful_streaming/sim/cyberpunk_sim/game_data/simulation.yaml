@@ -1,0 +1,1623 @@
+schedules:
+  smasher:
+    dawn: megabuilding_0
+    morning: megabuilding_0
+    afternoon: megabuilding_4
+    evening: megabuilding_0
+    night: megabuilding_0
+    late_night: megabuilding_0
+  padre:
+    dawn: gang_hideout_28
+    morning: gang_hideout_28
+    afternoon: braindance_parlor_5
+    evening: gang_hideout_28
+    night: gang_hideout_28
+    late_night: gang_hideout_28
+  oleg:
+    dawn: corpo_tower_17
+    morning: corpo_tower_17
+    afternoon: corpo_tower_17
+    evening: corpo_tower_17
+    night: corpo_tower_17
+    late_night: corpo_tower_17
+  detective_kim:
+    dawn: nightclub_2
+    morning: nightclub_2
+    afternoon: megabuilding_4
+    evening: nightclub_2
+    night: nightclub_2
+    late_night: nightclub_2
+  iron_koji:
+    dawn: megabuilding_34
+    morning: megabuilding_34
+    afternoon: megabuilding_34
+    evening: megabuilding_34
+    night: megabuilding_34
+    late_night: megabuilding_34
+  blackhand:
+    dawn: gang_hideout_15
+    morning: gang_hideout_15
+    afternoon: gang_hideout_15
+    evening: gang_hideout_15
+    night: gang_hideout_15
+    late_night: gang_hideout_15
+  director_osei:
+    dawn: gang_hideout_26
+    morning: gang_hideout_26
+    afternoon: braindance_parlor_13
+    evening: gang_hideout_26
+    night: gang_hideout_26
+    late_night: gang_hideout_26
+  reaper:
+    dawn: corpo_tower_22
+    morning: corpo_tower_22
+    afternoon: fixer_office_37
+    evening: corpo_tower_22
+    night: corpo_tower_22
+    late_night: corpo_tower_22
+  apex:
+    dawn: corpo_tower_22
+    morning: corpo_tower_22
+    afternoon: megabuilding_30
+    evening: megabuilding_4
+    night: corpo_tower_22
+    late_night: corpo_tower_22
+  santos:
+    dawn: corpo_tower_22
+    morning: corpo_tower_22
+    afternoon: nomad_camp_36
+    evening: nomad_camp_11
+    night: corpo_tower_22
+    late_night: corpo_tower_22
+  ash:
+    dawn: megabuilding_34
+    morning: megabuilding_34
+    afternoon: megabuilding_34
+    evening: megabuilding_34
+    night: megabuilding_34
+    late_night: megabuilding_34
+  dakota:
+    dawn: ripperdoc_clinic_32
+    morning: ripperdoc_clinic_32
+    afternoon: ripperdoc_clinic_32
+    evening: ripperdoc_clinic_32
+    night: ripperdoc_clinic_32
+    late_night: ripperdoc_clinic_32
+  trigger:
+    dawn: nomad_camp_11
+    morning: nomad_camp_11
+    afternoon: nomad_camp_11
+    evening: nomad_camp_11
+    night: nomad_camp_11
+    late_night: nomad_camp_11
+  sergeant_petrov:
+    dawn: corpo_tower_29
+    morning: corpo_tower_29
+    afternoon: corpo_tower_29
+    evening: food_stall_42
+    night: corpo_tower_29
+    late_night: corpo_tower_29
+  toms:
+    dawn: food_stall_19
+    morning: food_stall_19
+    afternoon: food_stall_19
+    evening: megabuilding_8
+    night: food_stall_19
+    late_night: food_stall_19
+  muamar:
+    dawn: nomad_camp_36
+    morning: nomad_camp_36
+    afternoon: braindance_parlor_13
+    evening: nomad_camp_36
+    night: nomad_camp_36
+    late_night: nomad_camp_36
+  bones:
+    dawn: corpo_tower_29
+    morning: corpo_tower_29
+    afternoon: megabuilding_8
+    evening: corpo_tower_29
+    night: corpo_tower_29
+    late_night: corpo_tower_29
+  viktor:
+    dawn: corpo_tower_35
+    morning: corpo_tower_35
+    afternoon: corpo_tower_35
+    evening: corpo_tower_35
+    night: corpo_tower_35
+    late_night: corpo_tower_35
+  zip:
+    dawn: megabuilding_4
+    morning: megabuilding_4
+    afternoon: megabuilding_40
+    evening: megabuilding_4
+    night: megabuilding_4
+    late_night: megabuilding_4
+  blitz:
+    dawn: megabuilding_9
+    morning: megabuilding_9
+    afternoon: megabuilding_34
+    evening: food_stall_24
+    night: megabuilding_9
+    late_night: megabuilding_9
+  scrapper:
+    dawn: food_stall_24
+    morning: food_stall_24
+    afternoon: food_stall_24
+    evening: braindance_parlor_13
+    night: food_stall_24
+    late_night: food_stall_24
+  fingers:
+    dawn: black_market_31
+    morning: black_market_31
+    afternoon: black_market_31
+    evening: black_market_31
+    night: black_market_31
+    late_night: black_market_31
+  red:
+    dawn: megabuilding_8
+    morning: megabuilding_8
+    afternoon: megabuilding_8
+    evening: food_stall_1
+    night: megabuilding_8
+    late_night: megabuilding_8
+  the_board_rep:
+    dawn: ripperdoc_clinic_20
+    morning: ripperdoc_clinic_20
+    afternoon: nightclub_39
+    evening: nightclub_2
+    night: ripperdoc_clinic_20
+    late_night: ripperdoc_clinic_20
+  t-bug:
+    dawn: corpo_tower_22
+    morning: corpo_tower_22
+    afternoon: food_stall_42
+    evening: corpo_tower_22
+    night: corpo_tower_22
+    late_night: corpo_tower_22
+  demon:
+    dawn: combat_zone_7
+    morning: combat_zone_7
+    afternoon: combat_zone_7
+    evening: combat_zone_7
+    night: combat_zone_7
+    late_night: combat_zone_7
+  razor:
+    dawn: food_stall_19
+    morning: food_stall_19
+    afternoon: megabuilding_34
+    evening: food_stall_24
+    night: food_stall_19
+    late_night: food_stall_19
+  detective_vasquez:
+    dawn: nomad_camp_36
+    morning: nomad_camp_36
+    afternoon: food_stall_42
+    evening: nomad_camp_36
+    night: nomad_camp_36
+    late_night: nomad_camp_36
+  valentina:
+    dawn: megabuilding_40
+    morning: megabuilding_40
+    afternoon: megabuilding_40
+    evening: megabuilding_40
+    night: megabuilding_40
+    late_night: megabuilding_40
+  jun:
+    dawn: corpo_tower_17
+    morning: corpo_tower_17
+    afternoon: nightclub_23
+    evening: corpo_tower_17
+    night: corpo_tower_17
+    late_night: corpo_tower_17
+  vp_nakamura:
+    dawn: nomad_camp_11
+    morning: nomad_camp_11
+    afternoon: megabuilding_9
+    evening: megabuilding_9
+    night: nomad_camp_11
+    late_night: nomad_camp_11
+  v:
+    dawn: gang_hideout_15
+    morning: gang_hideout_15
+    afternoon: gang_hideout_15
+    evening: gang_hideout_15
+    night: gang_hideout_15
+    late_night: gang_hideout_15
+  nine:
+    dawn: gang_hideout_15
+    morning: gang_hideout_15
+    afternoon: megabuilding_4
+    evening: food_stall_24
+    night: gang_hideout_15
+    late_night: gang_hideout_15
+  nails:
+    dawn: combat_zone_7
+    morning: combat_zone_7
+    afternoon: nightclub_23
+    evening: combat_zone_7
+    night: combat_zone_7
+    late_night: combat_zone_7
+  elena:
+    dawn: gang_hideout_38
+    morning: gang_hideout_38
+    afternoon: nomad_camp_36
+    evening: gang_hideout_38
+    night: gang_hideout_38
+    late_night: gang_hideout_38
+  cassidy:
+    dawn: corpo_tower_17
+    morning: corpo_tower_17
+    afternoon: corpo_tower_17
+    evening: food_stall_1
+    night: corpo_tower_17
+    late_night: corpo_tower_17
+  daemon:
+    dawn: nomad_camp_11
+    morning: nomad_camp_11
+    afternoon: nomad_camp_11
+    evening: nomad_camp_11
+    night: nomad_camp_11
+    late_night: nomad_camp_11
+  officer_hendricks:
+    dawn: megabuilding_9
+    morning: megabuilding_9
+    afternoon: fixer_office_18
+    evening: megabuilding_9
+    night: megabuilding_9
+    late_night: megabuilding_9
+  nomad:
+    dawn: fixer_office_37
+    morning: fixer_office_37
+    afternoon: fixer_office_37
+    evening: fixer_office_37
+    night: fixer_office_37
+    late_night: fixer_office_37
+  kuro:
+    dawn: megabuilding_4
+    morning: megabuilding_4
+    afternoon: megabuilding_4
+    evening: megabuilding_0
+    night: megabuilding_4
+    late_night: megabuilding_4
+  carol:
+    dawn: corpo_tower_29
+    morning: corpo_tower_29
+    afternoon: corpo_tower_29
+    evening: nightclub_39
+    night: corpo_tower_29
+    late_night: corpo_tower_29
+  kenji:
+    dawn: ripperdoc_clinic_3
+    morning: ripperdoc_clinic_3
+    afternoon: ripperdoc_clinic_3
+    evening: ripperdoc_clinic_3
+    night: ripperdoc_clinic_3
+    late_night: ripperdoc_clinic_3
+  doc_nkemelu:
+    dawn: gang_hideout_28
+    morning: gang_hideout_28
+    afternoon: food_stall_24
+    evening: gang_hideout_28
+    night: gang_hideout_28
+    late_night: gang_hideout_28
+  mariana:
+    dawn: corpo_tower_17
+    morning: corpo_tower_17
+    afternoon: fixer_office_37
+    evening: corpo_tower_17
+    night: corpo_tower_17
+    late_night: corpo_tower_17
+  priya:
+    dawn: megabuilding_30
+    morning: megabuilding_30
+    afternoon: braindance_parlor_13
+    evening: megabuilding_30
+    night: megabuilding_30
+    late_night: megabuilding_30
+  glitch:
+    dawn: megabuilding_25
+    morning: megabuilding_25
+    afternoon: megabuilding_8
+    evening: megabuilding_40
+    night: megabuilding_25
+    late_night: megabuilding_25
+  aisha:
+    dawn: food_stall_42
+    morning: food_stall_42
+    afternoon: megabuilding_34
+    evening: food_stall_19
+    night: food_stall_42
+    late_night: food_stall_42
+  twitch:
+    dawn: fixer_office_18
+    morning: fixer_office_18
+    afternoon: megabuilding_40
+    evening: fixer_office_18
+    night: fixer_office_18
+    late_night: fixer_office_18
+  wakako:
+    dawn: combat_zone_7
+    morning: combat_zone_7
+    afternoon: braindance_parlor_5
+    evening: megabuilding_8
+    night: combat_zone_7
+    late_night: combat_zone_7
+  ghost:
+    dawn: food_stall_24
+    morning: food_stall_24
+    afternoon: food_stall_24
+    evening: food_stall_24
+    night: food_stall_24
+    late_night: food_stall_24
+  beatriz:
+    dawn: megabuilding_9
+    morning: megabuilding_9
+    afternoon: megabuilding_9
+    evening: megabuilding_40
+    night: megabuilding_9
+    late_night: megabuilding_9
+  kuro_the_31th:
+    dawn: gang_hideout_26
+    morning: gang_hideout_26
+    afternoon: gang_hideout_26
+    evening: gang_hideout_26
+    night: gang_hideout_26
+    late_night: gang_hideout_26
+  maria_salazar:
+    dawn: gang_hideout_21
+    morning: gang_hideout_21
+    afternoon: gang_hideout_21
+    evening: gang_hideout_21
+    night: gang_hideout_21
+    late_night: gang_hideout_21
+  whisper:
+    dawn: gang_hideout_21
+    morning: gang_hideout_21
+    afternoon: gang_hideout_21
+    evening: gang_hideout_21
+    night: gang_hideout_21
+    late_night: gang_hideout_21
+  chrome_fist:
+    dawn: chop_shop_14
+    morning: chop_shop_14
+    afternoon: chop_shop_14
+    evening: chop_shop_14
+    night: chop_shop_14
+    late_night: chop_shop_14
+  director_lao:
+    dawn: ripperdoc_clinic_3
+    morning: ripperdoc_clinic_3
+    afternoon: ripperdoc_clinic_3
+    evening: ripperdoc_clinic_3
+    night: ripperdoc_clinic_3
+    late_night: ripperdoc_clinic_3
+  bones_the_50th:
+    dawn: nightclub_39
+    morning: nightclub_39
+    afternoon: nightclub_2
+    evening: nightclub_39
+    night: nightclub_39
+    late_night: nightclub_39
+  scorpion:
+    dawn: fixer_office_18
+    morning: fixer_office_18
+    afternoon: fixer_office_18
+    evening: fixer_office_18
+    night: fixer_office_18
+    late_night: fixer_office_18
+  priya_the_51th:
+    dawn: megabuilding_30
+    morning: megabuilding_30
+    afternoon: megabuilding_30
+    evening: nightclub_2
+    night: megabuilding_30
+    late_night: megabuilding_30
+  ms_voss:
+    dawn: ripperdoc_clinic_3
+    morning: ripperdoc_clinic_3
+    afternoon: megabuilding_25
+    evening: food_stall_19
+    night: ripperdoc_clinic_3
+    late_night: ripperdoc_clinic_3
+  ghost_the_82th:
+    dawn: combat_zone_6
+    morning: combat_zone_6
+    afternoon: combat_zone_6
+    evening: nightclub_2
+    night: combat_zone_6
+    late_night: combat_zone_6
+  kuro_the_24th:
+    dawn: combat_zone_12
+    morning: combat_zone_12
+    afternoon: combat_zone_12
+    evening: combat_zone_12
+    night: combat_zone_12
+    late_night: combat_zone_12
+  spider:
+    dawn: megabuilding_9
+    morning: megabuilding_9
+    afternoon: megabuilding_9
+    evening: megabuilding_9
+    night: megabuilding_9
+    late_night: megabuilding_9
+  sebastian:
+    dawn: fixer_office_37
+    morning: fixer_office_37
+    afternoon: fixer_office_37
+    evening: fixer_office_37
+    night: fixer_office_37
+    late_night: fixer_office_37
+  detective_cruz:
+    dawn: food_stall_19
+    morning: food_stall_19
+    afternoon: food_stall_19
+    evening: food_stall_19
+    night: food_stall_19
+    late_night: food_stall_19
+  viper:
+    dawn: megabuilding_8
+    morning: megabuilding_8
+    afternoon: megabuilding_8
+    evening: megabuilding_30
+    night: megabuilding_8
+    late_night: megabuilding_8
+  officer_reeves:
+    dawn: nightclub_2
+    morning: nightclub_2
+    afternoon: nightclub_2
+    evening: nightclub_2
+    night: nightclub_2
+    late_night: nightclub_2
+  rogue:
+    dawn: ripperdoc_clinic_3
+    morning: ripperdoc_clinic_3
+    afternoon: ripperdoc_clinic_3
+    evening: ripperdoc_clinic_3
+    night: ripperdoc_clinic_3
+    late_night: ripperdoc_clinic_3
+  sergeant_okafor:
+    dawn: ripperdoc_clinic_3
+    morning: ripperdoc_clinic_3
+    afternoon: ripperdoc_clinic_3
+    evening: ripperdoc_clinic_3
+    night: ripperdoc_clinic_3
+    late_night: ripperdoc_clinic_3
+  beatriz_the_2th:
+    dawn: corpo_tower_17
+    morning: corpo_tower_17
+    afternoon: megabuilding_40
+    evening: nightclub_10
+    night: corpo_tower_17
+    late_night: corpo_tower_17
+relationships:
+- from_npc: smasher
+  to_npc: scorpion
+  type: protective_of
+  verb: would fight for
+  strength: 3
+  reason: Smasher would fight for Scorpion — everyone knows.
+  public: true
+- from_npc: smasher
+  to_npc: sergeant_okafor
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: smasher
+  to_npc: rogue
+  type: protective_of
+  verb: would fight for
+  strength: 2
+  reason: Smasher would fight for Rogue — everyone knows.
+  public: true
+- from_npc: padre
+  to_npc: beatriz
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: oleg
+  to_npc: dakota
+  type: mentor
+  verb: guides
+  strength: 3
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: oleg
+  to_npc: blitz
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: detective_kim
+  to_npc: viktor
+  type: rival
+  verb: distrusts
+  strength: -1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: detective_kim
+  to_npc: sergeant_okafor
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: Detective Kim trusts Sergeant Okafor — everyone knows.
+  public: true
+- from_npc: iron_koji
+  to_npc: priya
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: Something happened at megabuilding_34.
+  public: false
+- from_npc: blackhand
+  to_npc: ash
+  type: indifferent
+  verb: barely notices
+  strength: -1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: director_osei
+  to_npc: sergeant_okafor
+  type: protective_of
+  verb: would fight for
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: director_osei
+  to_npc: iron_koji
+  type: friend
+  verb: likes
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: director_osei
+  to_npc: priya
+  type: friend
+  verb: likes
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: reaper
+  to_npc: v
+  type: protective_of
+  verb: would fight for
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: reaper
+  to_npc: scorpion
+  type: enemy
+  verb: hates
+  strength: -3
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: apex
+  to_npc: wakako
+  type: protective_of
+  verb: would fight for
+  strength: 5
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: santos
+  to_npc: viper
+  type: debtor
+  verb: owes
+  strength: 0
+  reason: Something happened at corpo_tower_22.
+  public: false
+- from_npc: santos
+  to_npc: sergeant_okafor
+  type: friend
+  verb: likes
+  strength: 3
+  reason: Old history between Santos and Sergeant Okafor.
+  public: false
+- from_npc: ash
+  to_npc: toms
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: Old history between Ash and Tomás.
+  public: false
+- from_npc: ash
+  to_npc: rogue
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: dakota
+  to_npc: trigger
+  type: informant
+  verb: feeds information to
+  strength: 1
+  reason: Old history between Dakota and Trigger.
+  public: true
+- from_npc: dakota
+  to_npc: jun
+  type: debtor
+  verb: owes
+  strength: 1
+  reason: Something happened at ripperdoc_clinic_32.
+  public: true
+- from_npc: trigger
+  to_npc: wakako
+  type: enemy
+  verb: hates
+  strength: -4
+  reason: Trigger hates Wakako — everyone knows.
+  public: false
+- from_npc: sergeant_petrov
+  to_npc: mariana
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: sergeant_petrov
+  to_npc: blitz
+  type: friend
+  verb: likes
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: sergeant_petrov
+  to_npc: zip
+  type: ally
+  verb: trusts
+  strength: 1
+  reason: Old history between Sergeant Petrov and Zip.
+  public: true
+- from_npc: toms
+  to_npc: sergeant_okafor
+  type: debtor
+  verb: owes
+  strength: -1
+  reason: Tomás owes Sergeant Okafor — everyone knows.
+  public: true
+- from_npc: muamar
+  to_npc: director_osei
+  type: enemy
+  verb: hates
+  strength: -3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: bones
+  to_npc: detective_cruz
+  type: protective_of
+  verb: would fight for
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: viktor
+  to_npc: blitz
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: Viktor trusts Blitz — everyone knows.
+  public: true
+- from_npc: viktor
+  to_npc: nomad
+  type: debtor
+  verb: owes
+  strength: 0
+  reason: Old history between Viktor and Nomad.
+  public: true
+- from_npc: viktor
+  to_npc: director_lao
+  type: mentor
+  verb: guides
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: zip
+  to_npc: oleg
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: zip
+  to_npc: beatriz
+  type: indifferent
+  verb: barely notices
+  strength: 1
+  reason: Old history between Zip and Beatriz.
+  public: true
+- from_npc: zip
+  to_npc: kuro_the_24th
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: Something happened at megabuilding_4.
+  public: false
+- from_npc: blitz
+  to_npc: sergeant_petrov
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: blitz
+  to_npc: mariana
+  type: friend
+  verb: likes
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: blitz
+  to_npc: viktor
+  type: informant
+  verb: feeds information to
+  strength: 2
+  reason: Something happened at megabuilding_9.
+  public: false
+- from_npc: scrapper
+  to_npc: ms_voss
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: Something happened at food_stall_24.
+  public: true
+- from_npc: fingers
+  to_npc: blackhand
+  type: mentor
+  verb: guides
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: red
+  to_npc: kuro_the_24th
+  type: enemy
+  verb: hates
+  strength: -3
+  reason: Red hates Kuro the 24th — everyone knows.
+  public: false
+- from_npc: red
+  to_npc: nails
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: Red trusts Nails — everyone knows.
+  public: true
+- from_npc: red
+  to_npc: iron_koji
+  type: mentor
+  verb: guides
+  strength: 3
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: the_board_rep
+  to_npc: priya
+  type: informant
+  verb: feeds information to
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: the_board_rep
+  to_npc: t-bug
+  type: suspicious_of
+  verb: watches carefully
+  strength: -1
+  reason: Old history between The Board Rep and T-Bug.
+  public: false
+- from_npc: t-bug
+  to_npc: bones_the_50th
+  type: protective_of
+  verb: would fight for
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: demon
+  to_npc: ash
+  type: mentor
+  verb: guides
+  strength: 4
+  reason: Demon guides Ash — everyone knows.
+  public: true
+- from_npc: razor
+  to_npc: director_lao
+  type: mentor
+  verb: guides
+  strength: 3
+  reason: Old history between Razor and Director Lao.
+  public: false
+- from_npc: razor
+  to_npc: fingers
+  type: mentor
+  verb: guides
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: razor
+  to_npc: scorpion
+  type: ally
+  verb: trusts
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: detective_vasquez
+  to_npc: scrapper
+  type: protective_of
+  verb: would fight for
+  strength: 5
+  reason: Old history between Detective Vasquez and Scrapper.
+  public: true
+- from_npc: detective_vasquez
+  to_npc: detective_kim
+  type: enemy
+  verb: hates
+  strength: -2
+  reason: Detective Vasquez hates Detective Kim — everyone knows.
+  public: true
+- from_npc: detective_vasquez
+  to_npc: zip
+  type: protective_of
+  verb: would fight for
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: valentina
+  to_npc: wakako
+  type: rival
+  verb: distrusts
+  strength: -1
+  reason: Something happened at megabuilding_40.
+  public: true
+- from_npc: valentina
+  to_npc: scorpion
+  type: debtor
+  verb: owes
+  strength: 1
+  reason: Valentina owes Scorpion — everyone knows.
+  public: true
+- from_npc: jun
+  to_npc: detective_kim
+  type: friend
+  verb: likes
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: vp_nakamura
+  to_npc: muamar
+  type: enemy
+  verb: hates
+  strength: -2
+  reason: VP Nakamura hates Muamar — everyone knows.
+  public: false
+- from_npc: vp_nakamura
+  to_npc: elena
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: Old history between VP Nakamura and Elena.
+  public: true
+- from_npc: vp_nakamura
+  to_npc: priya_the_51th
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: Something happened at nomad_camp_11.
+  public: false
+- from_npc: v
+  to_npc: dakota
+  type: mentor
+  verb: guides
+  strength: 4
+  reason: Old history between V and Dakota.
+  public: true
+- from_npc: v
+  to_npc: kenji
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: Something happened at gang_hideout_15.
+  public: false
+- from_npc: nine
+  to_npc: red
+  type: enemy
+  verb: hates
+  strength: -4
+  reason: Something happened at gang_hideout_15.
+  public: false
+- from_npc: nine
+  to_npc: twitch
+  type: enemy
+  verb: hates
+  strength: -3
+  reason: Old history between Nine and Twitch.
+  public: true
+- from_npc: nine
+  to_npc: officer_reeves
+  type: protective_of
+  verb: would fight for
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: nails
+  to_npc: bones
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: nails
+  to_npc: dakota
+  type: debtor
+  verb: owes
+  strength: -1
+  reason: Something happened at combat_zone_7.
+  public: false
+- from_npc: nails
+  to_npc: apex
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: elena
+  to_npc: bones
+  type: friend
+  verb: likes
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: elena
+  to_npc: the_board_rep
+  type: ally
+  verb: trusts
+  strength: 1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: cassidy
+  to_npc: scrapper
+  type: mentor
+  verb: guides
+  strength: 4
+  reason: Something happened at corpo_tower_17.
+  public: true
+- from_npc: daemon
+  to_npc: officer_hendricks
+  type: enemy
+  verb: hates
+  strength: -2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: daemon
+  to_npc: ash
+  type: indifferent
+  verb: barely notices
+  strength: 1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: daemon
+  to_npc: nine
+  type: friend
+  verb: likes
+  strength: 4
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: officer_hendricks
+  to_npc: priya
+  type: rival
+  verb: distrusts
+  strength: -3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: officer_hendricks
+  to_npc: blackhand
+  type: enemy
+  verb: hates
+  strength: -2
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: officer_hendricks
+  to_npc: detective_kim
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: nomad
+  to_npc: spider
+  type: debtor
+  verb: owes
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: nomad
+  to_npc: v
+  type: ally
+  verb: trusts
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: kuro
+  to_npc: razor
+  type: protective_of
+  verb: would fight for
+  strength: 3
+  reason: Kuro would fight for Razor — everyone knows.
+  public: false
+- from_npc: kuro
+  to_npc: priya
+  type: mentor
+  verb: guides
+  strength: 4
+  reason: Kuro guides Priya — everyone knows.
+  public: false
+- from_npc: carol
+  to_npc: wakako
+  type: suspicious_of
+  verb: watches carefully
+  strength: 0
+  reason: Old history between Carol and Wakako.
+  public: true
+- from_npc: kenji
+  to_npc: muamar
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: Something happened at ripperdoc_clinic_3.
+  public: true
+- from_npc: kenji
+  to_npc: elena
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: doc_nkemelu
+  to_npc: kenji
+  type: protective_of
+  verb: would fight for
+  strength: 4
+  reason: Something happened at gang_hideout_28.
+  public: false
+- from_npc: mariana
+  to_npc: officer_reeves
+  type: informant
+  verb: feeds information to
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: mariana
+  to_npc: ghost_the_82th
+  type: debtor
+  verb: owes
+  strength: 2
+  reason: Something happened at corpo_tower_17.
+  public: true
+- from_npc: priya
+  to_npc: director_osei
+  type: informant
+  verb: feeds information to
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: priya
+  to_npc: daemon
+  type: ally
+  verb: trusts
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: glitch
+  to_npc: twitch
+  type: mentor
+  verb: guides
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: glitch
+  to_npc: maria_salazar
+  type: suspicious_of
+  verb: watches carefully
+  strength: -2
+  reason: Glitch watches carefully Maria Salazar — everyone knows.
+  public: true
+- from_npc: aisha
+  to_npc: beatriz
+  type: suspicious_of
+  verb: watches carefully
+  strength: -1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: twitch
+  to_npc: muamar
+  type: debtor
+  verb: owes
+  strength: 1
+  reason: Twitch owes Muamar — everyone knows.
+  public: true
+- from_npc: twitch
+  to_npc: bones
+  type: mentor
+  verb: guides
+  strength: 2
+  reason: Something happened at fixer_office_18.
+  public: false
+- from_npc: twitch
+  to_npc: trigger
+  type: debtor
+  verb: owes
+  strength: -1
+  reason: Old history between Twitch and Trigger.
+  public: true
+- from_npc: wakako
+  to_npc: doc_nkemelu
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: wakako
+  to_npc: kuro_the_24th
+  type: friend
+  verb: likes
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: wakako
+  to_npc: rogue
+  type: debtor
+  verb: owes
+  strength: 1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: ghost
+  to_npc: beatriz_the_2th
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: Ghost feeds information to Beatriz the 2th — everyone knows.
+  public: true
+- from_npc: ghost
+  to_npc: sebastian
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: ghost
+  to_npc: nomad
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: beatriz
+  to_npc: jun
+  type: friend
+  verb: likes
+  strength: 4
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: beatriz
+  to_npc: director_osei
+  type: debtor
+  verb: owes
+  strength: 0
+  reason: Something happened at megabuilding_9.
+  public: true
+- from_npc: beatriz
+  to_npc: spider
+  type: rival
+  verb: distrusts
+  strength: -3
+  reason: Old history between Beatriz and Spider.
+  public: true
+- from_npc: kuro_the_31th
+  to_npc: blitz
+  type: enemy
+  verb: hates
+  strength: -3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: kuro_the_31th
+  to_npc: whisper
+  type: informant
+  verb: feeds information to
+  strength: 2
+  reason: Old history between Kuro the 31th and Whisper.
+  public: false
+- from_npc: maria_salazar
+  to_npc: razor
+  type: suspicious_of
+  verb: watches carefully
+  strength: -1
+  reason: Maria Salazar watches carefully Razor — everyone knows.
+  public: false
+- from_npc: maria_salazar
+  to_npc: kenji
+  type: informant
+  verb: feeds information to
+  strength: 2
+  reason: Maria Salazar feeds information to Kenji — everyone knows.
+  public: true
+- from_npc: maria_salazar
+  to_npc: spider
+  type: indifferent
+  verb: barely notices
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: whisper
+  to_npc: cassidy
+  type: suspicious_of
+  verb: watches carefully
+  strength: -1
+  reason: Something happened at gang_hideout_21.
+  public: false
+- from_npc: chrome_fist
+  to_npc: daemon
+  type: informant
+  verb: feeds information to
+  strength: 1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: chrome_fist
+  to_npc: razor
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: Old history between Chrome Fist and Razor.
+  public: true
+- from_npc: director_lao
+  to_npc: wakako
+  type: friend
+  verb: likes
+  strength: 3
+  reason: Old history between Director Lao and Wakako.
+  public: true
+- from_npc: director_lao
+  to_npc: beatriz
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: director_lao
+  to_npc: priya
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: Something happened at ripperdoc_clinic_3.
+  public: false
+- from_npc: bones_the_50th
+  to_npc: elena
+  type: rival
+  verb: distrusts
+  strength: -1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: bones_the_50th
+  to_npc: viktor
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: scorpion
+  to_npc: director_osei
+  type: rival
+  verb: distrusts
+  strength: -2
+  reason: Scorpion distrusts Director Osei — everyone knows.
+  public: false
+- from_npc: priya_the_51th
+  to_npc: viktor
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: Something happened at megabuilding_30.
+  public: true
+- from_npc: ms_voss
+  to_npc: spider
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: Ms. Voss barely notices Spider — everyone knows.
+  public: false
+- from_npc: ms_voss
+  to_npc: demon
+  type: rival
+  verb: distrusts
+  strength: -1
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: ghost_the_82th
+  to_npc: iron_koji
+  type: friend
+  verb: likes
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: ghost_the_82th
+  to_npc: red
+  type: friend
+  verb: likes
+  strength: 4
+  reason: Ghost the 82th likes Red — everyone knows.
+  public: false
+- from_npc: ghost_the_82th
+  to_npc: whisper
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: kuro_the_24th
+  to_npc: daemon
+  type: suspicious_of
+  verb: watches carefully
+  strength: 0
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: kuro_the_24th
+  to_npc: priya_the_51th
+  type: friend
+  verb: likes
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: spider
+  to_npc: doc_nkemelu
+  type: friend
+  verb: likes
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: sebastian
+  to_npc: the_board_rep
+  type: indifferent
+  verb: barely notices
+  strength: 1
+  reason: Something happened at fixer_office_37.
+  public: true
+- from_npc: sebastian
+  to_npc: padre
+  type: debtor
+  verb: owes
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: sebastian
+  to_npc: mariana
+  type: debtor
+  verb: owes
+  strength: -1
+  reason: Something happened at fixer_office_37.
+  public: false
+- from_npc: detective_cruz
+  to_npc: kenji
+  type: ally
+  verb: trusts
+  strength: 2
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: detective_cruz
+  to_npc: v
+  type: indifferent
+  verb: barely notices
+  strength: 0
+  reason: Detective Cruz barely notices V — everyone knows.
+  public: true
+- from_npc: viper
+  to_npc: padre
+  type: enemy
+  verb: hates
+  strength: -4
+  reason: Old history between Viper and Padre.
+  public: true
+- from_npc: viper
+  to_npc: nails
+  type: friend
+  verb: likes
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: viper
+  to_npc: aisha
+  type: indifferent
+  verb: barely notices
+  strength: 1
+  reason: Old history between Viper and Aisha.
+  public: false
+- from_npc: officer_reeves
+  to_npc: twitch
+  type: enemy
+  verb: hates
+  strength: -4
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: officer_reeves
+  to_npc: valentina
+  type: protective_of
+  verb: would fight for
+  strength: 4
+  reason: It started over a deal gone sideways.
+  public: false
+- from_npc: rogue
+  to_npc: beatriz_the_2th
+  type: enemy
+  verb: hates
+  strength: -2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: false
+- from_npc: rogue
+  to_npc: detective_vasquez
+  type: rival
+  verb: distrusts
+  strength: -1
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: sergeant_okafor
+  to_npc: santos
+  type: ally
+  verb: trusts
+  strength: 3
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+- from_npc: sergeant_okafor
+  to_npc: toms
+  type: suspicious_of
+  verb: watches carefully
+  strength: -2
+  reason: Something happened at ripperdoc_clinic_3.
+  public: true
+- from_npc: beatriz_the_2th
+  to_npc: bones_the_50th
+  type: protective_of
+  verb: would fight for
+  strength: 5
+  reason: Old history between Beatriz the 2th and Bones the 50th.
+  public: false
+- from_npc: beatriz_the_2th
+  to_npc: toms
+  type: informant
+  verb: feeds information to
+  strength: 0
+  reason: It started over a deal gone sideways.
+  public: true
+- from_npc: beatriz_the_2th
+  to_npc: razor
+  type: debtor
+  verb: owes
+  strength: 2
+  reason: They worked together once. It ended badly. Or well. Depends who you ask.
+  public: true
+faction_territories:
+  okonkwo_group:
+  - fixer_office_18
+  - combat_zone_7
+  - nightclub_10
+  - braindance_parlor_13
+  - corpo_tower_29
+  los_nakamura:
+  - fixer_office_37
+  - corpo_tower_35
+  - megabuilding_0
+  subnet_drift:
+  - food_stall_24
+  - ripperdoc_clinic_32
+  - combat_zone_6
+  - ripperdoc_clinic_20
+  - gang_hideout_15
+  the_santos_clan:
+  - gang_hideout_38
+  - megabuilding_30
+  - black_market_31
+  - megabuilding_34
+  - gang_hideout_27
+  - megabuilding_25
+  maxtac_unit_signal:
+  - ripperdoc_clinic_3
+  - chop_shop_14
+  - braindance_parlor_5
+  - gang_hideout_28
+  - nightclub_2
+  - food_stall_1
+  mbekis_circle:
+  - gang_hideout_21
+  - gang_hideout_26
+  - combat_zone_12
+  - nomad_camp_36
+  - megabuilding_40
+  - megabuilding_4
+  - food_stall_19
+faction_relations:
+- faction_a: okonkwo_group
+  faction_b: los_nakamura
+  type: neutral
+  strength: -1
+  history:
+  - 'Initial stance: neutral.'
+- faction_a: okonkwo_group
+  faction_b: subnet_drift
+  type: allied
+  strength: 4
+  history:
+  - 'Initial stance: allied.'
+- faction_a: okonkwo_group
+  faction_b: the_santos_clan
+  type: tense
+  strength: 0
+  history:
+  - 'Initial stance: tense.'
+- faction_a: okonkwo_group
+  faction_b: maxtac_unit_signal
+  type: cooperative
+  strength: 3
+  history:
+  - 'Initial stance: cooperative.'
+- faction_a: okonkwo_group
+  faction_b: mbekis_circle
+  type: cooperative
+  strength: 1
+  history:
+  - 'Initial stance: cooperative.'
+- faction_a: los_nakamura
+  faction_b: subnet_drift
+  type: neutral
+  strength: 1
+  history:
+  - 'Initial stance: neutral.'
+- faction_a: los_nakamura
+  faction_b: the_santos_clan
+  type: cooperative
+  strength: 3
+  history:
+  - 'Initial stance: cooperative.'
+- faction_a: los_nakamura
+  faction_b: maxtac_unit_signal
+  type: neutral
+  strength: 1
+  history:
+  - 'Initial stance: neutral.'
+- faction_a: los_nakamura
+  faction_b: mbekis_circle
+  type: cooperative
+  strength: 2
+  history:
+  - 'Initial stance: cooperative.'
+- faction_a: subnet_drift
+  faction_b: the_santos_clan
+  type: tense
+  strength: -1
+  history:
+  - 'Initial stance: tense.'
+- faction_a: subnet_drift
+  faction_b: maxtac_unit_signal
+  type: cooperative
+  strength: 1
+  history:
+  - 'Initial stance: cooperative.'
+- faction_a: subnet_drift
+  faction_b: mbekis_circle
+  type: allied
+  strength: 3
+  history:
+  - 'Initial stance: allied.'
+- faction_a: the_santos_clan
+  faction_b: maxtac_unit_signal
+  type: tense
+  strength: -2
+  history:
+  - 'Initial stance: tense.'
+- faction_a: the_santos_clan
+  faction_b: mbekis_circle
+  type: neutral
+  strength: 1
+  history:
+  - 'Initial stance: neutral.'
+- faction_a: maxtac_unit_signal
+  faction_b: mbekis_circle
+  type: tense
+  strength: -1
+  history:
+  - 'Initial stance: tense.'

@@ -1,0 +1,127 @@
+items:
+  - id: old_notice
+    name: "a faded notice"
+    description: >
+      A rain-warped piece of paper pinned to the inn door. The ink
+      has run but you can make out: "REWARD — information on the
+      whereabouts of Edric, Tomm, and Halsen, woodcutters of
+      Ashwick. Last seen entering Thornwood. Speak to the
+      Warden's office." Below, in different handwriting: "Don't
+      bother. Warden's given up."
+    properties:
+      readable: true
+      quest_trigger: missing_woodcutters
+    tags: [clue, quest_item]
+
+  - id: thornwood_map
+    name: "a hand-drawn map of Thornwood"
+    description: >
+      Rough charcoal on hide. Shows the main path and a branching
+      trail marked with an X. Someone has written "BAD" next to
+      the X in block letters.
+    properties:
+      readable: true
+      reveals: forest_clearing
+    tags: [clue, navigation]
+
+  - id: iron_lantern
+    name: "an iron lantern"
+    description: >
+      Heavy, dented, functional. The glass is cracked but holds.
+      There's enough oil for a few hours.
+    properties:
+      light_source: true
+      duration: "4 hours"
+    tags: [tool, light]
+
+  - id: healing_poultice
+    name: "a healing poultice"
+    description: >
+      A cloth bundle of crushed herbs and honey. Smells sharp
+      and green. Applied to wounds, it dulls pain and fights
+      infection. It won't save your life, but it'll buy you time.
+    properties:
+      consumable: true
+      heals: 3
+    tags: [consumable, medical]
+
+  - id: stone_rubbing
+    name: "a charcoal rubbing of the marker"
+    description: >
+      Thin paper pressed against the stone marker and rubbed with
+      charcoal. The symbols are clear now — spirals within spirals,
+      and something that might be writing in a language you don't know.
+    properties:
+      quest_item: davans_commission
+    tags: [quest_item, valuable]
+
+  - id: short_sword
+    name: "a short sword"
+    description: >
+      Plain steel with a leather-wrapped grip. Nothing fancy.
+      Good edge, solid weight. The kind of blade that does its
+      job without complaining.
+    properties:
+      damage: 3
+    tags: [weapon, melee]
+
+  - id: leather_armor
+    name: "boiled leather armor"
+    description: >
+      Stiff, dark leather molded to roughly fit a human torso.
+      Scarred from use. Better than nothing. Barely.
+    properties:
+      defense: 1
+    tags: [armor]
+
+  - id: torch_bundle
+    name: "a bundle of pitch-soaked torches"
+    description: >
+      Three torches wrapped in oiled cloth. Good for a few hours
+      each. The pitch smells sharp.
+    properties:
+      light_source: true
+      duration: "3 hours each"
+    tags: [tool, light]
+
+  - id: wardens_journal
+    name: "the warden's journal"
+    description: >
+      A leather-bound book of careful entries. The last dozen pages
+      are different — hurried, ink-blotted, some entries scratched
+      out. The final entry reads: "Sent Rohn. God forgive me."
+    properties:
+      readable: true
+      quest_trigger: wardens_silence
+    tags: [clue, quest_item]
+
+  - id: forest_herbs
+    name: "a pouch of forest herbs"
+    description: >
+      Gathered from the forest edge. Bitter-smelling leaves and
+      dried moss. Applied to wounds, they draw out infection.
+      Chewed, they dull pain. Either way, unpleasant.
+    properties:
+      consumable: true
+      heals: 2
+    tags: [consumable, medical]
+
+  - id: seal_fragment
+    name: "a seal fragment"
+    description: >
+      A piece of dark stone, broken from something larger. The
+      same spiral carvings as the marker. Warm to the touch, even
+      in cold air. It hums faintly — you feel it in your teeth.
+    properties:
+      quest_item: missing_woodcutters
+    tags: [quest_item, magical]
+
+  - id: silver_pendant
+    name: "a silver pendant"
+    description: >
+      A small pendant on a tarnished chain. The design is a circle
+      within a circle — the same motif as the chapel carvings.
+      Light and warm. The stranger wore one like it.
+    properties:
+      valuable: true
+    tags: [valuable, clue]

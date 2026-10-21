@@ -1,0 +1,38 @@
+world_rules:
+  setting: Night City, Free State of Northern California. A corpo-controlled dystopia
+    built on the bones of the American Dream. Chrome and flesh, neon and shadow, eddies
+    and blood.
+  tone: 'Gritty, lived-in, darkly human. Not cool cyberpunk — desperate cyberpunk.
+    The chrome is a coping mechanism. The neon is a distraction. Underneath it all:
+    people trying to survive a city that was built to consume them.'
+  era: 2077. The Net is rebuilt after the DataKrash, corporations run the government,
+    cyberware is ubiquitous, and the gap between the top of Corpo Plaza and the bottom
+    of Pacifica is measured in human lives.
+  magic_system: None — but cyberware and quickhacks blur the line. A Sandevistan user
+    moves faster than the eye can track. A netrunner can fry your brain from across
+    the street. It's not magic. It's money.
+  combat_rules:
+    style: Fast, brutal, chrome-dependent. Cyberware is the equalizer — or the advantage.
+      Quickhacks can shut down a fight before a shot is fired. Mantis Blades don't
+      jam. Sandevistans don't miss.
+    lethality: extreme — everyone is armed, everyone is augmented, everyone dies fast
+    healing: ripperdocs for the chrome, MaxDoc for the meat — both cost eddies you
+      might not have
+    note: Violence is constant and consequence depends on who you killed. Ganger in
+      the combat zone? Nobody blinks. Corpo in a tower? MaxTac in five minutes.
+  exploration_rules:
+    style: District-based danger levels. Watson is rough but survivable. Pacifica
+      is a combat zone. City Center is safe if you belong — lethal if you don't.
+    discovery: Scan everything. Kiroshi optics reveal details. The Net reveals secrets.
+      The streets reveal patterns if you watch long enough.
+    danger: Night City's danger is ambient. It's not if something happens — it's when.
+      Walking at night, alone, in the wrong district, with visible chrome is an invitation.
+  dialogue_rules:
+    style: Everyone has an angle. The corpo wants leverage. The ganger wants respect.
+      The fixer wants eddies. The civilian wants to survive the conversation. Nobody
+      says what they mean on the first pass.
+    trust: Currency, not a feeling. Earned through jobs completed, promises kept,
+      enemies shared. Lost through one betrayal, permanently.
+    information: Data is eddies. Nobody talks for free. A name costs. An address costs
+      more. What someone's hiding costs everything.
+  register: cyberpunk
