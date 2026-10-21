@@ -3,10 +3,10 @@
   "run": "connect-1",
   "mode": "connect",
   "spark_version": "4.2.0",
-  "catalog": "in-memory",
+  "catalog": "hive",
   "client": "pyspark-client 4.2.0",
   "python": "3.10.20",
-  "recorded": "2026-09-11",
+  "recorded": "2026-10-14",
   "objects_dropped_at_start": 0
  },
  "setup": [
@@ -1554,7 +1554,7 @@
     {
      "statement": "SHOW TBLPROPERTIES probe_set_tblproperties",
      "ok": true,
-     "row_count": 3,
+     "row_count": 4,
      "rows": [
       [
        "metric_view.from.name",
@@ -1567,6 +1567,10 @@
       [
        "team",
        "growth"
+      ],
+      [
+       "transient_lastDdlTime",
+       "<time>"
       ]
      ]
     }
@@ -1719,7 +1723,7 @@
     {
      "statement": "DESCRIBE TABLE EXTENDED probe_describe_extended",
      "ok": true,
-     "row_count": 17,
+     "row_count": 22,
      "rows": [
       [
        "region",
@@ -1772,6 +1776,11 @@
        ""
       ],
       [
+       "Owner",
+       "spark",
+       ""
+      ],
+      [
        "Created Time",
        "<time>",
        ""
@@ -1803,7 +1812,27 @@
       ],
       [
        "Table Properties",
-       "[metric_view.from.name=sessions, metric_view.from.type=ASSET]",
+       "[metric_view.from.name=sessions, metric_view.from.type=ASSET, transient_lastDdlTime=<time>]",
+       ""
+      ],
+      [
+       "Serde Library",
+       "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+       ""
+      ],
+      [
+       "InputFormat",
+       "org.apache.hadoop.mapred.SequenceFileInputFormat",
+       ""
+      ],
+      [
+       "OutputFormat",
+       "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+       ""
+      ],
+      [
+       "Storage Properties",
+       "[serialization.format=1]",
        ""
       ]
      ]
@@ -1826,7 +1855,7 @@
      "row_count": 1,
      "rows": [
       [
-       "{\"table_name\":\"probe_describe_json\",\"catalog_name\":\"spark_catalog\",\"namespace\":[\"default\"],\"schema_name\":\"default\",\"columns\":[{\"name\":\"region\",\"type\":{\"name\":\"string\",\"collation\":\"UTF8_BINARY\"},\"nullable\":true},{\"name\":\"session_date\",\"type\":{\"name\":\"string\",\"collation\":\"UTF8_BINARY\"},\"nullable\":true},{\"name\":\"total_sessions\",\"type\":{\"name\":\"bigint\"},\"nullable\":false},{\"name\":\"conversion_rate\",\"type\":{\"name\":\"double\"},\"nullable\":true},{\"name\":\"active_users\",\"type\":{\"name\":\"bigint\"},\"nullable\":false}],\"created_time\":\"<time>\",\"last_access\":\"UNKNOWN\",\"created_by\":\"Spark 4.2.0\",\"type\":\"METRIC_VIEW\",\"view_text\":\"\\nversion: 0.1\\nsource: sessions\\ndimensions:\\n  - name: region\\n    expr: region\\n  - name: session_date\\n    expr: session_date\\nmeasures:\\n  - name: total_sessions\\n    expr: COUNT(1)\\n  - name: conversion_rate\\n    expr: SUM(CAST(converted AS INT)) / COUNT(1)\\n  - name: active_users\\n    expr: COUNT(DISTINCT user_id)\\n\",\"language\":\"YAML\",\"table_properties\":{\"metric_view.from.name\":\"sessions\",\"metric_view.from.type\":\"ASSET\"},\"view_creation_spark_configuration\":{\"spark.sql.artifact.isolation.enabled\":\"true\",\"spark.sql.session.timeZone\":\"Etc/UTC\",\"spark.sql.ansi.enabled\":\"true\",\"spark.sql.artifact.isolation.alwaysApplyClassloader\":\"true\"},\"collation\":\"UTF8_BINARY\"}"
+       "{\"table_name\":\"probe_describe_json\",\"catalog_name\":\"spark_catalog\",\"namespace\":[\"default\"],\"schema_name\":\"default\",\"columns\":[{\"name\":\"region\",\"type\":{\"name\":\"string\",\"collation\":\"UTF8_BINARY\"},\"nullable\":true},{\"name\":\"session_date\",\"type\":{\"name\":\"string\",\"collation\":\"UTF8_BINARY\"},\"nullable\":true},{\"name\":\"total_sessions\",\"type\":{\"name\":\"bigint\"},\"nullable\":false},{\"name\":\"conversion_rate\",\"type\":{\"name\":\"double\"},\"nullable\":true},{\"name\":\"active_users\",\"type\":{\"name\":\"bigint\"},\"nullable\":false}],\"serde_library\":\"org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe\",\"input_format\":\"org.apache.hadoop.mapred.SequenceFileInputFormat\",\"output_format\":\"org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat\",\"storage_properties\":{\"serialization.format\":\"1\"},\"owner\":\"spark\",\"created_time\":\"<time>\",\"last_access\":\"UNKNOWN\",\"created_by\":\"Spark 4.2.0\",\"type\":\"METRIC_VIEW\",\"view_text\":\"\\nversion: 0.1\\nsource: sessions\\ndimensions:\\n  - name: region\\n    expr: region\\n  - name: session_date\\n    expr: session_date\\nmeasures:\\n  - name: total_sessions\\n    expr: COUNT(1)\\n  - name: conversion_rate\\n    expr: SUM(CAST(converted AS INT)) / COUNT(1)\\n  - name: active_users\\n    expr: COUNT(DISTINCT user_id)\\n\",\"language\":\"YAML\",\"table_properties\":{\"metric_view.from.name\":\"sessions\",\"metric_view.from.type\":\"ASSET\",\"transient_lastDdlTime\":\"<time>\"},\"view_creation_spark_configuration\":{\"spark.sql.artifact.isolation.enabled\":\"true\",\"spark.sql.session.timeZone\":\"Etc/UTC\",\"spark.sql.ansi.enabled\":\"true\",\"spark.sql.artifact.isolation.alwaysApplyClassloader\":\"true\"},\"collation\":\"UTF8_BINARY\"}"
       ]
      ]
     }

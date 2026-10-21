@@ -1,0 +1,32 @@
+# Order metrics over sessions joined to orders, excluding the remote region.
+version: 0.1
+source: >
+  SELECT s.session_id, s.user_id, s.region, s.session_date, s.converted,
+  o.order_id, o.order_total
+  FROM default.sessions s LEFT JOIN default.orders o ON s.session_id = o.session_id
+filter: region <> 'remote'
+dimensions:
+  - name: region
+    expr: region
+  - name: session_date
+    expr: session_date
+  - name: day_type
+    expr: CASE WHEN dayofweek(to_date(session_date)) IN (1, 7) THEN 'weekend' ELSE 'weekday' END
+  - name: region_tier
+    expr: CASE WHEN region IN ('metro', 'urban') THEN 'core' ELSE 'long_tail' END
+measures:
+  - name: sessions
+    expr: COUNT(1)
+  - name: conversion_rate
+    expr: SUM(CAST(converted AS INT)) / COUNT(1)
+  - name: paying_users
+    expr: COUNT(DISTINCT CASE WHEN order_id IS NOT NULL THEN user_id END)
+  - name: orders
+    expr: COUNT(order_id)
+  - name: revenue
+    expr: SUM(order_total)
+  - name: aov
+    expr: SUM(order_total) / NULLIF(COUNT(order_id), 0)
+  - name: arppu
+    expr: SUM(order_total)
+      / NULLIF(COUNT(DISTINCT CASE WHEN order_id IS NOT NULL THEN user_id END), 0)

@@ -1,0 +1,17 @@
+# Session metrics for the delivery service. Registered with `make register`.
+version: 0.1
+source: default.sessions
+dimensions:
+  - name: region
+    expr: region
+  - name: session_date
+    expr: session_date
+measures:
+  - name: total_sessions
+    expr: COUNT(1)
+  - name: converted_sessions
+    expr: SUM(CAST(converted AS INT))
+  - name: conversion_rate
+    expr: SUM(CAST(converted AS INT)) / COUNT(1)
+  - name: active_users
+    expr: COUNT(DISTINCT user_id)

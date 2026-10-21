@@ -6,7 +6,7 @@
   "catalog": "in-memory",
   "client": "pyspark 4.2.0",
   "python": "3.10.20",
-  "recorded": "2026-09-11",
+  "recorded": "2026-10-14",
   "objects_dropped_at_start": 0
  },
  "setup": [

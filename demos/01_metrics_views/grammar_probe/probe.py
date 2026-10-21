@@ -336,14 +336,28 @@ def build_cases(spark, data: str) -> list[dict]:
     ]
 
 
+# The Hive metastore stamps every DDL with transient_lastDdlTime, a Unix time that changes on each
+# run. It appears as a value in SHOW TBLPROPERTIES rows, and inside the text of DESCRIBE output.
+LAST_DDL = re.compile(r"(transient_lastDdlTime[\"']?\s*[:=]\s*[\"']?)\d+")
+
+
 def scrub(text: str) -> str:
+    text = LAST_DDL.sub(r"\1<time>", text)
     return RUN_ID.sub(r"\1<id>", TIME.sub("<time>", text))
 
 
 def normalize(value) -> list[list[str]]:
     if isinstance(value, list):
-        return [[scrub(str(v)) for v in row] if isinstance(row, (list, tuple))
-                else [scrub(str(row))] for row in value[:MAX_ROWS]]
+        rows = []
+        for row in value[:MAX_ROWS]:
+            if isinstance(row, (list, tuple)):
+                cells = [scrub(str(v)) for v in row]
+                if cells and cells[0] == "transient_lastDdlTime":
+                    cells = [cells[0], "<time>", *cells[2:]]
+                rows.append(cells)
+            else:
+                rows.append([scrub(str(row))])
+        return rows
     return [[scrub(str(value))]]
 
 

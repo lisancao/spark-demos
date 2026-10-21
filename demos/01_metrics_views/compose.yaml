@@ -1,5 +1,5 @@
 # A Spark Connect server on the official Apache Spark 4.2.0 image, with the generated dataset
-# mounted read-only. Start it with `make up`. Ports are listed in README.md and can be changed in
+# mounted read-only and a persistent catalog. Start it with `make up`. Ports are listed in README.md and can be changed in
 # .env.
 name: metric-views-demo
 
@@ -12,8 +12,14 @@ services:
       - --wait
       - --conf
       - spark.connect.grpc.binding.host=0.0.0.0
+      # A Hive metastore (embedded Derby) on a named volume, so tables and metric views registered
+      # from one session are visible to every other session and survive a restart of the server.
       - --conf
-      - spark.sql.warehouse.dir=file:/tmp/warehouse
+      - spark.sql.catalogImplementation=hive
+      - --conf
+      - spark.sql.warehouse.dir=file:/opt/spark/work-dir/warehouse
+      - --conf
+      - spark.hadoop.javax.jdo.option.ConnectionURL=jdbc:derby:;databaseName=/opt/spark/work-dir/metastore_db;create=true
     ports:
       - "127.0.0.1:${CONNECT_PORT:-15002}:15002"
       - "127.0.0.1:${CONNECT_UI_PORT:-4040}:4040"
@@ -21,12 +27,14 @@ services:
       # The examples register the Parquet files as external tables, so the server reads them in
       # place and never writes to this directory.
       - ./data:/demo/data:ro
-    tmpfs:
-      # Anything a query writes to the warehouse is removed when the container stops.
-      - /tmp/warehouse:uid=185,gid=185
+      # The catalog (Derby metastore and warehouse). `make clean` removes it.
+      - catalog:/opt/spark/work-dir
     healthcheck:
       test: ["CMD", "bash", "-c", "</dev/tcp/127.0.0.1/15002"]
       interval: 5s
       timeout: 3s
       retries: 40
       start_period: 10s
+
+volumes:
+  catalog:
