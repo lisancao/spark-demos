@@ -12,7 +12,8 @@ PYFULL  := .venv-full/bin/python
 COMPOSE := docker compose
 
 .DEFAULT_GOAL := help
-.PHONY: help setup data up doctor examples reel test down probe teleprompter check clean
+.PHONY: help setup data up doctor examples reel test down probe teleprompter check clean \
+        register jdbc dashboard agent
 
 help:  ## List targets
 	@grep -hE '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*## "};{printf "  %-14s %s\n",$$1,$$2}'
@@ -58,8 +59,22 @@ test:  ## Run unit tests, then Spark tests on Classic and on Connect
 	env -u SPARK_REMOTE $(PYFULL) -m pytest tests/spark
 	$(PY) -m pytest tests/spark tests/connect
 
-down:  ## Stop the server
+down:  ## Stop the server (the catalog volume is kept; `make clean` removes it)
 	$(COMPOSE) down
+
+# ---- the metric views, from a file to every client -----------------------------------------------
+
+register:  ## Register the metric views in metrics/*.yaml, replacing any that exist
+	$(PY) apps/register.py metrics/*.yaml
+
+jdbc:  ## Query the server over JDBC from beeline (no Python); SQL="..." runs one statement
+	apps/jdbc.sh $(if $(SQL),"$(SQL)",)
+
+dashboard:  ## Serve the Streamlit dashboard over the metric views on http://localhost:8501
+	$(PY) -m streamlit run apps/dashboard.py --server.headless true --browser.gatherUsageStats false
+
+agent:  ## Ask the Claude agent a question: make agent Q="..." [CONTEXT=metric-view|tables]
+	$(PY) apps/agent.py --context $(or $(CONTEXT),metric-view) "$(Q)"
 
 # ---- off camera --------------------------------------------------------------------------------
 

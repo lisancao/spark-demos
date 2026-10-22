@@ -13,8 +13,9 @@ def test_version(spark):
     assert spark.version == RECORDED["meta"]["spark_version"] == "4.2.0"
 
 
-def test_catalog_is_in_memory(spark):
-    assert spark.conf.get("spark.sql.catalogImplementation") == "in-memory"
+def test_catalog_is_hive(spark):
+    # compose.yaml keeps a Hive metastore on a volume, so registered views outlive a restart.
+    assert spark.conf.get("spark.sql.catalogImplementation") == "hive"
 
 
 def test_dataset_is_mounted(spark, data_dir):

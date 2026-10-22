@@ -256,7 +256,8 @@ def style_files():
         for name in files:
             path = Path(directory) / name
             checked = path.suffix in STYLE_SUFFIXES or name == "Makefile"
-            if checked and path != THIS:
+            # apps/RUNS.md is verbatim model output, so the prose rules do not apply to it.
+            if checked and path != THIS and name != "RUNS.md":
                 yield path
 
 

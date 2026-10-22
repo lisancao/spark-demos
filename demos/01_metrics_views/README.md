@@ -197,6 +197,8 @@ in `tests/figures.py` and error conditions that the probe recorded.
 ```
 01_metrics_views/
 ├── examples/        Eight numbered scripts
+├── metrics/         The metric view definitions, one YAML file each; `make register` puts them in the catalog
+├── apps/            register.py, jdbc.sh (beeline over jdbc:sc://), dashboard.py (Streamlit), agent.py (Claude), RUNS.md
 ├── grammar_probe/   probe.py, and results/ with the recorded runs
 ├── tests/           figures.py, and the unit/, spark/ and connect/ tiers
 ├── tools/           generate_data.py, doctor.py, check.py, teleprompter_export.py
@@ -225,11 +227,26 @@ On 2026-09-11, against the server in `compose.yaml`:
   least 4.5:1, a 20 px minimum text size and a 1920 by 1080 canvas, and were rendered in cairosvg.
 - `make check` found no problems in this README, the blog post or the two video scripts.
 
+## From a File to Every Client
+
+The definitions live in `metrics/` as YAML files. `make register` runs `apps/register.py`, which
+wraps each file in `CREATE VIEW ... WITH METRICS LANGUAGE YAML AS $$...$$` and sends it to the
+server; the server in `compose.yaml` keeps its catalog in a Hive metastore on a named volume, so a
+registered view is visible to every session and survives `make down`. Three consumers then use the
+views without knowing how any measure is computed:
+
+| Target | What it does |
+|---|---|
+| `make jdbc SQL="..."` | `apps/jdbc.sh`: beeline from the Spark image, connected over `jdbc:sc://localhost:15002` with the Spark Connect JDBC driver (fetched from Maven Central into `apps/jdbc/` on first use) |
+| `make dashboard` | `apps/dashboard.py`: a Streamlit page that reads every metric view's definition from the catalog, offers dimensions and measures as controls, and runs the `MEASURE()` query |
+| `make agent Q="..."` | `apps/agent.py`: a Claude agent (Claude API, `claude-opus-5-5`) with one tool, `run_sql`; `CONTEXT=tables` shows it only the raw tables instead of the metric views. Needs an Anthropic API key in the environment. Transcripts of six runs are in `apps/RUNS.md` |
+
 ## Known Constraints
 
-- **Definitions last until the server stops.** The server uses Spark's in-memory catalog, so
-  `make down` removes every table and metric view. Each example registers the tables it needs, and
-  examples 04 and 05 need the view from example 03.
+- **The catalog lives in a Docker volume.** The server keeps a Hive metastore (embedded Derby) on
+  the `catalog` volume, so tables and metric views survive `make down`; `make clean` removes them.
+  Each example still registers the tables it needs, and examples 04 and 05 need the view from
+  example 03 (or `make register`).
 - **`CREATE OR REPLACE` does not replace a metric view in the session catalog.** It fails with
   `TABLE_OR_VIEW_ALREADY_EXISTS`, so the examples drop a view before creating it (blog post §7).
 - **Some invalid statements fail with `INTERNAL_ERROR`,** including `SELECT *` from a metric view and
