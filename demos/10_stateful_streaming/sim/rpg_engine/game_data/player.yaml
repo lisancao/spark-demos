@@ -1,0 +1,37 @@
+player:
+  name: "the traveler"
+  class: ""
+  level: 1
+  location: crossroads_inn
+  stats:
+    health: 10
+    stamina: 8
+    perception: 6
+    persuasion: 4
+  max_stats:
+    health: 10
+    stamina: 8
+    perception: 6
+    persuasion: 4
+  conditions: []
+  equipped: {}
+  inventory:
+    - id: worn_pack
+      name: "a worn leather pack"
+      description: "Cracked leather, one strap repaired with cord."
+      notable: false
+    - id: waterskin
+      name: "a half-empty waterskin"
+      description: "Lukewarm water. Enough for a day."
+      notable: false
+    - id: belt_knife
+      name: "a short knife"
+      description: "Not a weapon — a tool. Good for rope, bread, and bluffing."
+      notable: false
+    - id: silver_coin_pouch
+      name: "a pouch with a few silver coins"
+      description: "Enough for a room and a meal. Maybe two if you're careful."
+      notable: false
+  knowledge: []
+  event_log: []
+  location_history: []

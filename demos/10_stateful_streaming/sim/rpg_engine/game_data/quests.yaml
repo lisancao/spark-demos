@@ -1,0 +1,209 @@
+quests:
+  - id: missing_woodcutters
+    name: "The Missing Woodcutters"
+    description: >
+      Three woodcutters have disappeared in Thornwood over the past
+      season. The town is quiet about it — too quiet. Something in
+      the forest is taking people, or something in the forest is
+      calling them.
+    status: inactive
+    current_stage: 0
+    stages:
+      - objective: "Learn about the disappearances."
+        location: crossroads_inn
+        triggers:
+          - "Ask Maren about Thornwood"
+          - "Read the notice on the inn door"
+        conditions:
+          - type: at_location
+            location: crossroads_inn
+          - type: text_contains
+            keywords: ["thornwood", "woodcutter", "missing", "disappear", "notice", "reward"]
+        hints:
+          - "The innkeeper seems to know more than she's saying."
+          - "There's a faded notice pinned to the inn door."
+        completion: "Player learns about the missing woodcutters."
+      - objective: "Investigate Thornwood."
+        location: dark_forest_edge
+        triggers:
+          - "Enter Thornwood"
+          - "Find tracks or signs of the missing"
+        conditions:
+          - type: at_location
+            location: dark_forest_edge
+          - type: action_type
+            type: look
+        hints:
+          - "The forest edge might hold clues."
+          - "Something has blocked the path deeper in."
+        completion: "Player finds evidence of the woodcutters' route."
+      - objective: "Reach the clearing."
+        location: forest_clearing
+        triggers:
+          - "Clear the blocked path"
+          - "Find another way to the clearing"
+        conditions:
+          - type: at_location
+            location: forest_clearing
+        hints:
+          - "The blocked path might yield to force or cunning."
+          - "Davan might know alternative routes."
+        completion: "Player reaches the clearing and the stone marker."
+      - objective: "Understand the stone marker."
+        location: forest_clearing
+        triggers:
+          - "Examine the stone marker"
+          - "Speak to Sister Vale about what you found"
+        conditions:
+          - type: at_location
+            location: forest_clearing
+          - type: text_contains
+            keywords: ["stone", "marker", "symbol", "carving", "examine"]
+        hints:
+          - "Sister Vale at the chapel seems connected to this."
+          - "The symbols on the marker might mean something."
+        completion: "Player learns the nature of the seal."
+
+  - id: davans_commission
+    name: "The Merchant's Interest"
+    description: >
+      Davan the merchant has been hired to acquire information about
+      the stone marker in Thornwood. He's looking for someone to do
+      the fieldwork. The question is: who hired him, and why do they
+      want it?
+    status: inactive
+    current_stage: 0
+    stages:
+      - objective: "Learn what Davan is really after."
+        location: market_square
+        triggers:
+          - "Trade information with Davan"
+          - "Notice his sealed letter"
+        conditions:
+          - type: at_location
+            location: market_square
+          - type: action_type
+            type: talk
+          - type: action_target
+            target: davan
+          - type: text_contains
+            keywords: ["letter", "trade", "information", "hire", "offer", "buy"]
+        hints:
+          - "Davan values information about Thornwood."
+          - "He's not just here to sell trinkets."
+        completion: "Player learns Davan wants the marker carvings."
+      - objective: "Decide whether to help Davan."
+        location: any
+        triggers:
+          - "Agree to get the carvings"
+          - "Refuse and warn others"
+        conditions:
+          - type: quest_status
+            quest_id: davans_commission
+            status: active
+          - type: text_contains
+            keywords: ["agree", "accept", "refuse", "decline", "help", "deal"]
+        hints:
+          - "Helping Davan means going to the clearing."
+          - "His employer's motives are unknown."
+        completion: "Player commits to a path."
+
+  - id: wardens_silence
+    name: "The Warden's Silence"
+    description: >
+      Warden Aldric is hiding something. His deputy went into
+      Thornwood and never came back. The reports he filed were
+      ignored. The guilt is visible on his face. What happened
+      to Rohn — and why won't the warden talk about it?
+    status: inactive
+    current_stage: 0
+    stages:
+      - objective: "Discover the warden's journal."
+        location: warden_office
+        triggers:
+          - "Read the journal in the warden's office"
+          - "Search the warden's desk"
+        conditions:
+          - type: at_location
+            location: warden_office
+          - type: text_contains
+            keywords: ["journal", "read", "desk", "search", "examine", "look"]
+        hints:
+          - "The warden's office might hold records."
+          - "There's a leather-bound journal on his desk."
+        completion: "Player reads the journal and learns about Rohn."
+      - objective: "Confront Warden Aldric about his deputy."
+        location: warden_office
+        triggers:
+          - "Ask Aldric about Rohn"
+          - "Confront the warden"
+        conditions:
+          - type: at_location
+            location: warden_office
+          - type: action_type
+            type: talk
+          - type: action_target
+            target: old_warden
+          - type: text_contains
+            keywords: ["rohn", "deputy", "sent", "journal", "truth"]
+        hints:
+          - "Ask the warden about his deputy, Rohn."
+          - "The journal mentions the warden sent someone."
+        completion: "The warden breaks down and confesses."
+      - objective: "Find where Rohn was last seen."
+        location: dark_forest_edge
+        triggers:
+          - "Search the forest for signs of Rohn"
+        conditions:
+          - type: at_location
+            location: dark_forest_edge
+          - type: action_type
+            type: look
+          - type: knows_fact
+            fact_id: deputy_rohn
+        hints:
+          - "Rohn entered the forest near the main path."
+          - "Look for signs of his passage."
+        completion: "Player finds evidence of where Rohn went."
+
+  - id: stranger_at_river
+    name: "The Stranger at the River"
+    description: >
+      A hooded figure camps by the river. They know things they
+      shouldn't — about the forest, about the seals, about what's
+      coming. Who are they? And who sent them?
+    status: inactive
+    current_stage: 0
+    stages:
+      - objective: "Encounter the stranger at the riverside camp."
+        location: riverside_camp
+        triggers:
+          - "Visit the riverside camp"
+          - "Talk to the stranger"
+        conditions:
+          - type: at_location
+            location: riverside_camp
+          - type: action_type
+            type: talk
+          - type: action_target
+            target: the_stranger
+        hints:
+          - "Someone's camping by the river downstream from the bridge."
+          - "The smoke from their fire is visible from the road."
+        completion: "Player meets the stranger."
+      - objective: "Decide what to share with the stranger."
+        location: riverside_camp
+        triggers:
+          - "Share information with the stranger"
+          - "Tell the stranger about the clearing"
+        conditions:
+          - type: at_location
+            location: riverside_camp
+          - type: action_type
+            type: talk
+          - type: text_contains
+            keywords: ["clearing", "seal", "marker", "forest", "seekers", "trust", "tell"]
+        hints:
+          - "The stranger knows things. They might share more if you share first."
+          - "Trust is earned, not given."
+        completion: "Player establishes (or refuses) mutual trust."

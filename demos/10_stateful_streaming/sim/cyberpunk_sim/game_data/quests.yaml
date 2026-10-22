@@ -1,0 +1,151 @@
+quests:
+- current_stage: 0
+  description: 'A data_heist quest: The Electric Download.'
+  id: the_electric_download
+  name: The Electric Download
+  stages:
+  - completion: 'Stage completed: Get the job details from Red.'
+    conditions:
+    - location: food_stall_1
+      type: at_location
+    - action_type: talk
+      type: action_type
+    hints:
+    - Look around The Bloody Bowl for clues.
+    location: food_stall_1
+    objective: Get the job details from Red.
+    triggers:
+    - Talk to Red at The Bloody Bowl
+  - completion: 'Stage completed: Find a netrunner to crack the ICE at Nguyen''s Clinic.'
+    conditions:
+    - location: black_market_16
+      type: at_location
+    - action_type: take
+      type: action_type
+    hints:
+    - Look around Nguyen's Stock for clues.
+    location: black_market_16
+    objective: Find a netrunner to crack the ICE at Nguyen's Clinic.
+    triggers:
+    - Search Nguyen's Stock for what you need
+  - completion: 'Stage completed: Infiltrate something and extract the data.'
+    conditions:
+    - location: megabuilding_8
+      type: at_location
+    hints:
+    - Look around Megabuilding HGhost for clues.
+    location: megabuilding_8
+    objective: Infiltrate something and extract the data.
+    triggers:
+    - Go to Megabuilding HGhost
+  - completion: 'Stage completed: Deliver the shard to Tomás and collect payment.'
+    conditions:
+    - location: power_plant_33
+      type: at_location
+    hints:
+    - Look around Santos Power Station for clues.
+    location: power_plant_33
+    objective: Deliver the shard to Tomás and collect payment.
+    triggers:
+    - Go to Santos Power Station
+  status: active
+- current_stage: 0
+  description: 'A gang_war quest: Taking Edge.'
+  id: taking_edge
+  name: Taking Edge
+  stages:
+  - completion: 'Stage completed: Meet with Priya the 51th about the territory dispute.'
+    conditions:
+    - location: megabuilding_30
+      type: at_location
+    - action_type: talk
+      type: action_type
+    hints:
+    - Look around Reyes Tower for clues.
+    location: megabuilding_30
+    objective: Meet with Priya the 51th about the territory dispute.
+    triggers:
+    - Talk to Priya the 51th at Reyes Tower
+  - completion: 'Stage completed: Scout the contested zone at Vasquez''s Clinic.'
+    conditions:
+    - location: nightclub_23
+      type: at_location
+    - action_type: look
+      type: action_type
+    hints:
+    - Look around Club Edge for clues.
+    location: nightclub_23
+    objective: Scout the contested zone at Vasquez's Clinic.
+    triggers:
+    - Investigate Club Edge
+  - completion: 'Stage completed: Eliminate the rival presence at something.'
+    conditions:
+    - location: fixer_office_37
+      type: at_location
+    hints:
+    - Look around Back Room Stack for clues.
+    location: fixer_office_37
+    objective: Eliminate the rival presence at something.
+    triggers:
+    - Go to Back Room Stack
+  - completion: 'Stage completed: Report back to Padre and claim the territory.'
+    conditions:
+    - location: gang_hideout_28
+      type: at_location
+    - action_type: talk
+      type: action_type
+    hints:
+    - Look around The Cold Den for clues.
+    location: gang_hideout_28
+    objective: Report back to Padre and claim the territory.
+    triggers:
+    - Talk to Padre at The Cold Den
+  status: active
+- current_stage: 0
+  description: 'A corpo_extraction quest: Burning Wire.'
+  id: burning_wire
+  name: Burning Wire
+  stages:
+  - completion: 'Stage completed: Get briefed by Aisha on the target.'
+    conditions:
+    - location: food_stall_42
+      type: at_location
+    - action_type: talk
+      type: action_type
+    hints:
+    - Look around Street Stack for clues.
+    location: food_stall_42
+    objective: Get briefed by Aisha on the target.
+    triggers:
+    - Talk to Aisha at Street Stack
+  - completion: 'Stage completed: Surveil the target at ICE House.'
+    conditions:
+    - location: corpo_tower_29
+      type: at_location
+    hints:
+    - Look around Okonkwo Corp Tower for clues.
+    location: corpo_tower_29
+    objective: Surveil the target at ICE House.
+    triggers:
+    - Go to Okonkwo Corp Tower
+  - completion: 'Stage completed: Extract the target from something.'
+    conditions:
+    - location: food_stall_1
+      type: at_location
+    hints:
+    - Look around The Bloody Bowl for clues.
+    location: food_stall_1
+    objective: Extract the target from something.
+    triggers:
+    - Go to The Bloody Bowl
+  - completion: 'Stage completed: Deliver the target to Priya the 51th at the safe location.'
+    conditions:
+    - location: megabuilding_30
+      type: at_location
+    hints:
+    - Look around Reyes Tower for clues.
+    location: megabuilding_30
+    objective: Deliver the target to Priya the 51th at the safe location.
+    triggers:
+    - Go to Reyes Tower
+  status: active

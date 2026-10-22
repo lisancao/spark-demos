@@ -1,0 +1,14 @@
+data/
+ivy-cache/
+sim/output/*.ndjson
+sim/output/_manifest.json
+spark/target/
+spark/project/target/
+spark/project/project/
+__pycache__/
+*.pyc
+.bsp/
+sim/output_losantos/*.ndjson
+sim/output_losantos/_manifest.json
+sim/output_losantos/**/*.ndjson
+sim/output_losantos/**/_manifest.json
