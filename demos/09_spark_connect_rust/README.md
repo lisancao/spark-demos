@@ -10,14 +10,14 @@ between. The program takes one query through all three engines and back:
    hash functions; nothing is downloaded.
 2. **Spark -> Rust.** One city's orders (1.67M rows) come back as arrow-rs `RecordBatch`es via
    `collect_record_batches()`, as Arrow IPC via `to_arrow()`, and as `Row`s via `collect()`, each timed.
-3. **DuckDB queries the batches in place** (`vtab-arrow`; the client and duckdb-rs share arrow-rs 58)
+3. **DuckDB queries the batches without a copy at registration** (`vtab-arrow`; the client and duckdb-rs share arrow-rs 58; each scan still converts the vectors it reads)
    and runs an ASOF JOIN against a surge schedule that exists only in the client process. The same
    query is timed again on a native DuckDB copy of the rows.
 4. **Polars gets the daily aggregates** through `to_polars()` and computes a 7-day rolling mean and
    day-over-day change per city.
 5. **Polars -> DuckDB** through Arrow IPC bytes (Polars has its own Arrow implementation, `polars-arrow`).
 6. **DuckDB -> Spark.** The rollup goes back through `create_dataframe` and is saved as a Spark table.
-7. **Type reference.** One literal of every Spark SQL type, pulled through the client and shown as
+7. **Type reference.** One literal of each common Spark SQL type, pulled through the client and shown as
    arrow-rs, DuckDB and Polars each see it.
 
 Every cross-check prints `PASS` or `FAIL`; `./verify.sh` fails if any check fails. The blog post that
