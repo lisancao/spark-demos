@@ -26,3 +26,9 @@ derby.log
 .vscode/
 !demos/01_metrics_views/.vscode/
 !demos/02_spark_connect/.vscode/
+
+# Demo films (made with the film-demo skill): renders stay local
+**/film/renders/
+*.mp4
+*.mov
+*.webm
