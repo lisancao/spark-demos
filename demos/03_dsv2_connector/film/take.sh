@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # The DSv2 pushdown film: IntelliJ under the debugger, on the film display (:99).
-# Storyboard: storyboard.md. Kit: film/kit/ide (see film/README.md).
+# Storyboard: storyboard.md. Kit: the film-demo skill's kit/ide (see kit/README.md there).
 #   take.sh prep     off camera: reset IntelliJ to the starting state, screenshot renders/prep.png
 #   take.sh dry      run the take without recording; screenshot each beat as it starts
 #   take.sh record   record renders/take-raw.mp4 and renders/take.marks
-# Then: film/kit/film.py ide demos/03_dsv2_connector/film
+# Then: film ide demos/03_dsv2_connector/film
 # Starting state: BeforeAfterDemo.java open at line 75 (zt), project tree and Debug
 # hidden, no breakpoints, CsvScanBuilder.java closed. Click positions assume the
 # default tool window layout of a fresh launch (a dragged panel height does not
@@ -12,7 +12,7 @@
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 mode="${1:-dry}"
-source "$here/../../../film/kit/ide/take-lib.sh"
+source "${FILM_KIT:-$HOME/.claude/skills/film-demo/kit}/ide/take-lib.sh"
 
 if [[ "$mode" == prep ]]; then
   # A fresh launch of the film profile reopens README.md with the project tree showing

@@ -1,6 +1,6 @@
 # Metric views, filmed from the reel's five examples. Storyboard: storyboard.md.
-#   film/kit/film.py render demos/01_metrics_views/film/metric_views.tape [--format vertical]
-#   film/kit/film.py real   demos/01_metrics_views/film/metric_views.tape
+#   film render demos/01_metrics_views/film/metric_views.tape [--format vertical]
+#   film real   demos/01_metrics_views/film/metric_views.tape
 # Needs the demo's Connect server (make up) and .venv.
 Set TypingSpeed 45ms
 Set WaitPattern /❯$/

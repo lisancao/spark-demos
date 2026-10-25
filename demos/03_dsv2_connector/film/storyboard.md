@@ -5,7 +5,7 @@ what it can apply and hands the rest back. One breakpoint in
 `CsvScanBuilder.pushFilters` shows the whole exchange, and the physical plan agrees
 with it. This is the first breakpoint `IDEA_SETUP.md` recommends.
 
-**Take:** `take.sh`. **Needs:** the film profile (`film/kit/ide/make-profile.sh`), the
+**Take:** `take.sh`. **Needs:** the film profile (`kit/ide/make-profile.sh` in the film-demo skill), the
 project opened once with `setup-idea.sh` run, and `SPARK_HOME` in the run configuration
 pointing at a Spark 4.2 install (the pyspark in demo 01's `.venv` works).
 

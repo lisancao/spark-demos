@@ -27,9 +27,8 @@ derby.log
 !demos/01_metrics_views/.vscode/
 !demos/02_spark_connect/.vscode/
 
-# Demo films: renders and the IntelliJ film profile stay local (see film/README.md)
+# Demo films (made with the film-demo skill): renders stay local
 **/film/renders/
-film/kit/ide/profile/
 *.mp4
 *.mov
 *.webm
