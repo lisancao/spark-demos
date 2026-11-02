@@ -1,4 +1,4 @@
-# Spark Connect from Rust, with DuckDB and Polars
+# Spark Connect from Rust, with DuckDB 2.0 and Polars
 
 A walkthrough of the official [Apache Spark Connect client for Rust](https://github.com/apache/spark-connect-rust)
 (crate `apache-spark-connect` 4.2.0, docs at [apache.github.io/spark-connect-rust](https://apache.github.io/spark-connect-rust/)).
@@ -10,11 +10,13 @@ between. The program takes one query through all three engines and back:
    hash functions; nothing is downloaded.
 2. **Spark -> Rust.** One city's orders (1.67M rows) come back as arrow-rs `RecordBatch`es via
    `collect_record_batches()`, as Arrow IPC via `to_arrow()`, and as `Row`s via `collect()`, each timed.
-3. **DuckDB queries the batches without a copy at registration** (`vtab-arrow`; the client and duckdb-rs share arrow-rs 58; each scan still converts the vectors it reads)
-   and runs an ASOF JOIN against a surge schedule that exists only in the client process. The same
-   query is timed again on a native DuckDB copy of the rows.
-4. **Polars gets the daily aggregates** through `to_polars()` and computes a 7-day rolling mean and
-   day-over-day change per city.
+3. **DuckDB 2.0 reads the IPC bytes.** The client is built on arrow-rs 58 and duckdb-rs for DuckDB 2.0 on
+   arrow-rs 60, so their `RecordBatch`es are different Rust types; the `to_arrow()` bytes are the hand-off.
+   arrow 60 decodes them, DuckDB registers the batch without a copy (`vtab-arrow`; each scan still converts
+   the vectors it reads), and runs an ASOF JOIN against a surge schedule that exists only in the client
+   process. The same query is timed again on a native DuckDB copy of the rows.
+4. **Polars gets the daily aggregates** from the same kind of IPC bytes (`to_arrow()` + `IpcReader`) and
+   computes a 7-day rolling mean and day-over-day change per city.
 5. **Polars -> DuckDB** through Arrow IPC bytes (Polars has its own Arrow implementation, `polars-arrow`).
 6. **DuckDB -> Spark.** The rollup goes back through `create_dataframe` and is saved as a Spark table.
 7. **Type reference.** One literal of each common Spark SQL type, pulled through the client and shown as
@@ -27,7 +29,7 @@ walks through it is on [systemsnull.net](https://systemsnull.net/posts/data-engi
 
 | Requirement | Why | Install |
 |---|---|---|
-| Rust 1.98+ | polars 0.54 uses std APIs newer than 1.92. `rust-toolchain.toml` pins it, so `rustup` fetches it on its own | nothing to do with rustup |
+| Rust 1.98+ | polars 0.55 uses std APIs newer than 1.92 (`std::hint::cold_path`). `rust-toolchain.toml` pins it, so `rustup` fetches it on its own | nothing to do with rustup |
 | `protoc` | the client compiles the Spark Connect `.proto` files at build time | `apt-get install protobuf-compiler` / `brew install protobuf` |
 | C++ toolchain + CMake | DuckDB is built from source (`bundled`); the first build takes several minutes | `apt-get install build-essential cmake` / `brew install cmake` |
 | Docker | the Spark 4.2.0 Connect server in `compose.yaml` (or point `SPARK_REMOTE` at any Spark 4.2+ Connect server) | |
@@ -44,25 +46,32 @@ SPARK_REMOTE=sc://localhost:15002 cargo run --release
 docker compose down -v
 ```
 
-`CONNECT_PORT` and `UI_PORT` change the published ports (the run below used `CONNECT_PORT=15902`
-because 15002 was taken on this machine).
+`CONNECT_PORT` and `UI_PORT` change the published ports if 15002 or 4040 is taken.
+
+## Why not `to_polars()` and Polars 2.0
+
+The client's `polars` feature builds `to_polars()` against polars 0.54, so a frame from it can't be
+used with a newer polars. Reading the `to_arrow()` bytes with `IpcReader` is what `to_polars()` does
+internally, and it works with any polars. Polars 2.0 is a Python release: as of November 2026 there is
+no 2.x `polars` crate, and its source tree only builds with Polars' own patched `hashbrown` and a nightly
+toolchain, so this demo uses the newest crate, 0.55.2.
 
 ## Versions this was verified with
 
 | Component | Version |
 |---|---|
 | Spark Connect server | 4.2.0 (`apache/spark:4.2.0-scala2.13-java21-python3-ubuntu`) |
-| `apache-spark-connect` (Rust client) | 4.2.0, feature `polars` |
-| `arrow` (arrow-rs) | 58.4.0 (shared by the client and `duckdb`) |
-| `duckdb` (duckdb-rs) | 1.10506.1, DuckDB v1.5.6, features `bundled`, `vtab-arrow`, `appender-arrow` |
-| `polars` | 0.54.4 (the line the client's `to_polars()` is built against; 0.55 is on crates.io but can't be mixed in) |
+| `apache-spark-connect` (Rust client) | 4.2.0 (default features; uses arrow-rs 58.4.0 internally) |
+| `arrow` (arrow-rs) | 60.1.0 (the major `duckdb` 1.20000 is built on) |
+| `duckdb` (duckdb-rs) | 1.20000.1, DuckDB v2.0.0, features `bundled`, `vtab-arrow`, `appender-arrow` |
+| `polars` | 0.55.2 (newest on crates.io) |
 | Rust | 1.98.1 |
 
 ## A run
 
 ```
-Spark 4.2.0 at sc://localhost:15902
-DuckDB v1.5.6  polars 0.54
+Spark 4.2.0 at sc://localhost:15002
+DuckDB v2.0.0  polars 0.55.2
 
 == 1. Server side: synthetic orders in Spark (Parquet, session catalog)
 [13750000, chi, 1758087463000000, 57.66, 2, delivered]
@@ -80,7 +89,7 @@ DuckDB v1.5.6  polars 0.54
   1667285 Rows via collect(); first: [13750009, sfo, 1757956566000000, 73, 5, refunded]
   PASS  Arrow rows == Spark count: 1667285
 
-== 3. DuckDB over the same buffers: ASOF JOIN against a client-side surge schedule
+== 3. DuckDB 2.0 over the same result: ASOF JOIN against a client-side surge schedule
   PASS  DuckDB count == Spark count: 1667285
   PASS  DuckDB sum(amount) == Spark sum(amount): 87512653.61 vs 87512653.61
 +------------+--------+------------+----------------+----------------+
@@ -131,10 +140,10 @@ shape: (8, 6)
 == 6. DuckDB -> Spark: the surge rollup saved as a Spark table
 struct<day:date,orders:bigint,revenue:double,surged_revenue:double,avg_multiplier:double>
   PASS  Spark table rows == DuckDB rows: 30
-  PASS  Spark sum(surged_revenue) == DuckDB sum: 103926081.04 vs 103926081.02
+  PASS  Spark sum(surged_revenue) == DuckDB sum: 103926081.03 vs 103926081.02
 
 == 7. Type fidelity: one Spark SQL value of each type, as each engine sees it
-| Spark type | arrow-rs (client) | DuckDB | Polars |
+| Spark type | arrow-rs | DuckDB | Polars |
 |---|---|---|---|
 | tinyint (`tinyint`) | `Int8` | `TINYINT` = 1 | `i8` = 1 |
 | smallint (`smallint`) | `Int16` | `SMALLINT` = 1 | `i16` = 1 |
@@ -158,26 +167,26 @@ struct<day:date,orders:bigint,revenue:double,surged_revenue:double,avg_multiplie
 | interval day to second (`interval day to second`) | `Duration(µs)` | `INTERVAL` = 26:03:04 | `duration[μs]` = 1d 2h 3m 4s |
 | interval year to month (`interval year to month`) | `Interval(YearMonth)` | `INTERVAL` = 1 year 2 months | PANIC called `Result::unwrap()` on an `Err` value: ComputeError(ErrString("cannot create series from Interval(YearMonth)")) |
 | calendar interval (`interval`) | `Interval(MonthDayNano)` | `INTERVAL` = 1 year 2 months 21 days | PANIC called `Result::unwrap()` on an `Err` value: ComputeError(ErrString("could not import from `month_day_nano_interval` type. Hint: This can be imported by setting POLARS_IMPORT_INTERVAL_AS_STRUCT=1 in the environment. Note however that this is unstable functionality that may change at any time.")) |
-| variant (`variant`) | `Struct("value": non-null Binary, "metadata": non-null Binary, metadata: {"variant": "true"})` | `STRUCT("value" BLOB, metadata BLOB)` = {'value': \x02\x01\x00\x00\x02\x0C\x01, 'metadata': \x01\x01\x00\x01a} | `struct[2]` = {b"\x02\x01\x00\x00\x02\x0c\x01",b"\x01\x01\x00\x01a"} |
+| variant (`variant`) | `Struct("value": non-null Binary, "metadata": non-null Binary, metadata: {"variant": "true"})` | `STRUCT("value" BLOB, metadata BLOB)` = {'value': '\\x02\\x01\\x00\\x00\\x02\\x0C\\x01', 'metadata': '\\x01\\x01\\x00\\x01a'} | `struct[2]` = {b"\x02\x01\x00\x00\x02\x0c\x01",b"\x01\x01\x00\x01a"} |
 | null (`void`) | `Null` | ERR Binder Error: Unsupported data type: Null, please file an issue https://github.com/duckdb/duckdb-rs  LINE 1: S… | `null` = null |
 
 == Timings (ms)
 | step | ms |
 |---|---|
-| Spark: CREATE TABLE orders AS SELECT (20M rows, server side) | 4375 |
-| Spark -> Arrow: collect_record_batches() | 727 |
-| Spark -> Arrow IPC file: to_arrow() | 529 |
-| Arrow IPC -> Polars: IpcReader (client side only, 1.67M rows) | 70 |
-| Spark -> Rows: collect() | 1503 |
-| arrow-rs: concat_batches | 33 |
-| Arrow -> DuckDB: register RecordBatch as view (no copy) | 0 |
-| DuckDB: count + sum through the Arrow table function (1.67M rows) | 38 |
-| DuckDB: CREATE TABLE AS SELECT from the Arrow view (one copy) | 159 |
+| Spark: CREATE TABLE orders AS SELECT (20M rows, server side) | 4297 |
+| Spark -> Arrow: collect_record_batches() | 683 |
+| Spark -> Arrow IPC file: to_arrow() | 477 |
+| Arrow IPC -> Polars: IpcReader (client side only, 1.67M rows) | 72 |
+| Spark -> Rows: collect() | 1475 |
+| Arrow IPC -> arrow-rs 60: FileReader + concat_batches | 70 |
+| Arrow -> DuckDB: register RecordBatch as view (no copy) | 1 |
+| DuckDB: count + sum through the Arrow table function (1.67M rows) | 65 |
+| DuckDB: CREATE TABLE AS SELECT from the Arrow view (one copy) | 146 |
 | DuckDB: count + sum on the native table | 1 |
-| DuckDB: ASOF JOIN + daily rollup through the Arrow table function -> Arrow | 2226 |
-| DuckDB: the same ASOF JOIN + rollup on the native table | 177 |
-| Spark -> Polars: to_polars() (Arrow IPC bridge) | 764 |
+| DuckDB: ASOF JOIN + daily rollup through the Arrow table function -> Arrow | 1901 |
+| DuckDB: the same ASOF JOIN + rollup on the native table | 139 |
+| Spark -> Polars: to_arrow() + IpcReader | 695 |
 | Polars: sort + rolling_mean + pct_change over city | 5 |
 | Polars -> IPC bytes -> arrow-rs -> DuckDB view | 1 |
-| Arrow -> Rows -> create_dataframe -> saveAsTable | 191 |
+| Arrow -> Rows -> create_dataframe -> saveAsTable | 157 |
 ```

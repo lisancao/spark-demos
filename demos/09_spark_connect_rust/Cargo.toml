@@ -6,16 +6,18 @@ publish = false
 
 [dependencies]
 # The official Apache Spark Connect client for Rust. The crate version tracks the Spark
-# release it speaks (4.2.x -> Spark 4.2.0+). `polars` turns on DataFrame::to_polars().
-spark-connect = { package = "apache-spark-connect", version = "4.2", features = ["polars"] }
+# release it speaks (4.2.x -> Spark 4.2.0+). Its `polars` feature is left off: it builds
+# to_polars() against polars 0.54, and this demo uses a newer polars.
+spark-connect = { package = "apache-spark-connect", version = "4.2" }
 
-# arrow-rs at the same major as the client and as duckdb-rs, so RecordBatches move between
-# them without a copy.
-arrow = { version = "58", features = ["prettyprint"] }
+# arrow-rs at DuckDB 2.0's major (60). The client is on arrow 58 internally; results cross
+# over as Arrow IPC bytes from DataFrame::to_arrow(), which any arrow-rs major can read.
+arrow = { version = "60", features = ["prettyprint"] }
 
-# duckdb-rs, statically linked (`bundled`). `vtab-arrow` registers arrow-rs RecordBatches as
-# a DuckDB table function; `appender-arrow` appends them to a table.
-duckdb = { version = "1.10506", features = ["bundled", "vtab-arrow", "appender-arrow"] }
+# duckdb-rs for DuckDB 2.0 (crate 1.20000.x), statically linked (`bundled`). `vtab-arrow`
+# registers arrow-rs RecordBatches as a DuckDB table function.
+duckdb = { version = "1.20000.1", features = ["bundled", "vtab-arrow", "appender-arrow"] }
 
-# Same polars line the client's `to_polars()` is built against (0.54).
-polars = { version = "0.54", features = ["lazy", "ipc", "ipc_streaming", "dtype-full", "fmt", "rolling_window", "pct_change", "round_series", "parquet", "strings", "temporal", "timezones"] }
+# The newest polars release on crates.io. polars has its own Arrow (polars-arrow) and reads
+# the same IPC bytes.
+polars = { version = "0.55.2", features = ["lazy", "ipc", "ipc_streaming", "dtype-full", "fmt", "rolling_window", "pct_change", "round_series", "parquet", "strings", "temporal", "timezones"] }
