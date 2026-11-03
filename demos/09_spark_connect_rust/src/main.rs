@@ -1,10 +1,10 @@
-//! Spark Connect from Rust, with DuckDB and Polars on the same Arrow batches.
+//! Spark Connect from Rust, with DuckDB 2.0 and Polars on the same Arrow result.
 //!
 //! 1. Spark builds a 20M-row `orders` table server-side.
-//! 2. The Rust client pulls one city's orders as Arrow RecordBatches (and, for comparison, as Rows).
-//! 3. DuckDB reads those batches in place (no copy) and runs an ASOF JOIN against a surge schedule
-//!    that only exists in the client process.
-//! 4. Polars gets the daily aggregates through `DataFrame::to_polars()` and computes rolling stats.
+//! 2. The Rust client pulls one city's orders as Arrow (batches, IPC bytes) and, for comparison, as Rows.
+//! 3. DuckDB 2.0 (arrow-rs 60, the client is on 58) reads the IPC bytes as RecordBatches, registers
+//!    them without a copy, and runs an ASOF JOIN against a surge schedule that only exists here.
+//! 4. Polars reads the daily aggregates from the same kind of IPC bytes and computes rolling stats.
 //! 5. The Polars frame crosses into DuckDB through Arrow IPC bytes (polars has its own Arrow).
 //! 6. DuckDB's result goes back to Spark as a table through `create_dataframe`.
 //! 7. A type-fidelity sweep: every Spark SQL type, as it lands in arrow-rs, DuckDB and Polars.
@@ -20,10 +20,10 @@ use std::time::Instant;
 use arrow::array::{Array, ArrayRef, Float64Array, StringArray, TimestampMicrosecondArray};
 use arrow::compute::concat_batches;
 use arrow::datatypes::{DataType as ArrowType, Field, Schema, TimeUnit};
-use arrow::ipc::reader::StreamReader;
+use arrow::ipc::reader::{FileReader, StreamReader};
 use arrow::record_batch::RecordBatch;
 use arrow::util::pretty::pretty_format_batches;
-use duckdb::vtab::arrow::{arrow_recordbatch_to_query_params, ArrowVTab};
+use duckdb::vtab::arrow::{ArrowBatchRegistration, ArrowVTab};
 use duckdb::Connection;
 use polars::prelude::*;
 use spark_connect::row::{Row, Value};
@@ -97,17 +97,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     let t = Instant::now();
     let batches = slice.collect_record_batches()?;
     timings.add("Spark -> Arrow: collect_record_batches()", t);
-    let batch_rows: usize = batches.iter().map(RecordBatch::num_rows).sum();
+    let batch_rows: usize = batches.iter().map(|b| b.num_rows()).sum();
     println!("  {} RecordBatches, {batch_rows} rows", batches.len());
     println!("  arrow-rs schema: {}", batches[0].schema());
 
-    // The same result as one Arrow IPC file (what `to_polars()` builds internally).
+    // The same result as one Arrow IPC file: the form DuckDB and Polars both read below.
     let t = Instant::now();
     let ipc = slice.to_arrow()?;
     timings.add("Spark -> Arrow IPC file: to_arrow()", t);
     println!("  as Arrow IPC: {:.1} MiB", ipc.len() as f64 / 1048576.0);
     let t = Instant::now();
-    let pl_slice = IpcReader::new(Cursor::new(&ipc)).finish()?;
+    let pl_slice = ipc_to_polars(&ipc)?;
     timings.add("Arrow IPC -> Polars: IpcReader (client side only, 1.67M rows)", t);
     println!("  polars: {} rows x {} columns", pl_slice.height(), pl_slice.width());
 
@@ -118,22 +118,25 @@ fn main() -> Result<(), Box<dyn Error>> {
     check("Arrow rows == Spark count", batch_rows as i64 == spark_slice_count, batch_rows);
 
     // ---------------------------------------------------------------- 3. DuckDB, in place
-    section("3. DuckDB over the same buffers: ASOF JOIN against a client-side surge schedule");
-    let schema = batches[0].schema();
+    section("3. DuckDB 2.0 over the same result: ASOF JOIN against a client-side surge schedule");
+    // DuckDB 2.0 is built on arrow-rs 60 and the client on 58, so the client's RecordBatches are a
+    // different Rust type. The IPC bytes from to_arrow() are the hand-off; arrow 60 reads them.
     let t = Instant::now();
-    let orders_rb = concat_batches(&schema, &batches)?;
-    timings.add("arrow-rs: concat_batches", t);
+    let orders_rb = ipc_to_batch(&ipc)?;
+    timings.add("Arrow IPC -> arrow-rs 60: FileReader + concat_batches", t);
+    let schema = orders_rb.schema();
 
     let db = Connection::open_in_memory()?;
     db.register_table_function::<ArrowVTab>("arrow")?;
     let t = Instant::now();
-    arrow_view(&db, "orders", orders_rb.clone())?;
+    // Each registration keeps its batch alive; dropping it would orphan the view.
+    let _orders_reg = arrow_view(&db, "orders", orders_rb.clone())?;
     timings.add("Arrow -> DuckDB: register RecordBatch as view (no copy)", t);
 
     // The surge schedule lives only here: one multiplier per 6-hour block, same Arrow timestamp
     // type as Spark's `ts` column so DuckDB sees two TIMESTAMPTZ columns.
     let ts_type = schema.field_with_name("ts")?.data_type().clone();
-    arrow_view(&db, "surge", surge_schedule(&ts_type)?)?;
+    let _surge_reg = arrow_view(&db, "surge", surge_schedule(&ts_type)?)?;
 
     let t = Instant::now();
     let duck: (i64, f64) = db.query_row("SELECT count(*), sum(amount) FROM orders", [], |r| {
@@ -200,8 +203,8 @@ fn main() -> Result<(), Box<dyn Error>> {
          FROM orders GROUP BY 1, 2",
     )?;
     let t = Instant::now();
-    let pl_daily = daily.to_polars()?;
-    timings.add("Spark -> Polars: to_polars() (Arrow IPC bridge)", t);
+    let pl_daily = ipc_to_polars(&daily.to_arrow()?)?;
+    timings.add("Spark -> Polars: to_arrow() + IpcReader", t);
     println!("  polars schema: {:?}", pl_daily.schema());
 
     let t = Instant::now();
@@ -235,7 +238,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let reader = StreamReader::try_new(Cursor::new(buf), None)?;
     let back: Vec<RecordBatch> = reader.collect::<Result<_, _>>()?;
     let back = concat_batches(&back[0].schema(), &back)?;
-    arrow_view(&db, "rolling", back)?;
+    let _rolling_reg = arrow_view(&db, "rolling", back)?;
     timings.add("Polars -> IPC bytes -> arrow-rs -> DuckDB view", t);
     println!("  {} rows crossed as {:.1} KiB of IPC", rolling.height(), ipc_bytes as f64 / 1024.0);
     let mut stmt = db.prepare(
@@ -292,15 +295,30 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-/// Register a RecordBatch as a DuckDB view over the Arrow table function. The two parameters are
-/// the batch's address and a layout marker; the batch is read in place, and the arena behind
-/// `arrow_recordbatch_to_query_params` keeps it alive for the life of the process.
-fn arrow_view(db: &Connection, name: &str, rb: RecordBatch) -> duckdb::Result<()> {
-    let p = arrow_recordbatch_to_query_params(rb);
+/// Read the client's Arrow IPC file into one arrow-rs RecordBatch (arrow 60, DuckDB's major).
+fn ipc_to_batch(ipc: &[u8]) -> Result<RecordBatch, Box<dyn Error>> {
+    let reader = FileReader::try_new(Cursor::new(ipc), None)?;
+    let schema = reader.schema();
+    let batches: Vec<RecordBatch> = reader.collect::<Result<_, _>>()?;
+    Ok(concat_batches(&schema, &batches)?)
+}
+
+/// Read the client's Arrow IPC file into a Polars DataFrame.
+fn ipc_to_polars(ipc: &[u8]) -> PolarsResult<polars::prelude::DataFrame> {
+    IpcReader::new(Cursor::new(ipc)).finish()
+}
+
+/// Register a RecordBatch with DuckDB's Arrow table function and put a view over it. The batch
+/// is not copied; it stays registered (and the view stays usable) until the returned
+/// registration is dropped. A view can't take a prepared parameter, so the registration goes
+/// into a DuckDB variable and the view reads it from there.
+fn arrow_view(db: &Connection, name: &str, rb: RecordBatch) -> duckdb::Result<ArrowBatchRegistration> {
+    let reg = ArrowBatchRegistration::new(rb);
+    db.execute(&format!("SET VARIABLE {name}_batch = ?"), [&reg])?;
     db.execute_batch(&format!(
-        "CREATE VIEW {name} AS SELECT * FROM arrow({}::UBIGINT, {}::UBIGINT)",
-        p[0], p[1]
-    ))
+        "CREATE VIEW {name} AS SELECT * FROM arrow(getvariable('{name}_batch'))"
+    ))?;
+    Ok(reg)
 }
 
 /// One surge multiplier per 6-hour block for the whole month, for the demo city.
@@ -412,33 +430,32 @@ fn type_matrix(spark: &SparkSession) -> Result<(), Box<dyn Error>> {
     // Polars panics (rather than erroring) on a few Arrow types; keep the table readable.
     let default_hook = std::panic::take_hook();
     std::panic::set_hook(Box::new(|_| {}));
-    println!("| Spark type | arrow-rs (client) | DuckDB | Polars |\n|---|---|---|---|");
+    println!("| Spark type | arrow-rs | DuckDB | Polars |\n|---|---|---|---|");
     for (name, expr) in cases {
         let df: SparkDataFrame = spark.sql(&format!("SELECT {expr} AS v"))?;
         let spark_type = df.dtypes().map(|d| d[0].1.clone()).unwrap_or_else(|e| short(&e));
-        let (arrow_cell, duck_cell) = match df.collect_record_batches() {
-            Ok(b) if !b.is_empty() => {
-                let f = b[0].schema().field(0).clone();
+        let (arrow_cell, duck_cell) = match df.to_arrow() {
+            Ok(ipc) => match ipc_to_batch(&ipc) {
+              Err(e) => (format!("ERR {}", short(&e)), "".into()),
+              Ok(b) => {
+                let f = b.schema().field(0).clone();
                 let arrow_cell = format!("`{}`", f.data_type());
-                let p = arrow_recordbatch_to_query_params(b[0].clone());
+                let reg = ArrowBatchRegistration::new(b);
                 let duck_cell = db
                     .query_row(
-                        &format!(
-                            "SELECT typeof(v), v::VARCHAR FROM arrow({}::UBIGINT, {}::UBIGINT)",
-                            p[0], p[1]
-                        ),
-                        [],
+                        "SELECT typeof(v), v::VARCHAR FROM arrow(?)",
+                        [&reg],
                         |r| Ok((r.get::<_, String>(0)?, r.get::<_, Option<String>>(1)?)),
                     )
                     .map(|(t, v)| format!("`{t}` = {}", v.unwrap_or("NULL".into())))
                     .unwrap_or_else(|e| format!("ERR {}", short(&e)));
                 (arrow_cell, duck_cell)
-            }
-            Ok(_) => ("(no batch)".into(), "".into()),
+              }
+            },
             Err(e) => (format!("ERR {}", short(&e)), "".into()),
         };
         let polars_cell = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-            df.to_polars().map(|pdf| {
+            df.to_arrow().map_err(|e| PolarsError::ComputeError(e.to_string().into())).and_then(|ipc| ipc_to_polars(&ipc)).map(|pdf| {
                 pdf.column("v")
                     .map(|c| {
                         let v = c.get(0).map(|v| v.to_string()).unwrap_or_default();
@@ -477,5 +494,5 @@ fn duckdb_version() -> duckdb::Result<String> {
 }
 
 fn polars_version() -> &'static str {
-    "0.54"
+    polars::VERSION
 }
