@@ -5,13 +5,17 @@ name: spark-connect-rust-demo
 services:
   spark-connect:
     image: apache/spark:4.2.0-scala2.13-java21-python3-ubuntu
+    # The session catalog lives in the server's memory, so the warehouse is emptied on every
+    # start to match it; otherwise a restarted server finds the old table files with no table
+    # and CREATE TABLE fails with LOCATION_ALREADY_EXISTS.
     entrypoint:
-      - /opt/spark/sbin/start-connect-server.sh
-      - --wait
-      - --conf
-      - spark.driver.memory=4g
-      - --conf
-      - spark.sql.warehouse.dir=/opt/spark/work-dir/warehouse
+      - bash
+      - -c
+      - >-
+        rm -rf /opt/spark/work-dir/warehouse &&
+        exec /opt/spark/sbin/start-connect-server.sh --wait
+        --conf spark.driver.memory=4g
+        --conf spark.sql.warehouse.dir=/opt/spark/work-dir/warehouse
     ports:
       - "127.0.0.1:${CONNECT_PORT:-15002}:15002"
       - "127.0.0.1:${UI_PORT:-4040}:4040"
