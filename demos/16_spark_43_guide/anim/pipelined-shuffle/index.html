@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="theme.css" />
+    <script src="theme.js"></script>
+    <script src="spark.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: var(--a-w); height: var(--a-h); overflow: hidden; background: var(--a-bg); }
+    </style>
+  </head>
+  <body>
+    <!-- `anim render` rewrites data-width/data-height per format; leave them as they are. -->
+    <div id="main" data-composition-id="main" data-start="0" data-duration="38.5" data-width="1080" data-height="1920">
+      <div id="stage"></div>
+    </div>
+    <script>
+      // Pipelined shuffle, told without sound: captions at the bottom lead every beat,
+      // one lane in focus at a time, and the measured result to close.
+      // Storyboard: storyboard.md. Lane timing is schematic (timing.json); the bars are data.json.
+      const T = {"_source": "schematic: illustrates SPARK-57141 (StreamingShuffleManager) and SPARK-58185 (PipelinedShuffleDependency); no measured timing", "duration": 38.5, "top": {"arrive": [7.5, 7.85, 8.2, 8.55, 8.9, 9.25, 9.6, 9.95], "release": 13.3}, "bottom": {"arrive": [19.3, 19.65, 20.0, 20.35, 20.7, 21.05, 21.4, 21.75, 22.6, 22.95, 23.3, 23.65, 24.0, 24.35, 24.7, 25.05]}, "to_files": 0.55, "to_state": 0.6, "direct": 0.9};
+      const D = {"_source": "demos/14_real_time_mode/NOTES.md, 'Latency: bin/bench.sh 200 45' (raw: data/bench.jsonl); step 3, dedup + 1-minute window", "_load": "200 clicks/s for 45 s, 200 shoppers, 2% of events resent with the same event_id", "p50_ms": [{"label": "Micro-batch", "v": 237}, {"label": "Real-time Mode", "v": 50}, {"label": "Real-time, 1 ms flush wait", "v": 2}]};
+      A.mount();
+
+      // beat open (0.0): title, both lanes and the first caption on screen at frame 0, no fade
+      A.title("Pipelined shuffle", "Spark 4.3 Real-time Mode");
+      const XM = 0.15, XF = 0.47, XG = 0.645, XS = 0.84;
+      const lanes = {
+        top: { y: 0.355, name: "Micro-batch", col: "var(--a-acc)", files: true, els: [] },
+        bottom: { y: 0.615, name: "Real-time Mode", col: "var(--a-ok)", files: false, els: [] },
+      };
+      for (const L of Object.values(lanes)) {
+        const E = L.els;
+        E.push(A.text(L.name, { x: 0.08, y: L.y - A.dy(108), size: 42, weight: 700, color: L.col, anchor: "left" }));
+        const segs = L.files ? [[XM + A.dx(80), XF - A.dx(120)], [XF + A.dx(120), XS - A.dx(105)]] : [[XM + A.dx(80), XS - A.dx(105)]];
+        for (const [a, b] of segs) E.push(A.line({ x1: a, y1: L.y, x2: b, y2: L.y }));
+        E.push(A.box({ x: XM, y: L.y, w: 160, h: 100, kind: "paper", title: "map", size: 28 }));
+        if (L.files) {
+          L.filesEl = A.box({ x: XF, y: L.y, w: 240, h: 116, kind: "ghost", title: "", size: 26 });
+          E.push(L.filesEl, A.text("shuffle files", { x: XF, y: L.y + A.dy(86), size: 24, weight: 400, color: "var(--a-mute)" }));
+          // the barrier: a gate in front of the stateful task that lifts when the batch is complete
+          L.gate = A.el("", { x: XG, y: L.y, css: { width: A.px(12) + "px", height: A.px(130) + "px", background: L.col, borderRadius: A.px(6) + "px" } });
+          L.wait = A.text("waiting for the whole batch", { x: XF, y: L.y + A.dy(128), size: 26, weight: 600, color: L.col });
+          gsap.set(L.wait, { opacity: 0 });
+        } else {
+          E.push(A.text("pipelined", { x: (XM + XS) / 2, y: L.y - A.dy(30), size: 26, weight: 400, color: "var(--a-mute)" }));
+        }
+        L.stateEl = A.box({ x: XS, y: L.y, w: 200, h: 124, kind: L.files ? "soft" : "ok", title: "", size: 26 });
+        E.push(L.stateEl, A.text("state", { x: XS, y: L.y - A.dy(30), size: 24, weight: 500, color: "var(--a-mute)" }));
+        // the count of records in state: one element per value, swapped with opacity
+        L.counts = [];
+        for (let n = 0; n <= 16; n++) {
+          const c = A.text(String(n), { x: XS, y: L.y + A.dy(16), size: 46, weight: 700, color: L.col });
+          gsap.set(c, { opacity: n === 0 ? 1 : 0 });
+          L.counts.push(c); E.push(c);
+        }
+        L.n = 0;
+        L.dots = [];
+      }
+      const mb = lanes.top, rt = lanes.bottom;
+      const count = (L, at) => { const n = L.n++; A.tl.set(L.counts[n], { opacity: 0 }, at); A.tl.set(L.counts[n + 1], { opacity: 1 }, at); };
+      const pop = (txt, L, at, size, dur = 1.1) => {
+        const p = A.text(txt, { x: XS, y: L.y - A.dy(100), size, weight: 700, color: L.col });
+        gsap.set(p, { opacity: 0 });
+        A.tl.fromTo(p, { opacity: 1, y: 0 }, { opacity: 0, y: -A.px(50), duration: dur, ease: "power1.out", immediateRender: false }, at);
+        return p;
+      };
+      // captions: the story, readable without sound; one at a time in the bottom band
+      // they double as the narration script: read aloud in order, they run as one script
+      const caps = [
+        [0.0, "A dedup or a running count keeps state, so records shuffle by key."],
+        [7.0, "In micro-batch, each record waits in the shuffle files until the batch is written."],
+        [13.0, "Then state updates all at once, and the earliest record has waited longest."],
+        [18.5, "Real-time Mode in 4.3 pipelines that shuffle, so each record updates state as it arrives."],
+        [26.5, "Benchmarked on this query, the median drops from 237 ms to 50 ms."],
+        [32.5, "Set the shuffle's flush wait to 1 ms, and it drops to 2 ms."],
+      ];
+      const capEls = caps.map(([t, s], i) => {
+        const c = A.text(s, { y: 0.86, size: 40, weight: 600, maxw: 940, color: "var(--a-fg)" });
+        gsap.set(c, { opacity: i === 0 ? 1 : 0 });
+        return c;
+      });
+      caps.forEach(([t], i) => { if (i) { A.out(capEls[i - 1], t - 0.3, { dur: 0.3 }); A.in(capEls[i], t, { dur: 0.4, rise: 12 }); } });
+      const schem = A.note("lanes: schematic timing, not measured");
+
+      // dim a whole lane (its counter included) to put the other in focus
+      const dim = (L, at, to = 0.22) => {
+        A.tl.to(L.els.filter((el) => !L.counts.includes(el)), { opacity: to, duration: 0.4 }, at);
+      };
+      const undim = (L, at) => A.tl.to(L.els.filter((el) => !L.counts.includes(el)), { opacity: 1, duration: 0.4 }, at);
+
+      // beat barrier (7.0): bottom lane dims; records pile into shuffle files behind the gate
+      dim(rt, 6.7);
+      A.tl.to(rt.counts[0], { opacity: 0.22, duration: 0.4 }, 6.7);
+      A.tl.fromTo(mb.wait, { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, 10.1);
+      A.tl.to(mb.wait, { opacity: 0.35, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, 10.5);
+      const X0 = XM + A.dx(80), span = A.X(XS - X0) - A.px(100);
+      T.top.arrive.forEach((t, i) => {
+        const d = A.dot({ x: X0, y: mb.y, r: 13, color: mb.col });
+        const slot = { x: A.X(XF - X0) + A.px(-78 + (i % 4) * 52), y: A.px(i < 4 ? -22 : 22) };
+        A.tl.set(d, { opacity: 1, x: 0, y: 0 }, t);
+        A.tl.to(d, { x: slot.x, y: slot.y, duration: T.to_files, ease: "power1.out" }, t);
+        const go = T.top.release + 0.3 + i * 0.04;
+        A.tl.to(d, { x: span, y: 0, duration: T.to_state, ease: "power1.in" }, go);
+        A.tl.set(d, { opacity: 0 }, go + T.to_state);
+        count(mb, go + T.to_state);
+      });
+
+      // beat release (13.0): the gate lifts, the batch moves, state jumps by 8 at once
+      A.out(mb.wait, T.top.release - 0.2, { dur: 0.2 });
+      A.tl.to(mb.gate, { y: -A.px(90), opacity: 0, duration: 0.35, ease: "power2.in" }, T.top.release);
+      A.tl.fromTo(mb.stateEl, { scale: 1.12 }, { scale: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, T.top.release + 0.3 + T.to_state + 0.3);
+      pop("+8", mb, T.top.release + 0.3 + T.to_state + 0.3, 56);
+
+      // beat pipelined (18.5): focus swaps; each record goes straight into state, +1 at a time
+      dim(mb, 18.2);
+      A.tl.to(mb.counts[8], { opacity: 0.22, duration: 0.4 }, 18.2);
+      undim(rt, 18.2);
+      A.tl.to(rt.counts[0], { opacity: 1, duration: 0.4 }, 18.2);
+      T.bottom.arrive.forEach((t) => {
+        const d = A.dot({ x: X0, y: rt.y, r: 13, color: rt.col });
+        A.tl.set(d, { opacity: 1, x: 0 }, t);
+        A.tl.to(d, { x: span, duration: T.direct, ease: "none" }, t);
+        A.tl.set(d, { opacity: 0 }, t + T.direct);
+        A.tl.fromTo(rt.stateEl, { scale: 1.07 }, { scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, t + T.direct);
+        pop("+1", rt, t + T.direct, 40, 0.33);
+        count(rt, t + T.direct);
+      });
+
+      // beat result (26.5): the lanes give way to the measured medians
+      const all = [...mb.els, ...rt.els];
+      A.out(all, 26.2, { dur: 0.4 });
+      A.out(schem, 26.2, { dur: 0.3 });
+      const head = A.text("Event to output, median (p50)", { y: 0.26, size: 38, weight: 700 });
+      gsap.set(head, { opacity: 0 });
+      A.in(head, 26.6);
+      const max = Math.max(...D.p50_ms.map((r) => r.v)), BW = 0.64 * A.W;
+      const cols = ["var(--a-acc)", "var(--a-ok)", "var(--a-ok)"];
+      const barAt = [26.9, 28.1, 32.7];
+      D.p50_ms.forEach((r, i) => {
+        const y = 0.38 + i * A.dy(150);
+        const lab = A.text(r.label, { x: 0.08, y: y - A.dy(40), size: 30, weight: 500, color: "var(--a-fg)", anchor: "left" });
+        const w = Math.max(A.px(10), BW * r.v / max);
+        const bar = A.el("", { x: 0.08, y: y + A.dy(14), anchor: "left", css: { width: w + "px", height: A.px(40) + "px", background: cols[i], borderRadius: A.px(6) + "px", transformOrigin: "0 50%" } });
+        const val = A.text(r.v + " ms", { x: 0.08 + w / A.W + A.dx(20), y: y + A.dy(14), size: 34, weight: 700, color: cols[i], anchor: "left" });
+        gsap.set([lab, bar, val], { opacity: 0 });
+        A.in(lab, barAt[i], { rise: 0 });
+        A.tl.fromTo(bar, { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out", immediateRender: false }, barAt[i]);
+        A.tl.fromTo(val, { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, barAt[i] + 0.7);
+      });
+      const meas = A.note("measured: this query on one machine, 200 clicks/s for 45 s");
+      gsap.set(meas, { opacity: 0 });
+      A.in(meas, 26.9, { rise: 0 });
+
+      A.finish(T.duration);
+    </script>
+  </body>
+</html>

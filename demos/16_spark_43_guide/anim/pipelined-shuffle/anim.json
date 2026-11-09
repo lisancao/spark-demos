@@ -1,0 +1,12 @@
+{
+ "backend": "hf",
+ "themes": [
+  "ide"
+ ],
+ "formats": [
+  "portrait",
+  "square",
+  "landscape"
+ ],
+ "title": "Pipelined shuffle"
+}
