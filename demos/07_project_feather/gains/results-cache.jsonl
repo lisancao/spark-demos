@@ -1,0 +1,5 @@
+{"note": "first cache.py version (aggregation only, codec left at its default 'none'), 2026-11-06"}
+{"serializer": "default", "build_ms": 1500, "cached_mb": 34.6, "query_ms": 81.8}
+{"serializer": "arrow", "build_ms": 1309, "cached_mb": 69.4, "query_ms": 98.2}
+{"serializer": "default", "build_ms": 1401, "cached_mb": 34.6, "query_ms": 75.9}
+{"serializer": "arrow", "build_ms": 1326, "cached_mb": 69.4, "query_ms": 90.4}

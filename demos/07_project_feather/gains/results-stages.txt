@@ -1,0 +1,2 @@
+flag false: rebuilt {'jobs': 6, 'stages run': 6, 'stages skipped': 8, 'tasks': 6}   reused {'jobs': 1, 'stages run': 1, 'stages skipped': 3, 'tasks': 1}
+flag true: rebuilt {'jobs': 2, 'stages run': 2, 'stages skipped': 0, 'tasks': 2}   reused {'jobs': 1, 'stages run': 1, 'stages skipped': 0, 'tasks': 1}

@@ -1,0 +1,6 @@
+{"flag": "false", "cases": 200, "total_ms": 24642, "per_case_ms": 123.21}
+{"flag": "true", "cases": 200, "total_ms": 24730, "per_case_ms": 123.65}
+{"flag": "false", "cases": 200, "total_ms": 24318, "per_case_ms": 121.59}
+{"flag": "true", "cases": 200, "total_ms": 24525, "per_case_ms": 122.63}
+{"flag": "false", "cases": 200, "total_ms": 24344, "per_case_ms": 121.72}
+{"flag": "true", "cases": 200, "total_ms": 24523, "per_case_ms": 122.62}

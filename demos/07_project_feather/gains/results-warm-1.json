@@ -1,0 +1,243 @@
+{
+ "group by": {
+  "false": {
+   "exchanges": 1,
+   "rebuilt": {
+    "median": 59.7,
+    "quartiles": [
+     55.9,
+     59.7,
+     65.1
+    ]
+   },
+   "reused": {
+    "median": 9.4,
+    "quartiles": [
+     8.5,
+     9.4,
+     10.3
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 0,
+   "rebuilt": {
+    "median": 48.7,
+    "quartiles": [
+     45.1,
+     48.7,
+     53.3
+    ]
+   },
+   "reused": {
+    "median": 9.3,
+    "quartiles": [
+     8.3,
+     9.3,
+     10.2
+    ]
+   }
+  }
+ },
+ "group by, order by": {
+  "false": {
+   "exchanges": 2,
+   "rebuilt": {
+    "median": 69.6,
+    "quartiles": [
+     67.0,
+     69.6,
+     74.3
+    ]
+   },
+   "reused": {
+    "median": 8.2,
+    "quartiles": [
+     7.8,
+     8.2,
+     9.1
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 0,
+   "rebuilt": {
+    "median": 46.1,
+    "quartiles": [
+     44.6,
+     46.1,
+     49.8
+    ]
+   },
+   "reused": {
+    "median": 8.3,
+    "quartiles": [
+     7.9,
+     8.3,
+     9.1
+    ]
+   }
+  }
+ },
+ "rank per store": {
+  "false": {
+   "exchanges": 2,
+   "rebuilt": {
+    "median": 80.4,
+    "quartiles": [
+     77.4,
+     80.4,
+     84.2
+    ]
+   },
+   "reused": {
+    "median": 12.2,
+    "quartiles": [
+     11.6,
+     12.2,
+     13.9
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 0,
+   "rebuilt": {
+    "median": 47.0,
+    "quartiles": [
+     44.7,
+     47.0,
+     50.0
+    ]
+   },
+   "reused": {
+    "median": 10.6,
+    "quartiles": [
+     9.3,
+     10.6,
+     12.2
+    ]
+   }
+  }
+ },
+ "distinct, group, order": {
+  "false": {
+   "exchanges": 3,
+   "rebuilt": {
+    "median": 80.8,
+    "quartiles": [
+     75.9,
+     80.8,
+     90.0
+    ]
+   },
+   "reused": {
+    "median": 7.8,
+    "quartiles": [
+     7.5,
+     7.8,
+     9.2
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 0,
+   "rebuilt": {
+    "median": 45.4,
+    "quartiles": [
+     42.6,
+     45.4,
+     48.5
+    ]
+   },
+   "reused": {
+    "median": 7.7,
+    "quartiles": [
+     7.3,
+     7.7,
+     9.7
+    ]
+   }
+  }
+ },
+ "rollup, order by": {
+  "false": {
+   "exchanges": 2,
+   "rebuilt": {
+    "median": 82.9,
+    "quartiles": [
+     81.0,
+     82.9,
+     88.1
+    ]
+   },
+   "reused": {
+    "median": 10.7,
+    "quartiles": [
+     10.4,
+     10.7,
+     11.1
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 0,
+   "rebuilt": {
+    "median": 45.1,
+    "quartiles": [
+     43.2,
+     45.1,
+     47.6
+    ]
+   },
+   "reused": {
+    "median": 7.8,
+    "quartiles": [
+     7.6,
+     7.8,
+     8.3
+    ]
+   }
+  }
+ },
+ "top 3 per store": {
+  "false": {
+   "exchanges": 2,
+   "rebuilt": {
+    "median": 65.4,
+    "quartiles": [
+     62.8,
+     65.4,
+     70.9
+    ]
+   },
+   "reused": {
+    "median": 7.5,
+    "quartiles": [
+     7.2,
+     7.5,
+     10.4
+    ]
+   }
+  },
+  "true": {
+   "exchanges": 2,
+   "rebuilt": {
+    "median": 65.7,
+    "quartiles": [
+     63.2,
+     65.7,
+     70.0
+    ]
+   },
+   "reused": {
+    "median": 7.6,
+    "quartiles": [
+     7.3,
+     7.6,
+     8.8
+    ]
+   }
+  }
+ },
+ "SELECT 1": 6.4
+}
