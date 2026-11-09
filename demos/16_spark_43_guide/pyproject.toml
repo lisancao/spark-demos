@@ -1,0 +1,11 @@
+[project]
+name = "spark-43-guide"
+version = "0.1.0"
+description = "Runnable examples for The Ultimate Guide to Apache Spark 4.3"
+requires-python = ">=3.12"
+dependencies = [
+    "pyspark[connect,pipelines]==4.3.0",
+    "pyarrow>=18",
+    "pandas>=2.2,<3",
+    "numpy>=2",
+]

@@ -1,0 +1,9 @@
+{
+  "_source": "demos/14_real_time_mode/NOTES.md, 'Latency: bin/bench.sh 200 45' (raw: data/bench.jsonl); step 3, dedup + 1-minute window",
+  "_load": "200 clicks/s for 45 s, 200 shoppers, 2% of events resent with the same event_id",
+  "p50_ms": [
+    {"label": "Micro-batch", "v": 237},
+    {"label": "Real-time Mode", "v": 50},
+    {"label": "Real-time, 1 ms flush wait", "v": 2}
+  ]
+}

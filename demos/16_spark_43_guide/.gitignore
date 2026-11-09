@@ -1,0 +1,8 @@
+.venv/
+data/
+jars/
+scd2/events/
+__pycache__/
+film/renders/
+anim/*/renders/
+scd2/spark-pipeline.yml

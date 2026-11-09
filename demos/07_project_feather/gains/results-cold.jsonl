@@ -1,0 +1,24 @@
+{"flag": "false", "query": "group by, order by", "session_ms": 2555.7, "first_query_ms": 1739.6}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2523.8, "first_query_ms": 1857.3}
+{"flag": "true", "query": "group by, order by", "session_ms": 2489.3, "first_query_ms": 1531.9}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2487.4, "first_query_ms": 1578.5}
+{"flag": "false", "query": "group by, order by", "session_ms": 2435.2, "first_query_ms": 1912.4}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2455.5, "first_query_ms": 1996.4}
+{"flag": "true", "query": "group by, order by", "session_ms": 2454.2, "first_query_ms": 1714.0}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2441.3, "first_query_ms": 1639.4}
+{"flag": "false", "query": "group by, order by", "session_ms": 2460.2, "first_query_ms": 1906.0}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2404.9, "first_query_ms": 1983.5}
+{"flag": "true", "query": "group by, order by", "session_ms": 2496.5, "first_query_ms": 1536.4}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2616.1, "first_query_ms": 1569.0}
+{"flag": "false", "query": "group by, order by", "session_ms": 2475.0, "first_query_ms": 1818.6}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2522.5, "first_query_ms": 1890.3}
+{"flag": "true", "query": "group by, order by", "session_ms": 2688.2, "first_query_ms": 1510.8}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2582.2, "first_query_ms": 1533.9}
+{"flag": "false", "query": "group by, order by", "session_ms": 2557.6, "first_query_ms": 1785.2}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2541.5, "first_query_ms": 1840.1}
+{"flag": "true", "query": "group by, order by", "session_ms": 2470.0, "first_query_ms": 1504.5}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2438.9, "first_query_ms": 1568.4}
+{"flag": "false", "query": "group by, order by", "session_ms": 2555.9, "first_query_ms": 1839.6}
+{"flag": "false", "query": "distinct, group, order", "session_ms": 2470.2, "first_query_ms": 2076.1}
+{"flag": "true", "query": "group by, order by", "session_ms": 2330.8, "first_query_ms": 1600.9}
+{"flag": "true", "query": "distinct, group, order", "session_ms": 2345.2, "first_query_ms": 1628.8}

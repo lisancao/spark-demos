@@ -1,0 +1,40 @@
+{
+ "_source": "schematic: illustrates SPARK-57141 (StreamingShuffleManager) and SPARK-58185 (PipelinedShuffleDependency); no measured timing",
+ "duration": 38.5,
+ "top": {
+  "arrive": [
+   7.5,
+   7.85,
+   8.2,
+   8.55,
+   8.9,
+   9.25,
+   9.6,
+   9.95
+  ],
+  "release": 13.3
+ },
+ "bottom": {
+  "arrive": [
+   19.3,
+   19.65,
+   20.0,
+   20.35,
+   20.7,
+   21.05,
+   21.4,
+   21.75,
+   22.6,
+   22.95,
+   23.3,
+   23.65,
+   24.0,
+   24.35,
+   24.7,
+   25.05
+  ]
+ },
+ "to_files": 0.55,
+ "to_state": 0.6,
+ "direct": 0.9
+}

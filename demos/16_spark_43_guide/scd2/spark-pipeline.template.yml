@@ -1,0 +1,13 @@
+# run.sh writes spark-pipeline.yml from this file, with @DEMO@ replaced by the demo's absolute path
+# (pipeline storage has to be an absolute URI).
+name: menu_history
+storage: file://@DEMO@/data/scd2/pipeline-storage
+catalog: lake
+database: kitchen
+configuration:
+  spark.sql.catalog.lake: org.apache.iceberg.spark.SparkCatalog
+  spark.sql.catalog.lake.type: hadoop
+  spark.sql.catalog.lake.warehouse: file://@DEMO@/data/scd2/warehouse
+libraries:
+  - glob:
+      include: transformations/**

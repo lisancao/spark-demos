@@ -1,0 +1,6 @@
+{"flag": "false", "source": "pandas", "cases": 200, "total_ms": 12629, "per_case_ms": 63.14}
+{"flag": "true", "source": "pandas", "cases": 200, "total_ms": 5218, "per_case_ms": 26.09}
+{"flag": "false", "source": "pandas", "cases": 200, "total_ms": 13306, "per_case_ms": 66.53}
+{"flag": "true", "source": "pandas", "cases": 200, "total_ms": 5277, "per_case_ms": 26.39}
+{"flag": "false", "source": "pandas", "cases": 200, "total_ms": 12648, "per_case_ms": 63.24}
+{"flag": "true", "source": "pandas", "cases": 200, "total_ms": 5660, "per_case_ms": 28.3}

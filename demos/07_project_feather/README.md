@@ -6,6 +6,9 @@ Project Feather ([SPARK-56978](https://issues.apache.org/jira/browse/SPARK-56978
 a Spark Improvement Proposal to cut local-mode query latency. This harness measures
 the overheads it targets, on whatever Spark you have installed.
 
+For what single-task execution saves on Spark 4.3, measured with fresh DataFrames, cold
+starts and a test suite, see [`gains/`](gains/).
+
 ## Quick start
 
 ```bash

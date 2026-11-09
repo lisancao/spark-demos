@@ -1,0 +1,14 @@
+[project]
+name = "real-time-mode-demo"
+version = "0.1.0"
+description = "Getting started with Real-time Mode on Spark 4.3: a bookshop that re-ranks as you browse"
+requires-python = ">=3.12"
+dependencies = [
+    "pyspark==4.3.0",
+    "pyarrow>=18",
+    "pandas>=2.2,<3",
+    "numpy>=2",
+    "fastembed>=0.7",
+    "confluent-kafka>=2.6",
+    "rich>=14",
+]
