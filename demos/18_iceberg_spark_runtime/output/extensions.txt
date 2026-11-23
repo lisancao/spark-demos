@@ -1,0 +1,31 @@
+# with the extensions
+spark 4.1.4, spark.sql.extensions = org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+[ok]   drop the table from the last run: []
+[ok]   DROP VIEW (cleanup from the last run): []
+[ok]   create a v3 table: []
+[ok]   INSERT: []
+[ok]   MERGE INTO (v3 table): []
+[ok]   row lineage after MERGE: [(1, 3, 0, 1), (2, 5, 1, 2), (3, 2, 3, 2)]
+[ok]   UPDATE: []
+[ok]   DELETE: []
+[ok]   CALL rewrite_data_files: [(0, 0, 0, 0, 0)]
+[ok]   CREATE VIEW: []
+[ok]   ALTER TABLE ... CREATE BRANCH: []
+[ok]   ALTER TABLE ... WRITE ORDERED BY: []
+[ok]   metadata table: [('append',), ('overwrite',), ('overwrite',), ('delete',)]
+
+# without the extensions
+spark 4.1.4, spark.sql.extensions = (none)
+[ok]   drop the table from the last run: []
+[fail] DROP VIEW (cleanup from the last run): [UNSUPPORTED_FEATURE.CATALOG_OPERATION] The feature is not supported: Catalog `demo` does not support views. SQLSTATE: 0A000
+[ok]   create a v3 table: []
+[ok]   INSERT: []
+[ok]   MERGE INTO (v3 table): []
+[ok]   row lineage after MERGE: [(1, 3, 0, 1), (2, 5, 1, 2), (3, 2, 3, 2)]
+[ok]   UPDATE: []
+[ok]   DELETE: []
+[ok]   CALL rewrite_data_files: [(0, 0, 0, 0, 0)]
+[fail] CREATE VIEW: [MISSING_CATALOG_ABILITY.VIEWS] Catalog demo does not support views. SQLSTATE: 0A000
+[fail] ALTER TABLE ... CREATE BRANCH: [PARSE_SYNTAX_ERROR] Syntax error at or near 'CREATE'. SQLSTATE: 42601 (line 1, pos 28)
+[fail] ALTER TABLE ... WRITE ORDERED BY: [PARSE_SYNTAX_ERROR] Syntax error at or near 'WRITE'. SQLSTATE: 42601 (line 1, pos 28)
+[ok]   metadata table: [('append',), ('overwrite',), ('overwrite',), ('delete',)]

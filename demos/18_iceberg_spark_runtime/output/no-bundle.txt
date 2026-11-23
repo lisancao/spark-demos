@@ -1,0 +1,8 @@
+# runtime 4.1 only (no iceberg-aws-bundle), same catalog
+26/11/22 10:09:41 ERROR SparkSQLDriver: Failed in [SELECT count(*) FROM demo.shop.orders]
+java.lang.IllegalArgumentException: Cannot initialize FileIO implementation org.apache.iceberg.aws.s3.S3FileIO: Cannot find constructor for interface org.apache.iceberg.io.FileIO
+	Missing org.apache.iceberg.aws.s3.S3FileIO [java.lang.NoClassDefFoundError: software/amazon/awssdk/core/exception/SdkException]
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+Caused by: java.lang.NoSuchMethodException: Cannot find constructor for interface org.apache.iceberg.io.FileIO
+	Suppressed: java.lang.NoClassDefFoundError: software/amazon/awssdk/core/exception/SdkException
+	Caused by: java.lang.ClassNotFoundException: software.amazon.awssdk.core.exception.SdkException
