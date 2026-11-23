@@ -1,0 +1,5 @@
+# runtime 4.1 + aws-bundle + extensions, Spark 4.1.4, REST catalog on S3
+fantasy	1	14.25
+scifi	3	50.49
+{"aisle":"fantasy"}	s3://warehouse/shop/orders/data/aisle=fantasy/00000-4-d2974bef-ef01-4f37-9566-d0d4d8f43e14-0-00002.parquet	1
+{"aisle":"scifi"}	s3://warehouse/shop/orders/data/aisle=scifi/00000-4-d2974bef-ef01-4f37-9566-d0d4d8f43e14-0-00001.parquet	3

@@ -1,0 +1,60 @@
+# Official images only: Apache Spark 4.1.4 (the newest Spark with a released Iceberg
+# runtime), the Apache Iceberg REST catalog fixture (1.10.1 is its newest released tag;
+# `latest` is a snapshot of main), and RustFS for S3. The Iceberg 1.12.0 jars are not
+# baked into an image; bin/fetch_jars.sh downloads them from Maven Central into ./jars,
+# and each scenario in bin/run.sh picks which of them go on the classpath.
+services:
+  spark:
+    image: apache/spark:4.1.4-scala2.13-java21-python3-ubuntu
+    container_name: iceberg-runtime-spark
+    command: ["sleep", "infinity"]
+    depends_on:
+      rest:
+        condition: service_started
+      create-bucket:
+        condition: service_completed_successfully
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_REGION=us-east-1
+    volumes:
+      - ./jars:/opt/demo/jars:ro
+      - ./sql:/opt/demo/sql:ro
+      - ./bin:/opt/demo/bin:ro
+  rest:
+    image: apache/iceberg-rest-fixture:1.10.1
+    container_name: iceberg-runtime-rest
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_REGION=us-east-1
+      - CATALOG_WAREHOUSE=s3://warehouse/
+      - CATALOG_IO__IMPL=org.apache.iceberg.aws.s3.S3FileIO
+      - CATALOG_S3_ENDPOINT=http://object-store:9000
+      - CATALOG_S3_PATH__STYLE__ACCESS=true
+    ports:
+      - "8181:8181"
+  object-store:
+    image: rustfs/rustfs:1.0.6
+    container_name: iceberg-runtime-s3
+    environment:
+      - RUSTFS_ACCESS_KEY=admin
+      - RUSTFS_SECRET_KEY=password
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:9000/health/ready"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  create-bucket:
+    image: rustfs/rustfs:1.0.6
+    depends_on:
+      object-store:
+        condition: service_healthy
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - >-
+        curl -sf -o /dev/null --aws-sigv4 aws:amz:us-east-1:s3 --user admin:password
+        --head http://object-store:9000/warehouse ||
+        curl -sSf --aws-sigv4 aws:amz:us-east-1:s3 --user admin:password
+        -X PUT http://object-store:9000/warehouse

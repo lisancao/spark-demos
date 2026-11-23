@@ -1,0 +1,6 @@
+# runtime 3.5_2.12 + aws-bundle on Spark 4.1.4
+26/11/22 10:10:32 WARN SparkSession: Cannot use org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions to configure session extensions.
+java.lang.NoClassDefFoundError: scala/Serializable
+Caused by: java.lang.ClassNotFoundException: scala.Serializable
+26/11/22 10:10:34 ERROR SparkSQLDriver: Failed in [SELECT count(*) FROM demo.shop.orders]
+java.lang.NoSuchMethodError: 'org.apache.spark.sql.internal.SQLConf org.apache.spark.sql.SQLContext.conf()'
