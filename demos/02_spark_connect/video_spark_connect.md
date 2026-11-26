@@ -394,7 +394,7 @@ create() with local[2]: [UNSUPPORTED_LOCAL_CONNECTION_STRING] Creating new Spark
 
 > For production, the standalone launch script is a handful of options, each with a comment.
 >
-> Without a binding setting, a four point two server listens on every network interface. So this script sets the binding host explicitly, and defaults to loopback.
+> Without a binding setting, a four point two server listens on every network interface. So this script sets the binding address explicitly, and defaults to loopback.
 >
 > And catalogs and extensions are configured here, on the server. Not on the client.
 >
@@ -446,7 +446,7 @@ spark-connect:
     - --master
     - ${CONNECT_MASTER:-spark://spark-master:7077}
     - --conf
-    - spark.connect.grpc.binding.host=0.0.0.0
+    - spark.connect.grpc.binding.address=0.0.0.0
     - --conf
     - spark.driver.host=spark-connect
     - --conf

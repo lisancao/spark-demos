@@ -11,7 +11,7 @@ services:
       - /opt/spark/sbin/start-connect-server.sh
       - --wait
       - --conf
-      - spark.connect.grpc.binding.host=0.0.0.0
+      - spark.connect.grpc.binding.address=0.0.0.0
       # A Hive metastore (embedded Derby) on a named volume, so tables and metric views registered
       # from one session are visible to every other session and survive a restart of the server.
       - --conf

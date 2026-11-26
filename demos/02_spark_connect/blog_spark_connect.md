@@ -438,7 +438,7 @@ command:
   - -c
   - >-
     /opt/spark/sbin/start-connect-server.sh --wait
-    --conf spark.connect.grpc.binding.host=0.0.0.0
+    --conf spark.connect.grpc.binding.address=0.0.0.0
     --conf spark.connect.grpc.binding.port=15002
 ```
 
@@ -449,8 +449,7 @@ command:
 | Configuration | Default | Since |
 |---|---|---|
 | `spark.api.mode` | `classic` | 4.0.0 |
-| `spark.connect.grpc.binding.host` | (none; all interfaces) | 4.0.0 |
-| `spark.connect.grpc.binding.address` | (none) | 4.0.0 |
+| `spark.connect.grpc.binding.address` | (none; all interfaces) | 4.0.0 |
 | `spark.connect.grpc.binding.port` | 15002 | 3.4.0 |
 | `spark.connect.grpc.port.maxRetries` | 0 | 4.0.0 |
 | `spark.connect.grpc.maxInboundMessageSize` | 134217728 | 3.4.0 |
@@ -461,11 +460,15 @@ command:
 | `spark.connect.jvmStacktrace.maxSize` | 1024 | 3.5.0 |
 | `spark.sql.connect.enrichError.enabled` | true | 4.0.0 |
 
-Both `binding.host` and `binding.address` are registered configurations; a live 4.2.0 server returns
-a value for each. `binding.host` is the one used in the Spark documentation and in this post. With
-neither setting, a 4.2.0 server listens on all interfaces: started from the official image with no
-binding configuration, it listened on `[::]:15002`. Set `binding.host` to `127.0.0.1` to accept only
-local connections, or to the address of a specific interface.
+`spark.connect.grpc.binding.address` is the only setting that selects the listening interface.
+Spark defines no `spark.connect.grpc.binding.host`. Spark accepts a configuration key that it does
+not define and ignores it, and `spark.conf.get` returns any key that was set, so a server started
+with `binding.host` gives no error and the key appears to be set, but it has no effect. With no
+`binding.address`, the server listens on all interfaces: a 4.2.0 server started from the official
+image with no binding configuration listened on `[::]:15002`. Set `binding.address` to `127.0.0.1`
+to accept only local connections, or to the address of a specific interface. On 4.2.0 and 4.3.0,
+`binding.address=127.0.0.1` gave a listener on the loopback address only; `binding.host=127.0.0.1`
+gave a listener on all interfaces, the same as no setting.
 
 `port.maxRetries` defaults to 0. A port conflict is therefore a startup failure rather than a silent
 move to the next port, which keeps clients and server in agreement about where the server listens.
