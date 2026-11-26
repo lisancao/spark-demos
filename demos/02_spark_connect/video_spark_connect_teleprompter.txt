@@ -268,7 +268,7 @@ One limit. Create won't accept a local connection string, so in-process mode sti
 
 For production, the standalone launch script is a handful of options, each with a comment.
 
-Without a binding setting, a four point two server listens on every network interface. So this script sets the binding host explicitly, and defaults to loopback.
+Without a binding setting, a four point two server listens on every network interface. So this script sets the binding address explicitly, and defaults to loopback.
 
 And catalogs and extensions are configured here, on the server. Not on the client.
 

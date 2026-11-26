@@ -11,8 +11,8 @@ set -euo pipefail
 SPARK_HOME="${SPARK_HOME:-/opt/spark}"
 CONNECT_PORT="${CONNECT_PORT:-15002}"
 # With no binding setting, a 4.2.0 server listens on all interfaces (blog post §4). This
-# script defaults to loopback; set BIND_HOST=0.0.0.0 to accept connections from other hosts.
-BIND_HOST="${BIND_HOST:-127.0.0.1}"
+# script defaults to loopback; set BIND_ADDRESS=0.0.0.0 to accept connections from other hosts.
+BIND_ADDRESS="${BIND_ADDRESS:-127.0.0.1}"
 SPARK_MASTER="${SPARK_MASTER:-}"      # empty: local[*] inside the server process
 EXTRA_JARS="${EXTRA_JARS:-}"          # comma-separated, for example an Iceberg runtime
 
@@ -26,7 +26,7 @@ args=(
   # Stay in the foreground, as a process supervisor or a container expects. Without --wait, the
   # script starts the server in the background and returns.
   --wait
-  --conf "spark.connect.grpc.binding.host=${BIND_HOST}"
+  --conf "spark.connect.grpc.binding.address=${BIND_ADDRESS}"
   --conf "spark.connect.grpc.binding.port=${CONNECT_PORT}"
 )
 
@@ -52,9 +52,9 @@ fi
 
 echo "starting Spark Connect server"
 echo "  SPARK_HOME   $SPARK_HOME"
-echo "  listening    ${BIND_HOST}:${CONNECT_PORT}"
+echo "  listening    ${BIND_ADDRESS}:${CONNECT_PORT}"
 echo "  master       ${SPARK_MASTER:-local[*] (in the server process)}"
-echo "  client URL   sc://${BIND_HOST/0.0.0.0/<this-host>}:${CONNECT_PORT}"
+echo "  client URL   sc://${BIND_ADDRESS/0.0.0.0/<this-host>}:${CONNECT_PORT}"
 echo
 
 exec "$SPARK_HOME/sbin/start-connect-server.sh" "${args[@]}" "$@"
